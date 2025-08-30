@@ -1,0 +1,2 @@
+- [ ] Use LARK parser for MLIR and optimize the grammar.
+- [ ] Collect valid MLIR examples for testing and evaluating performance.
