@@ -1,0 +1,75 @@
+?start: document
+
+document: prolog? doctype? element
+
+prolog: xmldecl (COMMENT)*
+xmldecl: "<?xml" version_info encoding_decl? standalone_decl? "?>"
+version_info: "version" EQ string
+encoding_decl: "encoding" EQ string
+standalone_decl: "standalone" EQ string
+
+doctype: "<!DOCTYPE" NAME (externalid)? ("[" int_subset "]")? ">"
+int_subset: (markupdecl | pereference | COMMENT)*
+markupdecl: elementdecl | attlistdecl | entitydecl | notationdecl
+pereference: "%" NAME ";"
+
+elementdecl: "<!ELEMENT" NAME contentspec ">"
+contentspec: "EMPTY" | "ANY" | mixed | children
+mixed: "(#PCDATA" ("|" NAME)* ")" "*"
+children: (choice | seq) occurrence?
+choice: "(" cp ("|" cp)+ ")"
+seq: "(" cp ("," cp)* ")"
+cp: NAME occurrence?
+occurrence: "?" | "*" | "+"
+
+attlistdecl: "<!ATTLIST" NAME attdef* ">"
+attdef: NAME att_type default_decl
+att_type: "CDATA" | "ID" | "IDREF" | "IDREFS" | "ENTITY" | "ENTITIES" | "NMTOKEN" | "NMTOKENS"
+        | "NOTATION" "(" NAME ("|" NAME)* ")"
+        | "(" NAME ("|" NAME)* ")" // EnumeratedType
+default_decl: "#REQUIRED" | "#IMPLIED"
+            | "#FIXED" string
+            | string
+
+entitydecl: ged_decl | ped_decl
+ged_decl: "<!ENTITY" NAME entity_def ">"
+ped_decl: "<!ENTITY" "%" NAME entity_def ">"
+entity_def: string | (externalid ndata_decl?)
+ndata_decl: "NDATA" NAME
+
+notationdecl: "<!NOTATION" NAME externalid ">"
+externalid: "SYSTEM" string | "PUBLIC" string string
+
+// --- Elements and Content ---
+element: emptytag | (opentag content closetag)
+opentag: "<" NAME attribute* ">"
+emptytag: "<" NAME attribute* "/>"
+closetag: "</" NAME ">"
+
+attribute: NAME EQ string
+content: (element | chardata | reference | cdata | COMMENT)*
+
+// --- Basic Content Types ---
+reference: entityref | charref
+entityref: "&" NAME ";"
+charref: "&#" /[0-9]+/ ";" | "&#x" /[0-9a-fA-F]+/ ";"
+chardata: PCDATA
+cdata: "<![CDATA[" CTEXT? "]]>"
+
+
+// --- Terminals ---
+string: DQ_STRING | SQ_STRING
+DQ_STRING: /"[^"]*"/
+SQ_STRING: /'[^']*'/
+
+NAME: /[a-zA-Z_:][-a-zA-Z0-9._:]*/
+PCDATA: /[^<&]+/
+CTEXT: /((?!\]\]>)(.|\n))+/ 
+
+COMMENT: /<!--(.|\n)*?-->/
+
+EQ: WS? "=" WS?
+
+// --- Whitespace Control ---
+%import common.WS
+%ignore WS
