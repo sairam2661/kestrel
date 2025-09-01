@@ -25,6 +25,7 @@ psutil = "^7.0.0"
 llguidance = "^0.6.31"
 openai = "^1.74.0"
 tqdm = "^4.67.1"
+grammarinator = "^23.7"
 
 
 [build-system]

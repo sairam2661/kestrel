@@ -46,6 +46,34 @@ files = [
 ]
 
 [[package]]
+name = "antlerinator"
+version = "1!3.0.0"
+description = "ANTLeRinator"
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "antlerinator-1!3.0.0-py3-none-any.whl", hash = "sha256:90e8b6dd5d8b89d7262b83475e99f5182b7ba56de839e1b432f9be405b42c622"},
+    {file = "antlerinator-1!3.0.0.tar.gz", hash = "sha256:e0820f7b21d01edc5a908f1a2409de7b2b7d1a192f2e6fbd7d92660b40d768e8"},
+]
+
+[package.dependencies]
+inators = "*"
+setuptools = "*"
+
+[[package]]
+name = "antlr4-python3-runtime"
+version = "4.13.0"
+description = "ANTLR 4.13.0 runtime for Python 3"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "antlr4-python3-runtime-4.13.0.tar.gz", hash = "sha256:0d5454928ae40c8a6b653caa35046cd8492c8743b5fbc22ff4009099d074c7ae"},
+    {file = "antlr4_python3_runtime-4.13.0-py3-none-any.whl", hash = "sha256:53e6e208cf4a1ad53fb8b1b4467b756375a4f827331e290618aedcf481cb1d5c"},
+]
+
+[[package]]
 name = "anyio"
 version = "4.10.0"
 description = "High-level concurrency and networking framework on top of asyncio or Trio"
@@ -114,6 +142,22 @@ dev = ["cloudpickle ; platform_python_implementation == \"CPython\"", "hypothesi
 docs = ["cogapp", "furo", "myst-parser", "sphinx", "sphinx-notfound-page", "sphinxcontrib-towncrier", "towncrier"]
 tests = ["cloudpickle ; platform_python_implementation == \"CPython\"", "hypothesis", "mypy (>=1.11.1) ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\"", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\"", "pytest-xdist[psutil]"]
 tests-mypy = ["mypy (>=1.11.1) ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\"", "pytest-mypy-plugins ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\""]
+
+[[package]]
+name = "autopep8"
+version = "2.3.2"
+description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "autopep8-2.3.2-py2.py3-none-any.whl", hash = "sha256:ce8ad498672c845a0c3de2629c15b635ec2b05ef8177a6e7c91c74f3e9b51128"},
+    {file = "autopep8-2.3.2.tar.gz", hash = "sha256:89440a4f969197b69a995e4ce0661b031f455a9f776d2c5ba3dbd83466931758"},
+]
+
+[package.dependencies]
+pycodestyle = ">=2.12.0"
+tomli = {version = "*", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "bitsandbytes"
@@ -679,6 +723,25 @@ test-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "cloudpickle", "dask", "d
 tqdm = ["tqdm"]
 
 [[package]]
+name = "grammarinator"
+version = "23.7"
+description = "Grammarinator: Grammar-based Random Test Generator"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "grammarinator-23.7-py3-none-any.whl", hash = "sha256:cbd1f4f5a82a864930a87831c3043c280b2aeb055d6e3e9d34e37fcd015cfddc"},
+    {file = "grammarinator-23.7.tar.gz", hash = "sha256:c61df71d66e8b5794d8c81f3942fb8d420d758c6e67f4a9212267832488dbca9"},
+]
+
+[package.dependencies]
+antlerinator = ">=1!3.0.0"
+antlr4-python3-runtime = "4.13.0"
+autopep8 = "*"
+inators = "*"
+jinja2 = "*"
+
+[[package]]
 name = "h11"
 version = "0.16.0"
 description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
@@ -812,6 +875,18 @@ files = [
 
 [package.extras]
 all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
+
+[[package]]
+name = "inators"
+version = "2.1.0"
+description = "inators: utilities for inators"
+optional = false
+python-versions = ">=3.5"
+groups = ["main"]
+files = [
+    {file = "inators-2.1.0-py3-none-any.whl", hash = "sha256:d40e3cfd7673ff4c7ba654c410b1b0819db5bb6658616b5cec103ae8cf2d197a"},
+    {file = "inators-2.1.0.tar.gz", hash = "sha256:3c097ddd84aa4cc42251fc2d4be217a08dcd570016726fa5f32bfe80046f0242"},
+]
 
 [[package]]
 name = "iniconfig"
@@ -2160,6 +2235,18 @@ files = [
 
 [package.extras]
 global = ["pybind11-global (==3.0.1)"]
+
+[[package]]
+name = "pycodestyle"
+version = "2.14.0"
+description = "Python style guide checker"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "pycodestyle-2.14.0-py2.py3-none-any.whl", hash = "sha256:dd6bf7cb4ee77f8e016f9c8e74a35ddd9f67e1d5fd4184d86c3b98e07099f42d"},
+    {file = "pycodestyle-2.14.0.tar.gz", hash = "sha256:c4b5b517d278089ff9d0abdec919cd97262a3367449ea1c8b49b91529167b783"},
+]
 
 [[package]]
 name = "pycparser"
@@ -3588,4 +3675,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "e61059c6a05fff3dbde15b038cb63ae912278abe225468d2a71f46f43d8bf27d"
+content-hash = "72e9a32280eeb599149cab4da97b0ffd27cef79d0780b372aa5abd8494224d93"
