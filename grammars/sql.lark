@@ -2,47 +2,30 @@ start: test_file
 
 test_file: setup_command source_command setup_test_case operation_test_case finish_command
 
-setup_test_case: "do_test" test_name "{" setup_execsql_block "}" "{" "}"
-
-// NEW: A specific rule for the second test case (SELECT/UPDATE/DELETE).
-operation_test_case: "do_test" test_name "{" operation_execsql_block "}" result_block
-
-// NEW: The execsql block for setup is restricted.
-setup_execsql_block: "execsql" "{" setup_stmt_list "}"
-
-// NEW: The execsql block for operations is restricted.
-operation_execsql_block: "execsql" "{" operation_stmt_list "}"
-
-// -- The original setup and result rules remain the same --
-result_block: "{" STRING "}"
-setup_command: "set testdir [file dirname $argv0]"
+setup_command: "setset testdir [file dirname $argv0]" // Bug? 
 source_command: "source $testdir/tester.tcl"
 finish_command: "finish_test"
 
+setup_test_case: "do_test" test_name "{" setup_execsql_block "}" 
 
-// --- SQL Statement Lists (Now Specialized) ---
+operation_test_case: "do_test" test_name "{" operation_execsql_block "}" "{" /.*/ "}"
 
-// NEW: This list only allows setup statements.
+setup_execsql_block: "execsql" "{" setup_stmt_list "}"
+
+operation_execsql_block: "execsql" "{" operation_stmt_list "}"
+
+
 setup_stmt_list: (create_table_stmt ";")+ (insert_stmt ";")+
 
-// NEW: This list only allows operational statements.
 operation_stmt_list: (operation_sql_stmt ";")+
 operation_sql_stmt: select_stmt | update_stmt | delete_stmt
 
-
-// --- Core SQL Productions (Unchanged) ---
-
-select_stmt: SELECT result_column ("," result_column)* [FROM table_or_subquery ("," table_or_subquery)*] [WHERE expr] [GROUP BY expr ("," expr)*] [ORDER BY ordering_term ("," ordering_term)*] [LIMIT expr]
-
 create_table_stmt: CREATE TABLE [IF NOT EXISTS] name "(" column_def ("," column_def)* ")"
-
 insert_stmt: INSERT INTO name ["(" name ("," name)* ")"] VALUES "(" expr ("," expr)* ")"
 
+select_stmt: SELECT result_column ("," result_column)* [FROM table_or_subquery ("," table_or_subquery)*] [WHERE expr] [GROUP BY expr ("," expr)*] [ORDER BY ordering_term ("," ordering_term)*] [LIMIT expr]
 update_stmt: UPDATE name SET name "=" expr ("," name "=" expr)* [WHERE expr]
 delete_stmt: DELETE FROM name [WHERE expr]
-
-
-// --- SQL Fragments & Expressions (Unchanged) ---
 
 result_column: "*" | name ".*" | expr [AS name]
 table_or_subquery: name [AS name]
@@ -60,12 +43,8 @@ atom: literal_value | name
 literal_value: NUMBER | STRING | "NULL" | "TRUE" | "FALSE"
 name: ID
 
-
-// --- Terminals (Unchanged) ---
-
 test_name: ESCAPED_STRING | /[a-zA-Z0-9.-_]+/
 
-// Keywords
 SELECT: "SELECT"
 FROM: "FROM"
 WHERE: "WHERE"
@@ -93,7 +72,6 @@ FALSE: "FALSE"
 ESCAPED_STRING: /"[^"]*"|'[^']*'/
 STRING: /"(\\.|[^"\\])*"/
 
-// Imports and Ignores
 %import common.CNAME -> ID
 %import common.NUMBER
 %import common.WS
