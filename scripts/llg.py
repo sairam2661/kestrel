@@ -12,7 +12,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
     generator = LLGuidanceGenerator(args.config_file)
     start = time.time()
-    output = generator.generate()
-    print(output)
+    final_result = ""
+
+    print("Generating...")
+    for partial_output in generator.generate():
+        # Print the latest full output, overwriting the previous line
+        print(f"  {partial_output}", end='\r', flush=True) 
+        final_result = partial_output
+
+    # Print a newline at the end to move to the next line
+    print("\n\nGeneration Complete.")
+    print("Final Output:")
+    print(final_result)
     t = time.time() - start
     print(f"Time taken: {t} seconds")

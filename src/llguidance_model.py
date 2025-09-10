@@ -5,7 +5,7 @@ import torch
 import numpy as np
 import configparser
 from transformers import AutoModelForCausalLM, AutoTokenizer
-
+from typing import Generator # <-- Import Generator
 
 class LLGuidanceGenerator:
     def __init__(self, config_path: str):
@@ -14,7 +14,7 @@ class LLGuidanceGenerator:
         self.hf_tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_name,
-            device_map="auto"
+            device_map="auto",
         )
         self._setup_interpreter()
 
@@ -39,23 +39,17 @@ class LLGuidanceGenerator:
             log_level=1,
         )
 
-    def generate(self) -> str:
+    def generate(self) -> Generator[str, None, None]:
         """
-        Generate text constrained by the grammar
+        Generate text constrained by the grammar, yielding partial results.
         
-        Args:
-            prompt: Input prompt
-            max_length: Maximum length of generated text
-            
         Returns:
-            Generated text
+            A generator that yields the generated text as it is produced.
         """
         max_length = self.max_new_tokens + len(self.tokenizer.tokenize_str(self.prompt_text))
         
-        # Create a deep copy of the interpreter for this generation
         ll_interpreter = self.interpreter
         
-        # Tokenize the prompt
         input_ids = self.tokenizer.tokenize_str(self.prompt_text)
         processed_prompt = ll_interpreter.process_prompt(input_ids)
         generated_tokens = processed_prompt.copy()
@@ -68,10 +62,8 @@ class LLGuidanceGenerator:
             if mask_bytes is None:
                 break
             
-            mask = np.frombuffer(mask_bytes, dtype=np.uint8)
-            mask = mask.astype(bool)
+            mask = np.frombuffer(mask_bytes, dtype=np.uint8).astype(bool)
                 
-            # Get model's next token predictions
             inputs = torch.tensor([generated_tokens], device=self.device)
             with torch.no_grad():
                 logits = self.model(inputs).logits[:, -1, :]
@@ -88,10 +80,11 @@ class LLGuidanceGenerator:
             generated_tokens.extend(tokens_to_add)
             current_length = len(generated_tokens)
     
-            # Check if generation should stop
+            # === CHANGE IS HERE ===
+            # Decode and yield the current state of the generated text
+            current_output = self.tokenizer.decode_str(generated_tokens[len(input_ids):])
+            yield current_output
+            # ======================
+
             if ll_interpreter.has_pending_stop():
                 break
-                
-        # Extract generated text (remove the prompt)
-        generated_text = self.tokenizer.decode_str(generated_tokens[(len(input_ids)):])
-        return generated_text
