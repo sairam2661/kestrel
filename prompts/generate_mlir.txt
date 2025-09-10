@@ -1,62 +1,371 @@
+You are an expert MLIR generator. Make sure you generate valid and diverse MLIR files. For your reference, I will give you the grammar and rules used in generating those files.
+
+MLIR Gramamr in Lark format:
+"""
+// MLIR adapted from mlir.g4, rewritten for LLGuidance
+start: mlir_file
+mlir_file: definition_and_module_list+ | definition_and_function_list+
+
+definition_and_module_list: definition_list? module_list
+definition_and_function_list: definition_list? function_list
+
+definition_list: definition+
+
+// Dimensions
+DIMENSION_ENTRY: ("?" | DIGITS) "x"
+static_dimension_list: (DECIMAL "x")+
+dimension_list_ranked: (DIMENSION_ENTRY)+
+DIMENSION_LIST_UNRANKED: "*x"
+
+// Identifiers
+SSA_ID        : "%" SUFFIX_ID ("#" DIGITS)?
+SYMBOL_REF_ID : "@" (SUFFIX_ID | ESCAPED_STRING)
+BLOCK_ID      : "^" SUFFIX_ID
+TYPE_ALIAS     : "!" (ESCAPED_STRING | BARE_ID)
+MAP_OR_SET_ID : "#" SUFFIX_ID
+ATTRIBUTE_ALIAS : "#" (ESCAPED_STRING | BARE_ID)
+SUFFIX_ID : BARE_ID | DIGITS
+
+ssa_id_list : SSA_ID ("," SSA_ID)*
+ssa_use : SSA_ID | CONSTANT
+ssa_use_list : ssa_use ("," ssa_use)*
+
+complex_type: "complex" "<" type ">"
+tuple_type: "tuple" "<" type_list_no_parens ">"
+vector_element_type: FLOAT_TYPE | INTEGER_TYPE
+vector_type: "vector" "<" static_dimension_list vector_element_type ">"
+
+tensor_memref_element_type : vector_element_type | vector_type | complex_type | TYPE_ALIAS
+ranked_tensor_type : "tensor" "<" dimension_list_ranked? tensor_memref_element_type ">"
+unranked_tensor_type : "tensor" "<" DIMENSION_LIST_UNRANKED? tensor_memref_element_type ">"
+tensor_type : ranked_tensor_type | unranked_tensor_type
+
+stride_list : "[" (("?" | DIGITS) ("," ("?" | DIGITS))*)? "]"
+strided_layout : "offset:" ("?" | DIGITS) "," "strides: " stride_list
+layout_specification : semi_affine_map | strided_layout
+memory_space : INTEGER
+ranked_memref_type : "memref" "<" dimension_list_ranked tensor_memref_element_type  ("," layout_specification)? ("," memory_space)? ">"
+unranked_memref_type : "memref" "<" DIMENSION_LIST_UNRANKED tensor_memref_element_type ("," memory_space)? ">"
+memref_type : ranked_memref_type | unranked_memref_type
+
+// Dialect types - Add custom dialect types here as needed
+opaque_dialect_item : BARE_ID "<" ESCAPED_STRING ">"
+pretty_dialect_item : BARE_ID "." (BARE_ID | NONE_TYPE) pretty_dialect_item_body?
+pretty_dialect_item_body : "<" pretty_dialect_item_contents ("," pretty_dialect_item_contents)* ">"
+pretty_dialect_item_contents : ("(" pretty_dialect_item_contents ")")
+                              | ("[" pretty_dialect_item_contents "]")
+                              | ("{" pretty_dialect_item_contents "}")
+                              | BARE_ID
+                              | CONSTANT
+                              | stride_list
+                              | type
+
+dialect_type : "!" (opaque_dialect_item | pretty_dialect_item)
+
+standard_type     : complex_type | FLOAT_TYPE | function_type | llvm_function_type | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type
+non_function_type : TYPE_ALIAS | complex_type | FLOAT_TYPE | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type | dialect_type
+type              : TYPE_ALIAS | dialect_type | standard_type
+
+type_list_no_parens :  type ("," type)* 
+non_function_type_list_no_parens : non_function_type ("," non_function_type)* 
+type_list_parens: "(" type_list_no_parens? ")"
+non_function_type_list_parens: "(" non_function_type_list_no_parens? ")"
+function_result_type : non_function_type_list_parens | non_function_type_list_no_parens | non_function_type 
+function_type : function_result_type ("->" | "to" | "into") function_result_type 
+llvm_function_type : non_function_type non_function_type_list_parens 
+ssa_use_and_type : ssa_use ":" type 
+ssa_use_and_type_list : ssa_use_and_type ("," ssa_use_and_type)* 
+
+array_attribute : "[" (attribute_value ("," attribute_value)*)? "]"
+dictionary_attribute : "{" (attribute_entry ("," attribute_entry)*)? "}"
+float_attribute : (SIGNED_FLOAT (":" FLOAT_TYPE)?) | (HEXADECIMAL ":" FLOAT_TYPE)
+integer_attribute : POSNEG_INTEGER ( ":" (INDEX_TYPE | INTEGER_TYPE) )?
+string_attribute : ESCAPED_STRING (":" type)?
+symbol_ref_attribute : (SYMBOL_REF_ID ("::" SYMBOL_REF_ID)*)
+UNIT_ATTRIBUTE : "unit"
+
+elements_attribute: elements_attribute_body ">" ":" tensor_or_vector_type
+
+elements_attribute_body: "dense" "<" attribute_value
+                       | "opaque" "<" BARE_ID "," HEXADECIMAL
+                       | "sparse" "<" attribute_value "," attribute_value
+
+tensor_or_vector_type: tensor_type | vector_type
+standard_attribute : location_attribute | array_attribute | BOOL | dictionary_attribute | elements_attribute | float_attribute | integer_attribute | affine_map | string_attribute | symbol_ref_attribute | type | UNIT_ATTRIBUTE
+
+attribute_value : ATTRIBUTE_ALIAS | dialect_attribute | standard_attribute 
+dependent_attribute_entry: (BARE_ID | "value") "=" attribute_value
+dialect_attribute_entry: (BARE_ID "." BARE_ID ("=" attribute_value)?) | (ESCAPED_STRING "=" attribute_value)
+dialect_attribute : "#" (opaque_dialect_item | pretty_dialect_item) 
+property_dict : "<" attribute_dict ">" 
+attribute_entry: dialect_attribute_entry | dependent_attribute_entry | "value"
+attribute_dict: "{" (attribute_entry ("," attribute_entry)*)? "}"
+
+
+trailing_type     : ":" (function_type | function_result_type) 
+
+op_result         : SSA_ID (":" INTEGER)? 
+op_result_list    : op_result ("," op_result)* "=" 
+
+location : ESCAPED_STRING ":" DECIMAL ":" DECIMAL 
+location_attribute: "loc" "(" location ")"
+generic_operation : ESCAPED_STRING "(" ssa_use_list? ")" successor_list? property_dict? region_list? attribute_dict?  trailing_type 
+custom_operation  : BARE_ID "." BARE_ID ssa_use_list?  trailing_type 
+operation         : op_result_list? (custom_operation | generic_operation | module | generic_module | function) location_attribute? 
+
+// Blocks and regions
+ssa_id_and_type      : SSA_ID ":" type
+ssa_id_and_type_list : ssa_id_and_type ("," ssa_id_and_type)*
+
+// Blocks and regions
+operation_list : operation+
+block_label    : BLOCK_ID ( "(" ssa_id_and_type_list? ")" ":" | ":" )
+successor_list : "[" (BLOCK_ID ("," BLOCK_ID)*)? "]"
+block          : block_label? operation_list
+region         : "{" block* "}"
+region_list    : "(" (region ("," region)*)? ")"
+
+// Modules and functions
+// Arguments
+arg_type_and_attr : type attribute_dict?
+named_argument    : SSA_ID ":" arg_type_and_attr
+argument_list     : (named_argument ("," named_argument)*) | (arg_type_and_attr ("," arg_type_and_attr)*)
+
+// Return values
+function_result                : type attribute_dict?
+function_result_list_no_parens : function_result ("," function_result)*
+function_result_list_parens    : "(" function_result_list_no_parens? ")"
+function_result_list           : function_result_list_parens | non_function_type
+
+// Definition
+// Note: "function_body" rule is eliminated and inlined below.
+module   : "module" SYMBOL_REF_ID? ("attributes" attribute_dict)? region location_attribute?
+function : "func.func" SYMBOL_REF_ID "(" argument_list? ")" ("->" function_result_list)? ("attributes" attribute_dict)? region? location_attribute?
+generic_module : ESCAPED_STRING "(" argument_list? ")" "(" region ")" attribute_dict? trailing_type location_attribute?
+
+bare_id_list : BARE_ID ("," BARE_ID)*
+dim_id_list  : "(" bare_id_list? ")"
+symbol_id_list: "[" bare_id_list? "]"
+dim_and_symbol_id_lists : dim_id_list symbol_id_list?
+
+dim_use_list    : "(" ssa_use_list? ")"
+symbol_use_list : "[" ssa_use_list? "]"
+dim_and_symbol_use_list : dim_use_list symbol_use_list?
+
+affine_expr     : affine_sum
+affine_sum      : affine_term (("+" | "-") affine_term)*
+affine_term     : affine_factor ( ("*" POSNEG_INTEGER) | ("&ceildiv&" INTEGER) | ("&floordiv&" INTEGER) | ("&mod&" INTEGER) )*
+affine_factor   : (POSNEG_INTEGER "*")? affine_unary
+affine_unary    : "-" affine_unary | affine_primary
+affine_primary  : POSNEG_INTEGER | SSA_ID | BARE_ID | "symbol" "(" SSA_ID ")" | "(" affine_expr ")"
+
+symbol_or_const   : POSNEG_INTEGER | SSA_ID | BARE_ID
+semi_affine_oprnd : symbol_or_const | "(" semi_affine_expr ")"
+semi_affine_expr  : semi_affine_sum
+semi_affine_sum   : semi_affine_term (("+" | "-") semi_affine_term)*
+semi_affine_term  : semi_affine_factor ( ("*" symbol_or_const) | ("&ceildiv&" semi_affine_oprnd) | ("&floordiv&" semi_affine_oprnd) | ("&mod&" semi_affine_oprnd) )*
+semi_affine_factor  : (symbol_or_const "*")? semi_affine_primary
+semi_affine_primary : "symbol" "(" symbol_or_const ")" | symbol_or_const | "(" semi_affine_expr ")"
+
+// --- Multi-Dimensional Expressions (Inlined) ---
+multi_dim_affine_expr      : "(" affine_expr ("," affine_expr)* ")"
+multi_dim_semi_affine_expr : "(" semi_affine_expr ("," semi_affine_expr)* ")"
+
+// --- Constraints (Factored) ---
+affine_constraint             : affine_expr (">=" | "==") DIGIT
+affine_constraint_conjunction : affine_constraint ("," affine_constraint)*
+
+// --- Inline Definitions ---
+affine_map_inline      : "affine_map" "<" dim_and_symbol_id_lists "->" multi_dim_affine_expr ">"
+semi_affine_map_inline : dim_and_symbol_id_lists "->" multi_dim_semi_affine_expr
+integer_set_inline     : dim_and_symbol_id_lists ":" "(" affine_constraint_conjunction? ")"
+
+// --- Top-Level Definitions (Unchanged) ---
+affine_map      : MAP_OR_SET_ID | affine_map_inline
+semi_affine_map : MAP_OR_SET_ID | semi_affine_map_inline
+integer_set     : MAP_OR_SET_ID | integer_set_inline
+affine_map_list : affine_map ("," affine_map)*
+
+type_alias_def      : TYPE_ALIAS "=" "type" type
+attribute_alias_def : ATTRIBUTE_ALIAS "=" attribute_value
+
+semi_affine_or_set_inline : dim_and_symbol_id_lists ( "->" multi_dim_semi_affine_expr | ":" "(" affine_constraint_conjunction? ")")
+
+map_or_set_def : MAP_OR_SET_ID "=" (affine_map_inline | semi_affine_or_set_inline)
+
+definition : type_alias_def | attribute_alias_def | map_or_set_def
+
+module_list: (module | generic_module)+
+function_list: function+
+
+// Literals
+%import common.SIGNED_FLOAT
+%import common.ESCAPED_STRING
+%import common.INT -> DIGITS
+
+INDEX_TYPE: "index"
+NONE_TYPE: "none"
+SIGNED_INTEGER_TYPE : /si[1-9][0-9]*/
+UNSIGNED_INTEGER_TYPE : /ui[1-9][0-9]*/
+SIGNLESS_INTEGER_TYPE : /i[1-9][0-9]*/
+INTEGER_TYPE: SIGNED_INTEGER_TYPE | UNSIGNED_INTEGER_TYPE | SIGNLESS_INTEGER_TYPE
+FLOAT_TYPE: "f16" | "bf16" | "f32" | "f64"
+DIGIT: /[0-9]/
+TRUE: "true"
+FALSE: "false"
+BARE_ID: /[a-zA-Z_][a-zA-Z0-9_$]*/
+HEXADECIMAL: /0[xX][0-9a-fA-F]+/
+NEGATED_DECIMAL: /-[0-9]+/
+NEGATED_HEXADECIMAL: /-0[xX][0-9a-fA-F]+/
+
+DECIMAL: DIGITS
+BOOL: TRUE | FALSE
+CONSTANT: BOOL | DECIMAL | HEXADECIMAL | SIGNED_FLOAT | ESCAPED_STRING
+INTEGER: DECIMAL | HEXADECIMAL
+POSNEG_INTEGER: INTEGER | HEXADECIMAL | NEGATED_DECIMAL | NEGATED_HEXADECIMAL
+
+%import common.WS
+%ignore WS
+"""
+
 Example 1:
-Generate well-formed, complex, MLIR code.
-DO NOT WRITE ANYTHING ELSE BESIDES THE MLIR code.
-KEEP IT STRUCTURED AND COMPLETE.
-WRITE A SINGLE SOLUTION.
-IT NEEDS TO BE VERY DIFFERENT FROM PREVIOUS SOLUTIONS.
+Generate a short, valid and complex MLIR file for the Triton frontend.
 
 Solution 1:
 "builtin.module"() ({
-  "func.func"() <{function_type = (i1) -> i1, sym_name = "cmpOfExtSI"}> ({
-  ^bb0(%arg0: i1):
-    %0 = "arith.extsi"(%arg0) : (i1) -> i64
-    %1 = "arith.constant"() <{value = 0 : i64}> : () -> i64
-    %2 = "arith.cmpi"(%0, %1) <{predicate = 1 : i64}> : (i64, i64) -> i1
-    "func.return"(%2) : (i1) -> ()
+  "tt.func"() <{function_type = (i32, i32) -> i32, sym_name = "yield_outside_loop1", sym_visibility = "public"}> ({
+  ^bb0(%arg0: i32, %arg1: i32):
+    %0 = "arith.constant"() <{value = 0 : index}> : () -> index
+    %1 = "arith.constant"() <{value = 5 : index}> : () -> index
+    %2 = "arith.constant"() <{value = 1 : index}> : () -> index
+    %3 = "scf.for"(%0, %1, %2, %arg0) ({
+    ^bb0(%arg2: index, %arg3: i32):
+      "scf.yield"(%arg1) : (i32) -> ()
+    }) : (index, index, index, i32) -> i32
+    "tt.return"(%3) : (i32) -> ()
   }) : () -> ()
-  "func.func"() <{function_type = (i1) -> i1, sym_name = "cmpOfExtUI"}> ({
-  ^bb0(%arg0: i1):
-    %0 = "arith.extui"(%arg0) : (i1) -> i64
-    %1 = "arith.constant"() <{value = 0 : i64}> : () -> i64
-    %2 = "arith.cmpi"(%0, %1) <{predicate = 1 : i64}> : (i64, i64) -> i1
-    "func.return"(%2) : (i1) -> ()
+  "tt.func"() <{function_type = (i32, i32) -> (i32, i32), sym_name = "yield_outside_loop2", sym_visibility = "public"}> ({
+  ^bb0(%arg0: i32, %arg1: i32):
+    %0 = "arith.constant"() <{value = 0 : index}> : () -> index
+    %1 = "arith.constant"() <{value = 5 : index}> : () -> index
+    %2 = "arith.constant"() <{value = 1 : index}> : () -> index
+    %3 = "arith.constant"() <{value = 0 : i32}> : () -> i32
+    %4:2 = "scf.for"(%0, %1, %2, %arg0, %3) ({
+    ^bb0(%arg2: index, %arg3: i32, %arg4: i32):
+      %5 = "arith.addi"(%arg4, %arg3) <{overflowFlags = #arith.overflow<none>}> : (i32, i32) -> i32
+      "scf.yield"(%arg0, %5) : (i32, i32) -> ()
+    }) : (index, index, index, i32, i32) -> (i32, i32)
+    "tt.return"(%4#0, %4#1) : (i32, i32) -> ()
   }) : () -> ()
-}) : () -> ()
+}) {"triton_gpu.num-ctas" = 1 : i32, "triton_gpu.num-warps" = 4 : i32} : () -> ()
+
+Rules used:
+attribute_dict: "{" (attribute_entry ("," attribute_entry)*)? "}"
+attribute_entry: dialect_attribute_entry | dependent_attribute_entry | "value"
+attribute_value : ATTRIBUTE_ALIAS | dialect_attribute | standard_attribute 
+block          : block_label? operation_list
+block_label    : BLOCK_ID ( "(" ssa_id_and_type_list? ")" ":" | ":" )
+definition_and_module_list: definition_list? module_list
+dependent_attribute_entry: (BARE_ID | "value") "=" attribute_value
+dialect_attribute : "#" (opaque_dialect_item | pretty_dialect_item) 
+dialect_attribute_entry: (BARE_ID "." BARE_ID ("=" attribute_value)?) | (ESCAPED_STRING "=" attribute_value)
+function_result_type : non_function_type_list_parens | non_function_type_list_no_parens | non_function_type 
+function_type : function_result_type ("->" | "to" | "into") function_result_type 
+generic_module : ESCAPED_STRING "(" argument_list? ")" "(" region ")" attribute_dict? trailing_type location_attribute?
+generic_operation : ESCAPED_STRING "(" ssa_use_list? ")" successor_list? property_dict? region_list? attribute_dict?  trailing_type 
+integer_attribute : POSNEG_INTEGER ( ":" (INDEX_TYPE | INTEGER_TYPE) )?
+mlir_file: definition_and_module_list+ | definition_and_function_list+
+module_list: (module | generic_module)+
+non_function_type : TYPE_ALIAS | complex_type | FLOAT_TYPE | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type | dialect_type
+non_function_type_list_no_parens : non_function_type ("," non_function_type)* 
+non_function_type_list_parens: "(" non_function_type_list_no_parens? ")"
+op_result         : SSA_ID (":" INTEGER)? 
+op_result_list    : op_result ("," op_result)* "=" 
+operation         : op_result_list? (custom_operation | generic_operation | module | generic_module | function) location_attribute? 
+operation_list : operation+
+pretty_dialect_item : BARE_ID "." (BARE_ID | NONE_TYPE) pretty_dialect_item_body?
+pretty_dialect_item_body : "<" pretty_dialect_item_contents ("," pretty_dialect_item_contents)* ">"
+pretty_dialect_item_contents : ("(" pretty_dialect_item_contents ")")
+                              | ("[" pretty_dialect_item_contents "]")
+                              | ("{" pretty_dialect_item_contents "}")
+                              | BARE_ID
+                              | CONSTANT
+                              | stride_list
+                              | type
+property_dict : "<" attribute_dict ">" 
+region         : "{" block* "}"
+region_list    : "(" (region ("," region)*)? ")"
+ssa_id_and_type      : SSA_ID ":" type
+ssa_id_and_type_list : ssa_id_and_type ("," ssa_id_and_type)*
+ssa_use : SSA_ID | CONSTANT
+ssa_use_list : ssa_use ("," ssa_use)*
+standard_attribute : location_attribute | array_attribute | BOOL | dictionary_attribute | elements_attribute | float_attribute | integer_attribute | affine_map | string_attribute | symbol_ref_attribute | type | UNIT_ATTRIBUTE
+standard_type     : complex_type | FLOAT_TYPE | function_type | llvm_function_type | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type
+start: mlir_file
+string_attribute : ESCAPED_STRING (":" type)?
+trailing_type     : ":" (function_type | function_result_type) 
+type              : TYPE_ALIAS | dialect_type | standard_type
 
 Example 2:
-Generate well-formed, complex, MLIR code.
-DO NOT WRITE ANYTHING ELSE BESIDES THE MLIR code.
-KEEP IT STRUCTURED AND COMPLETE.
-WRITE A SINGLE SOLUTION.
-IT NEEDS TO BE VERY DIFFERENT FROM PREVIOUS SOLUTIONS.
+Generate a short, valid and complex MLIR file for the Triton frontend.
 
 Solution 2:
 "builtin.module"() ({
-  "func.func"() <{function_type = (i1) -> i64, sym_name = "extSIOfExtUI"}> ({
-  ^bb0(%arg0: i1):
-    %0 = "arith.extui"(%arg0) : (i1) -> i8
-    %1 = "arith.extsi"(%0) : (i8) -> i64
-    "func.return"(%1) : (i64) -> ()
+  "tt.func"() <{function_type = () -> (), sym_name = "test_mbarrier"}> ({
+    %0 = "llvm.mlir.zero"() : () -> !llvm.ptr<3>
+    %1 = "nvgpu.cluster_id"() : () -> i32
+    "llvm.store"(%1, %0) <{ordering = 0 : i64}> : (i32, !llvm.ptr<3>) -> ()
+    "tt.return"() : () -> ()
   }) : () -> ()
-  "func.func"() <{function_type = (i1) -> i64, sym_name = "extUIOfExtUI"}> ({
-  ^bb0(%arg0: i1):
-    %0 = "arith.extui"(%arg0) : (i1) -> i8
-    %1 = "arith.extui"(%0) : (i8) -> i64
-    "func.return"(%1) : (i64) -> ()
-  }) : () -> ()
-  "func.func"() <{function_type = (i1) -> i64, sym_name = "extSIOfExtSI"}> ({
-  ^bb0(%arg0: i1):
-    %0 = "arith.extsi"(%arg0) : (i1) -> i8
-    %1 = "arith.extsi"(%0) : (i8) -> i64
-    "func.return"(%1) : (i64) -> ()
-  }) : () -> ()
-}) : () -> ()
+}) {"triton_gpu.num-ctas" = 2 : i32, "triton_gpu.num-warps" = 4 : i32} : () -> ()
 
-Example 3:
-Generate well-formed, complex, MLIR code.
-DO NOT WRITE ANYTHING ELSE BESIDES THE MLIR code.
-KEEP IT STRUCTURED AND COMPLETE.
-WRITE A SINGLE SOLUTION.
-IT NEEDS TO BE VERY DIFFERENT FROM PREVIOUS SOLUTIONS.
+Rules used:
+attribute_dict: "{" (attribute_entry ("," attribute_entry)*)? "}"
+attribute_entry: dialect_attribute_entry | dependent_attribute_entry | "value"
+attribute_value : ATTRIBUTE_ALIAS | dialect_attribute | standard_attribute 
+block          : block_label? operation_list
+definition_and_module_list: definition_list? module_list
+dependent_attribute_entry: (BARE_ID | "value") "=" attribute_value
+dialect_attribute_entry: (BARE_ID "." BARE_ID ("=" attribute_value)?) | (ESCAPED_STRING "=" attribute_value)
+dialect_type : "!" (opaque_dialect_item | pretty_dialect_item)
+function_result_type : non_function_type_list_parens | non_function_type_list_no_parens | non_function_type 
+function_type : function_result_type ("->" | "to" | "into") function_result_type 
+generic_module : ESCAPED_STRING "(" argument_list? ")" "(" region ")" attribute_dict? trailing_type location_attribute?
+generic_operation : ESCAPED_STRING "(" ssa_use_list? ")" successor_list? property_dict? region_list? attribute_dict?  trailing_type 
+integer_attribute : POSNEG_INTEGER ( ":" (INDEX_TYPE | INTEGER_TYPE) )?
+mlir_file: definition_and_module_list+ | definition_and_function_list+
+module_list: (module | generic_module)+
+non_function_type : TYPE_ALIAS | complex_type | FLOAT_TYPE | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type | dialect_type
+non_function_type_list_no_parens : non_function_type ("," non_function_type)* 
+non_function_type_list_parens: "(" non_function_type_list_no_parens? ")"
+op_result         : SSA_ID (":" INTEGER)? 
+op_result_list    : op_result ("," op_result)* "=" 
+operation         : op_result_list? (custom_operation | generic_operation | module | generic_module | function) location_attribute? 
+operation_list : operation+
+pretty_dialect_item : BARE_ID "." (BARE_ID | NONE_TYPE) pretty_dialect_item_body?
+pretty_dialect_item_body : "<" pretty_dialect_item_contents ("," pretty_dialect_item_contents)* ">"
+pretty_dialect_item_contents : ("(" pretty_dialect_item_contents ")")
+                              | ("[" pretty_dialect_item_contents "]")
+                              | ("{" pretty_dialect_item_contents "}")
+                              | BARE_ID
+                              | CONSTANT
+                              | stride_list
+                              | type
+property_dict : "<" attribute_dict ">" 
+region         : "{" block* "}"
+region_list    : "(" (region ("," region)*)? ")"
+ssa_use : SSA_ID | CONSTANT
+ssa_use_list : ssa_use ("," ssa_use)*
+standard_attribute : location_attribute | array_attribute | BOOL | dictionary_attribute | elements_attribute | float_attribute | integer_attribute | affine_map | string_attribute | symbol_ref_attribute | type | UNIT_ATTRIBUTE
+standard_type     : complex_type | FLOAT_TYPE | function_type | llvm_function_type | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type
+start: mlir_file
+string_attribute : ESCAPED_STRING (":" type)?
+trailing_type     : ":" (function_type | function_result_type) 
+type              : TYPE_ALIAS | dialect_type | standard_type
 
-Solution 3:
+Question:
+Generate a short, valid and complex MLIR file for the Triton frontend. 
+DO NOT INCLUDE ANY COMMENTS OR EXPLANATIONS! DIRECTLY START YOUR MLIR FILE 
+WITH "builtin.module".
+
+Solution:
