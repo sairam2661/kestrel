@@ -3,7 +3,7 @@ import time
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
-from llguidance_model import LLGuidanceGenerator
+from llg_model import LLGuidanceGenerator
 import timeit
 
 if __name__ == "__main__":
@@ -15,14 +15,10 @@ if __name__ == "__main__":
     final_result = ""
 
     print("Generating...")
-    for partial_output in generator.generate():
-        # Print the latest full output, overwriting the previous line
+    for partial_output in generator.gen_streaming():
         print(f"  {partial_output}", end='\r', flush=True) 
         final_result = partial_output
 
-    # Print a newline at the end to move to the next line
-    print("\n\nGeneration Complete.")
-    print("Final Output:")
     print(final_result)
     t = time.time() - start
     print(f"Time taken: {t} seconds")

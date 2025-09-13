@@ -11,20 +11,15 @@ definition_and_function_list: definition_list? function_list
 
 definition_list: definition+
 
+module_list: (module | generic_module)+
+function_list: function+
+definition : type_alias_def | attribute_alias_def | map_or_set_def
+
 // Dimensions
 DIMENSION_ENTRY: ("?" | DIGITS) "x"
 static_dimension_list: (DECIMAL "x")+
 dimension_list_ranked: (DIMENSION_ENTRY)+
 DIMENSION_LIST_UNRANKED: "*x"
-
-// Identifiers
-SSA_ID        : "%" SUFFIX_ID ("#" DIGITS)?
-SYMBOL_REF_ID : "@" (SUFFIX_ID | ESCAPED_STRING)
-BLOCK_ID      : "^" SUFFIX_ID
-TYPE_ALIAS     : "!" (ESCAPED_STRING | BARE_ID)
-MAP_OR_SET_ID : "#" SUFFIX_ID
-ATTRIBUTE_ALIAS : "#" (ESCAPED_STRING | BARE_ID)
-SUFFIX_ID : BARE_ID | DIGITS
 
 ssa_id_list : SSA_ID ("," SSA_ID)*
 ssa_use : SSA_ID | CONSTANT
@@ -48,7 +43,7 @@ ranked_memref_type : "memref" "<" dimension_list_ranked tensor_memref_element_ty
 unranked_memref_type : "memref" "<" DIMENSION_LIST_UNRANKED tensor_memref_element_type ("," memory_space)? ">"
 memref_type : ranked_memref_type | unranked_memref_type
 
-// Dialect types - Add custom dialect types here as needed
+// Dialect types - Add custom dialect types here
 opaque_dialect_item : BARE_ID "<" ESCAPED_STRING ">"
 pretty_dialect_item : BARE_ID "." (BARE_ID | NONE_TYPE) pretty_dialect_item_body?
 pretty_dialect_item_body : "<" pretty_dialect_item_contents ("," pretty_dialect_item_contents)* ">"
@@ -82,7 +77,6 @@ float_attribute : (SIGNED_FLOAT (":" FLOAT_TYPE)?) | (HEXADECIMAL ":" FLOAT_TYPE
 integer_attribute : POSNEG_INTEGER ( ":" (INDEX_TYPE | INTEGER_TYPE) )?
 string_attribute : ESCAPED_STRING (":" type)?
 symbol_ref_attribute : (SYMBOL_REF_ID ("::" SYMBOL_REF_ID)*)
-UNIT_ATTRIBUTE : "unit"
 
 elements_attribute: elements_attribute_body ">" ":" tensor_or_vector_type
 
@@ -138,7 +132,6 @@ function_result_list_parens    : "(" function_result_list_no_parens? ")"
 function_result_list           : function_result_list_parens | non_function_type
 
 // Definition
-// Note: "function_body" rule is eliminated and inlined below.
 module   : "module" SYMBOL_REF_ID? ("attributes" attribute_dict)? region location_attribute?
 function : "func.func" SYMBOL_REF_ID "(" argument_list? ")" ("->" function_result_list)? ("attributes" attribute_dict)? region? location_attribute?
 generic_module : ESCAPED_STRING "(" argument_list? ")" "(" region ")" attribute_dict? trailing_type location_attribute?
@@ -167,20 +160,16 @@ semi_affine_term  : semi_affine_factor ( ("*" symbol_or_const) | ("&ceildiv&" se
 semi_affine_factor  : (symbol_or_const "*")? semi_affine_primary
 semi_affine_primary : "symbol" "(" symbol_or_const ")" | symbol_or_const | "(" semi_affine_expr ")"
 
-// --- Multi-Dimensional Expressions (Inlined) ---
 multi_dim_affine_expr      : "(" affine_expr ("," affine_expr)* ")"
 multi_dim_semi_affine_expr : "(" semi_affine_expr ("," semi_affine_expr)* ")"
 
-// --- Constraints (Factored) ---
 affine_constraint             : affine_expr (">=" | "==") DIGIT
 affine_constraint_conjunction : affine_constraint ("," affine_constraint)*
 
-// --- Inline Definitions ---
 affine_map_inline      : "affine_map" "<" dim_and_symbol_id_lists "->" multi_dim_affine_expr ">"
 semi_affine_map_inline : dim_and_symbol_id_lists "->" multi_dim_semi_affine_expr
 integer_set_inline     : dim_and_symbol_id_lists ":" "(" affine_constraint_conjunction? ")"
 
-// --- Top-Level Definitions (Unchanged) ---
 affine_map      : MAP_OR_SET_ID | affine_map_inline
 semi_affine_map : MAP_OR_SET_ID | semi_affine_map_inline
 integer_set     : MAP_OR_SET_ID | integer_set_inline
@@ -193,16 +182,14 @@ semi_affine_or_set_inline : dim_and_symbol_id_lists ( "->" multi_dim_semi_affine
 
 map_or_set_def : MAP_OR_SET_ID "=" (affine_map_inline | semi_affine_or_set_inline)
 
-definition : type_alias_def | attribute_alias_def | map_or_set_def
-
-module_list: (module | generic_module)+
-function_list: function+
-
-// Literals
-%import common.SIGNED_FLOAT
-%import common.ESCAPED_STRING
-%import common.INT -> DIGITS
-
+SSA_ID        : "%" SUFFIX_ID ("#" DIGITS)?
+SYMBOL_REF_ID : "@" (SUFFIX_ID | ESCAPED_STRING)
+BLOCK_ID      : "^" SUFFIX_ID
+TYPE_ALIAS     : "!" (ESCAPED_STRING | BARE_ID)
+MAP_OR_SET_ID : "#" SUFFIX_ID
+ATTRIBUTE_ALIAS : "#" (ESCAPED_STRING | BARE_ID)
+SUFFIX_ID : BARE_ID | DIGITS
+UNIT_ATTRIBUTE : "unit"
 INDEX_TYPE: "index"
 NONE_TYPE: "none"
 SIGNED_INTEGER_TYPE : /si[1-9][0-9]*/
@@ -224,6 +211,9 @@ CONSTANT: BOOL | DECIMAL | HEXADECIMAL | SIGNED_FLOAT | ESCAPED_STRING
 INTEGER: DECIMAL | HEXADECIMAL
 POSNEG_INTEGER: INTEGER | HEXADECIMAL | NEGATED_DECIMAL | NEGATED_HEXADECIMAL
 
+%import common.SIGNED_FLOAT
+%import common.ESCAPED_STRING
+%import common.INT -> DIGITS
 %import common.WS
 %ignore WS
 """
