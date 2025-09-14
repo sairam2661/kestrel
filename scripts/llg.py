@@ -4,21 +4,43 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 from llg_model import LLGuidanceGenerator
-import timeit
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run constrained text generation with llguidance.")
-    parser.add_argument("--config_file", type=str, help="Path to the configuration file.")
+    parser.add_argument("--config_file", type=str, required=True, help="Path to the configuration file.")
+    parser.add_argument("--num_samples", type=int, default=5, help="Number of samples to generate.")
+    parser.add_argument("--output_dir", type=str, default="samples/mlir", help="Directory to save generated samples.")
     args = parser.parse_args()
+
+    print("Initializing generator...")
     generator = LLGuidanceGenerator(args.config_file)
-    start = time.time()
-    final_result = ""
+    
+    os.makedirs(args.output_dir, exist_ok=True)
+    print(f"Output will be saved to '{args.output_dir}' directory.")
+    
+    total_time = 0
 
-    print("Generating...")
-    for partial_output in generator.gen_streaming():
-        print(f"  {partial_output}", end='\r', flush=True) 
-        final_result = partial_output
+    for i in range(args.num_samples):
+        print(f"Sample {i+1}/{args.num_samples}:")
+        
+        start_time = time.perf_counter()
+        final_result = generator.generate()
+        
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
+        total_time += elapsed_time
+        
+        print(f"Generation finished in {elapsed_time:.2f} seconds.")
+        
+        file_path = os.path.join(args.output_dir, f"sample_{i+1}.mlir")
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(final_result)
+        
+        print(f"Saved sample to {file_path}")
 
-    print(final_result)
-    t = time.time() - start
-    print(f"Time taken: {t} seconds")
+    print("Summary:")
+    print(f"Total samples generated: {args.num_samples}")
+    print(f"Total time taken: {total_time:.2f} seconds")
+    if args.num_samples > 0:
+        avg_time = total_time / args.num_samples
+        print(f"Average time per sample: {avg_time:.2f} seconds")
