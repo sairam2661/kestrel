@@ -1,22 +1,22 @@
 "builtin.module"() ({
   "tt.func"() <{function_type = () -> (), sym_name = "cmp_all_contiguous"}> ({
-    %0 = "tt.make_range"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>
-    %1 = "arith.constant"() <{value = dense<0> : tensor<128xi32>}> : () -> tensor<128xi32>
-    %2 = "arith.cmpi"(%0, %1) <{predicate = 0 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %3 = "arith.cmpi"(%0, %1) <{predicate = 1 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %4 = "arith.cmpi"(%0, %1) <{predicate = 2 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %5 = "arith.cmpi"(%0, %1) <{predicate = 3 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %6 = "arith.cmpi"(%0, %1) <{predicate = 5 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %7 = "arith.cmpi"(%0, %1) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %8 = "arith.cmpi"(%1, %0) <{predicate = 0 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %9 = "arith.cmpi"(%1, %0) <{predicate = 1 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %10 = "arith.cmpi"(%1, %0) <{predicate = 2 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %11 = "arith.cmpi"(%1, %0) <{predicate = 3 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %12 = "arith.cmpi"(%1, %0) <{predicate = 5 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %13 = "arith.cmpi"(%1, %0) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %14 = "arith.constant"() <{value = dense<8> : tensor<128xi32>}> : () -> tensor<128xi32>
-    %15 = "arith.cmpi"(%14, %0) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
-    %16 = "arith.cmpi"(%14, %1) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %30 = "tt.make_range"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>
+    %31 = "arith.constant"() <{value = dense<0> : tensor<128xi32>}> : () -> tensor<128xi32>
+    %32 = "arith.cmpi"(%30, %31) <{predicate = 0 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %33 = "arith.cmpi"(%30, %31) <{predicate = 1 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %34 = "arith.cmpi"(%30, %31) <{predicate = 2 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %35 = "arith.cmpi"(%30, %31) <{predicate = 3 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %36 = "arith.cmpi"(%30, %31) <{predicate = 5 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %37 = "arith.cmpi"(%30, %31) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %38 = "arith.cmpi"(%31, %30) <{predicate = 0 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %39 = "arith.cmpi"(%31, %30) <{predicate = 1 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %40 = "arith.cmpi"(%31, %30) <{predicate = 2 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %41 = "arith.cmpi"(%31, %30) <{predicate = 3 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %42 = "arith.cmpi"(%31, %30) <{predicate = 5 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %43 = "arith.cmpi"(%31, %30) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %44 = "arith.constant"() <{value = dense<8> : tensor<128xi32>}> : () -> tensor<128xi32>
+    %45 = "arith.cmpi"(%44, %30) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
+    %46 = "arith.cmpi"(%44, %31) <{predicate = 4 : i64}> : (tensor<128xi32>, tensor<128xi32>) -> tensor<128xi1>
     "tt.return"() : () -> ()
   }) : () -> ()
   "tt.func"() <{function_type = () -> (), sym_name = "cmp_partial_contiguous"}> ({
