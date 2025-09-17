@@ -86,7 +86,7 @@ standard_attribute : location_attribute | array_attribute | BOOL | dictionary_at
 attribute_value : ATTRIBUTE_ALIAS | dialect_attribute | standard_attribute 
 dependent_attribute_entry: (BARE_ID | "value") "=" attribute_value
 dialect_attribute_entry: (BARE_ID "." BARE_ID ("=" attribute_value)?) | (ESCAPED_STRING "=" attribute_value)
-dialect_attribute : "#" (opaque_dialect_item | pretty_dialect_item) 
+dialect_attribute : "#" (opaque_dialect_item | pretty_dialect_item) (":" type)?
 property_dict : "<" attribute_dict ">" 
 attribute_entry: dialect_attribute_entry | dependent_attribute_entry | "value"
 attribute_dict: "{" (attribute_entry ("," attribute_entry)*)? "}"
