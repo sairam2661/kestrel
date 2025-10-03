@@ -4,6 +4,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 from llg_model import LLGuidanceGenerator
+from judge import CodeJudge
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run constrained text generation with llguidance.")
@@ -14,6 +15,7 @@ if __name__ == "__main__":
 
     print("Initializing generator...")
     generator = LLGuidanceGenerator(args.config_file)
+    cj = CodeJudge()
     
     os.makedirs(args.output_dir, exist_ok=True)
     print(f"Output will be saved to '{args.output_dir}' directory.")
@@ -25,18 +27,23 @@ if __name__ == "__main__":
         
         start_time = time.perf_counter()
         final_result = generator.generate()
+
+        isValid = cj.get_score(final_result)
         
+        ## LLM as a judge 
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
         total_time += elapsed_time
         
         print(f"Generation finished in {elapsed_time:.2f} seconds.")
-        
-        file_path = os.path.join(args.output_dir, f"sample_{i+1}.mlir")
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(final_result)
-        
-        print(f"Saved sample to {file_path}")
+        if isValid:
+            file_path = os.path.join(args.output_dir, f"sample_{i+1}.mlir")
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(final_result)
+            
+            print(f"Saved sample to {file_path}")
+        else:
+            print(f"Sample did not pass validation checks")
 
     print("Summary:")
     print(f"Total samples generated: {args.num_samples}")
