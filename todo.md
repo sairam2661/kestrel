@@ -1,2 +1,6 @@
-- [ ] Use LARK parser for MLIR and optimize the grammar.
-- [ ] Collect valid MLIR examples for testing and evaluating performance.
+- [X] Use LARK parser for MLIR and optimize the grammar.
+- [X] Collect valid MLIR examples for testing and evaluating performance.
+- [ ] Write LARK grammar for Assembly MLIR
+- [ ] Improve prompt_builder.py
+- [ ] Work on Kestrel as a fuzzer
+- [ ] Use LLM as an judge to filter files
