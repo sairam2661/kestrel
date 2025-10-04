@@ -280,7 +280,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--cache-dir",
         type=str,
-        default=".cache",
+        default="output",
         help="Directory containing cached analysis"
     )
     
