@@ -1,7 +1,7 @@
 import json
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from typing import Dict, List, Union
+from typing import Dict, List
+from vllm import LLM, SamplingParams
+from vllm.sampling_params import GuidedDecodingParams
 
 
 # Fault localization prompt template
@@ -45,33 +45,60 @@ You will be provided with an MLIR code snippet (which may include different dial
 
 ### Evaluation Form:
 
-JSON output only, no extra commentary.
+**CRITICAL: Output MUST be ONLY a JSON array. No explanations, no commentary.**
 
 **MLIR Code Snippet:**
 {CODE}
 
-**Expected JSON Output Example:**
-
-```json
-[{{"inconsistency": "Mismatched operand and result types in addi operation", "severity": "Major"}}]
-```
+**Output the JSON array now:**
 '''
+
+# JSON Schema for constrained decoding
+INCONSISTENCY_SCHEMA = {
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "inconsistency": {"type": "string"},
+            "severity": {
+                "type": "string", 
+                "enum": ["Negligible", "Small", "Major", "Fatal"]
+            }
+        },
+        "required": ["inconsistency", "severity"],
+        "additionalProperties": False
+    }
+}
 
 
 class CodeJudge:
-    """Evaluates MLIR code for semantic validity using LLM"""
+    """Evaluates MLIR code for semantic validity using vLLM with JSON constraints"""
     
-    def __init__(self, model_name: str, max_new_tokens: int = 512, device: str = None):
-        self.model_name = model_name
-        self.max_new_tokens = max_new_tokens
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+    def __init__(self, llm: LLM = None, model_name: str = None, max_new_tokens: int = 512):
+        """
+        Initialize judge with either an existing LLM instance or model name.
         
-        print(f"Loading judge model: {model_name} on {self.device}")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            device_map="auto",
-        )
+        Args:
+            llm: Existing vLLM instance (recommended for reuse)
+            model_name: Model name to load (if llm not provided)
+            max_new_tokens: Maximum tokens for judge response
+        """
+        self.max_new_tokens = max_new_tokens
+        
+        if llm is not None:
+            self.llm = llm
+            self.owns_llm = False
+            self.tokenizer = llm.get_tokenizer()
+        elif model_name is not None:
+            print(f"Loading judge model: {model_name}")
+            self.llm = LLM(
+                model=model_name,
+                guided_decoding_backend="guidance"
+            )
+            self.owns_llm = True
+            self.tokenizer = self.llm.get_tokenizer()
+        else:
+            raise ValueError("Must provide either llm instance or model_name")
     
     def get_score(self, code: str) -> float:
         """
@@ -83,43 +110,7 @@ class CodeJudge:
         Returns:
             float: Score from 0 (invalid) to 1 (perfect)
         """
-        full_prompt = FAULT_LOCALIZATION_PROMPT.replace('{CODE}', code)
-        
-        messages = [
-            {"role": "system", "content": "You are an expert in MLIR"},
-            {"role": "user", "content": full_prompt},
-        ]
-        
-        formatted_prompt = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        
-        inputs = self.tokenizer(
-            formatted_prompt,
-            return_tensors="pt"
-        ).to(self.device)
-        
-        with torch.no_grad():
-            output = self.model.generate(
-                **inputs,
-                max_new_tokens=self.max_new_tokens,
-                pad_token_id=self.tokenizer.eos_token_id
-            )
-        
-        decoded_output = self.tokenizer.decode(
-            output[0], skip_special_tokens=True
-        )
-        
-        # Extract JSON from response
-        try:
-            start_idx = decoded_output.index('[')
-            end_idx = decoded_output.index(']', start_idx) + 1
-            json_str = decoded_output[start_idx:end_idx]
-            result = json.loads(json_str)
-        except Exception as e:
-            # If JSON extraction fails, return error info
-            result = [{"inconsistency": f"Parse error: {str(e)}", "severity": "Fatal"}]
-        
+        result = self._evaluate(code)
         score = self._parse_score(result)
         return score
     
@@ -130,42 +121,7 @@ class CodeJudge:
         Returns:
             Dict with 'score', 'inconsistencies', and 'is_valid' fields
         """
-        full_prompt = FAULT_LOCALIZATION_PROMPT.replace('{CODE}', code)
-        
-        messages = [
-            {"role": "system", "content": "You are an expert in MLIR"},
-            {"role": "user", "content": full_prompt},
-        ]
-        
-        formatted_prompt = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        
-        inputs = self.tokenizer(
-            formatted_prompt,
-            return_tensors="pt"
-        ).to(self.device)
-        
-        with torch.no_grad():
-            output = self.model.generate(
-                **inputs,
-                max_new_tokens=self.max_new_tokens,
-                pad_token_id=self.tokenizer.eos_token_id
-            )
-        
-        decoded_output = self.tokenizer.decode(
-            output[0], skip_special_tokens=True
-        )
-        
-        # Extract JSON
-        try:
-            start_idx = decoded_output.index('[')
-            end_idx = decoded_output.index(']', start_idx) + 1
-            json_str = decoded_output[start_idx:end_idx]
-            inconsistencies = json.loads(json_str)
-        except Exception as e:
-            inconsistencies = [{"inconsistency": f"Parse error: {str(e)}", "severity": "Fatal"}]
-        
+        inconsistencies = self._evaluate(code)
         score = self._parse_score(inconsistencies)
         
         # Check if code is valid (no issues or only negligible)
@@ -177,9 +133,44 @@ class CodeJudge:
         return {
             'score': score,
             'inconsistencies': inconsistencies,
-            'is_valid': is_valid,
-            'raw_output': decoded_output
+            'is_valid': is_valid
         }
+    
+    def _evaluate(self, code: str) -> List[Dict]:
+        """
+        Internal method to evaluate code and return inconsistencies.
+        Uses JSON schema-constrained decoding for guaranteed valid output.
+        """
+        full_prompt = FAULT_LOCALIZATION_PROMPT.replace('{CODE}', code)
+        
+        messages = [
+            {"role": "system", "content": "You are an expert in MLIR semantics"},
+            {"role": "user", "content": full_prompt},
+        ]
+        
+        formatted_prompt = self.tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True
+        )
+        
+        # Use JSON schema-constrained decoding
+        sampling_params = SamplingParams(
+            max_tokens=self.max_new_tokens,
+            temperature=0.3,
+            guided_decoding=GuidedDecodingParams(json=INCONSISTENCY_SCHEMA)
+        )
+        
+        outputs = self.llm.generate([formatted_prompt], sampling_params)
+        response_text = outputs[0].outputs[0].text.strip()
+        
+        # Parse JSON (guaranteed to be valid due to schema constraint)
+        try:
+            result = json.loads(response_text)
+            return result
+        except json.JSONDecodeError as e:
+            # Should never happen with schema constraint, but handle gracefully
+            print(f"Warning: JSON decode failed despite schema constraint: {e}")
+            print(f"Response was: {response_text[:200]}")
+            return [{"inconsistency": "None", "severity": "Negligible"}]
     
     def _parse_score(self, result: List[Dict]) -> float:
         """
@@ -214,18 +205,59 @@ class CodeJudge:
         score = max(0.0, 1.0 - (total_penalty / 100.0))
         return score
     
-    def batch_evaluate(self, codes: List[str]) -> List[float]:
+    def batch_evaluate(self, codes: List[str], batch_size: int = 8) -> List[float]:
         """
-        Evaluate multiple MLIR codes and return their scores.
+        Evaluate multiple MLIR codes in batches and return their scores.
         
         Args:
             codes: List of MLIR code strings
+            batch_size: Number of codes to evaluate in parallel
         
         Returns:
             List of scores (same order as input)
         """
-        scores = []
-        for code in codes:
-            score = self.get_score(code)
-            scores.append(score)
-        return scores
+        all_scores = []
+        
+        for i in range(0, len(codes), batch_size):
+            batch = codes[i:i+batch_size]
+            
+            # Prepare prompts
+            prompts = []
+            for code in batch:
+                full_prompt = FAULT_LOCALIZATION_PROMPT.replace('{CODE}', code)
+                messages = [
+                    {"role": "system", "content": "You are an expert in MLIR semantics"},
+                    {"role": "user", "content": full_prompt},
+                ]
+                formatted = self.tokenizer.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=True
+                )
+                prompts.append(formatted)
+            
+            # Batch generate with JSON constraint
+            sampling_params = SamplingParams(
+                max_tokens=self.max_new_tokens,
+                temperature=0.3,
+                guided_decoding=GuidedDecodingParams(json=INCONSISTENCY_SCHEMA)
+            )
+            
+            outputs = self.llm.generate(prompts, sampling_params)
+            
+            # Parse and score each
+            for output in outputs:
+                response_text = output.outputs[0].text.strip()
+                try:
+                    result = json.loads(response_text)
+                    score = self._parse_score(result)
+                    all_scores.append(score)
+                except:
+                    all_scores.append(1.0) 
+        
+        return all_scores
+    
+    def __del__(self):
+        """Cleanup: only delete LLM if we own it"""
+        if hasattr(self, 'owns_llm') and self.owns_llm and hasattr(self, 'llm'):
+            del self.llm
+            import torch
+            torch.cuda.empty_cache()

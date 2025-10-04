@@ -13,17 +13,14 @@ import torch
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from corpus_analyzer import CorpusAnalyzer
-from semantic_extractor import SemanticExtractor
 from prompt_engine import PromptEngine
 from grammar_utils import extract_subgrammar
 from judge import CodeJudge
 
 
 def load_cached_analysis(cache_dir: str, tool_name: str):
-    """Load cached analysis results"""
     tool_cache = os.path.join(cache_dir, tool_name)
     
-    # Load syntactic patterns
     syntactic_file = os.path.join(tool_cache, "syntactic_patterns.json")
     if not os.path.exists(syntactic_file):
         raise FileNotFoundError(
@@ -34,7 +31,6 @@ def load_cached_analysis(cache_dir: str, tool_name: str):
     with open(syntactic_file, 'r') as f:
         syntactic_patterns = json.load(f)
     
-    # Load semantic rules
     semantic_file = os.path.join(tool_cache, "semantic_rules.txt")
     if not os.path.exists(semantic_file):
         raise FileNotFoundError(f"Semantic rules not found: {semantic_file}")
@@ -46,27 +42,21 @@ def load_cached_analysis(cache_dir: str, tool_name: str):
 
 
 def main(args):
-    # Load secrets
     if os.path.exists("secrets.json"):
         with open("secrets.json") as f:
             secrets = json.load(f)
             os.environ["HF_TOKEN"] = secrets.get("HF_TOKEN", "")
     
-    # Load cached analysis
     print(f"Loading analysis for {args.tool_name}...")
     cache_dir = os.path.join(args.cache_dir, "cache")
-    syntactic_patterns, semantic_rules = load_cached_analysis(
-        cache_dir, args.tool_name
-    )
+    syntactic_patterns, semantic_rules = load_cached_analysis(cache_dir, args.tool_name)
     
     print(f" Loaded syntactic patterns ({syntactic_patterns['total_files']} files analyzed)")
     print(f" Loaded semantic rules")
     
-    # Load grammar
     with open(args.grammar_file, 'r') as f:
         grammar_str = f.read().strip()
     
-    # Load corpus files for few-shot sampling
     all_examples = [
         os.path.join(args.corpus_dir, f) 
         for f in os.listdir(args.corpus_dir) 
@@ -75,7 +65,6 @@ def main(args):
     
     print(f" Loaded {len(all_examples)} corpus files")
     
-    # Initialize LLM
     print(f"\nLoading generator model: {args.model_name}")
     llm = LLM(
         model=args.model_name,
@@ -84,17 +73,12 @@ def main(args):
     tokenizer = llm.get_tokenizer()
     print(" Model loaded")
     
-    # Initialize judge (if filtering enabled)
     judge = None
     if args.filter_with_judge:
-        print(f"\nLoading judge model: {args.judge_model}")
-        judge = CodeJudge(
-            model_name=args.judge_model,
-            max_new_tokens=512
-        )
-        print(" Judge loaded")
+        print(f"\nInitializing judge (sharing LLM)...")
+        judge = CodeJudge(llm=llm, max_new_tokens=512)
+        print(" Judge initialized")
     
-    # Initialize prompt engine
     prompt_engine = PromptEngine(
         tool_name=args.tool_name,
         syntactic_patterns=syntactic_patterns,
@@ -102,11 +86,9 @@ def main(args):
         full_grammar=grammar_str
     )
     
-    # Setup output
     output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
     
-    # Generation loop
     total_generated = 0
     total_accepted = 0
     start_time = time.time()
@@ -123,7 +105,6 @@ def main(args):
         
         print(f"Batch {i//prompt_refresh_interval + 1}: Generating {batch_size} samples...")
         
-        # Sample few-shot examples
         num_few_shot = args.num_few_shot
         selected_files = random.sample(all_examples, min(num_few_shot, len(all_examples)))
         
@@ -133,25 +114,12 @@ def main(args):
                 content = f.read()
                 subgrammar = extract_subgrammar(grammar_str, content)
                 
-                # Get template info from analyzer
-                analyzer = CorpusAnalyzer(args.grammar_file)
-                tree = analyzer.parser.parse(content)
-                template = {
-                    'dialects_used': list(set([
-                        analyzer._get_value(node.children[0])
-                        for node in analyzer._find_data(tree, 'custom_operation')
-                        if len(node.children) >= 1
-                    ])),
-                    'complexity_class': 'unknown'
-                }
-                
                 few_shot_examples.append({
                     'code': content,
                     'subgrammar': subgrammar,
-                    'template': template
+                    'template': {'dialects_used': [], 'complexity_class': 'unknown'}
                 })
         
-        # Build prompt
         focus_dialects = None
         if args.focus_dialects:
             focus_dialects = [d.strip() for d in args.focus_dialects.split(',')]
@@ -165,7 +133,6 @@ def main(args):
             messages, tokenize=False, add_generation_prompt=True
         )
         
-        # Generate
         sampling_params = SamplingParams(
             max_tokens=args.max_new_tokens,
             temperature=args.temperature,
@@ -177,13 +144,11 @@ def main(args):
         
         total_generated += len(batch_outputs)
         
-        # Filter and save
         print(f"  Evaluating {len(batch_outputs)} samples...")
         
         for batch_idx, output in enumerate(batch_outputs):
             result_text = output.outputs[0].text
             
-            # Judge filtering
             if judge:
                 score = judge.get_score(result_text)
                 
@@ -191,7 +156,6 @@ def main(args):
                     print(f"  ✗ Sample {i + batch_idx + 1} rejected (score: {score:.2f})")
                     continue
             
-            # Save accepted sample
             sample_num = total_accepted + 1
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"{args.tool_name}_{timestamp}_seed_{sample_num}.mlir"
@@ -203,11 +167,10 @@ def main(args):
             total_accepted += 1
             
             if judge:
-                print(f"Sample {i + batch_idx + 1} accepted (score: {score:.2f})")
+                print(f"   Sample {i + batch_idx + 1} accepted (score: {score:.2f})")
             else:
-                print(f"Sample {i + batch_idx + 1} saved")
+                print(f"   Sample {i + batch_idx + 1} saved")
     
-    # Summary
     total_time = time.time() - start_time
     acceptance_rate = (total_accepted / total_generated * 100) if total_generated > 0 else 0
     
@@ -218,14 +181,12 @@ def main(args):
     print(f"Total accepted: {total_accepted}")
     print(f"Acceptance rate: {acceptance_rate:.1f}%")
     print(f"Output directory: {output_dir}")
-    print(f"Total time: {total_time:.2f}s ({total_time/total_accepted:.2f}s per accepted seed)")
+    if total_accepted > 0:
+        print(f"Total time: {total_time:.2f}s ({total_time/total_accepted:.2f}s per accepted seed)")
     print(f"{'='*60}")
     
-    # Cleanup
     print("\nCleaning up...")
     del llm
-    if judge:
-        del judge
     torch.cuda.empty_cache()
     print("Done!")
 
@@ -262,16 +223,9 @@ if __name__ == "__main__":
     )
     
     parser.add_argument(
-        "--judge-model",
-        type=str,
-        default="meta-llama/Llama-3.1-8B-Instruct",
-        help="Judge model name (if using filtering)"
-    )
-    
-    parser.add_argument(
         "--num-samples",
         type=int,
-        default=100,
+        default=1000,
         help="Number of seeds to generate"
     )
     
@@ -312,7 +266,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--quality-threshold",
         type=float,
-        default=0.7,
+        default=0.6,
         help="Minimum judge score to accept (if filtering)"
     )
     
@@ -326,7 +280,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--cache-dir",
         type=str,
-        default="output",
+        default=".cache",
         help="Directory containing cached analysis"
     )
     

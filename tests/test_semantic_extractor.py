@@ -9,6 +9,7 @@ from semantic_extractor import SemanticExtractor
 
 def test_semantic_extractor():
     print("Testing SemanticExtractor...")
+    print("=" * 60)
     
     # Load secrets
     if os.path.exists("secrets.json"):
@@ -17,11 +18,12 @@ def test_semantic_extractor():
             os.environ["HF_TOKEN"] = secrets.get("HF_TOKEN", "")
     
     # Initialize LLM
-    print("Loading LLM...")
+    print("Loading LLM (this may take a minute)...")
     llm = LLM(
         model="meta-llama/Llama-3.1-8B-Instruct",
         guided_decoding_backend="guidance"
     )
+    print("LLM loaded")
     
     # Initialize extractor
     extractor = SemanticExtractor(llm, tool_name="mlir-opt")
@@ -30,20 +32,50 @@ def test_semantic_extractor():
     corpus_dir = "examples/mlir/general"
     examples = []
     
-    for filename in os.listdir(corpus_dir)[:5]:  # Just 5 for testing
-        if filename.endswith('.mlir'):
-            with open(os.path.join(corpus_dir, filename), 'r') as f:
+    print(f"\nLoading examples from {corpus_dir}...")
+    for i, filename in enumerate(os.listdir(corpus_dir)):
+        if filename.endswith('.mlir') and i < 10:  # 10 samples for analysis
+            filepath = os.path.join(corpus_dir, filename)
+            with open(filepath, 'r') as f:
                 examples.append(f.read())
+            print(f"  Loaded {i+1}: {filename}")
     
-    print(f"\nAnalyzing {len(examples)} samples...")
+    print(f"\nAnalyzing {len(examples)} samples to extract semantic rules...")
     
-    # Extract rules
-    rules = extractor.extract_rules(examples, cache_file=None)
+    # Extract rules (with cache)
+    cache_file = ".cache/semantic_rules_test.txt"
+    os.makedirs(".cache", exist_ok=True)
     
-    print("\n=== Extracted Semantic Rules ===")
+    rules = extractor.extract_rules(examples, cache_file=cache_file)
+    
+    print("\n" + "=" * 60)
+    print("=== Extracted Semantic Rules ===")
+    print("=" * 60)
     print(rules)
     
-    print("\nSemanticExtractor test passed!")
+    # Verify it looks like rules
+    print("\n" + "=" * 60)
+    print("Validation:")
+    checks = [
+        ("Contains 'SSA' or 'value'", any(word in rules.lower() for word in ['ssa', 'value'])),
+        ("Contains 'type'", 'type' in rules.lower()),
+        ("Contains 'region' or 'terminator'", any(word in rules.lower() for word in ['region', 'terminator'])),
+        ("Has multiple lines", rules.count('\n') > 3),
+        ("Reasonable length", 100 < len(rules) < 3000)
+    ]
+    
+    for check_name, passed in checks:
+        status = "Y" if passed else "N"
+        print(f"  {status} {check_name}")
+    
+    all_passed = all(check[1] for check in checks)
+    
+    print("\n" + "=" * 60)
+    if all_passed:
+        print("SemanticExtractor test passed!")
+    else:
+        print("Some validations failed - review output above")
+    print("=" * 60)
     
     # Cleanup
     del llm
