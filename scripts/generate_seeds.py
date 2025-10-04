@@ -1,113 +1,341 @@
 import argparse
-import configparser
 import json
 import os
 import random
 import time
-from tqdm import tqdm
+from datetime import datetime
+import sys
+
 from vllm import LLM, SamplingParams
 from vllm.sampling_params import GuidedDecodingParams
 import torch
-from datetime import datetime
 
-import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+from corpus_analyzer import CorpusAnalyzer
+from semantic_extractor import SemanticExtractor
+from prompt_engine import PromptEngine
 from grammar_utils import extract_subgrammar
-from prompt_builder import create_fuzzing_prompt
+from judge import CodeJudge
 
-def load_config(config_path: str):
-	config = configparser.ConfigParser()
-	config.read(config_path)
-	return config['Generation']
+
+def load_cached_analysis(cache_dir: str, tool_name: str):
+    """Load cached analysis results"""
+    tool_cache = os.path.join(cache_dir, tool_name)
+    
+    # Load syntactic patterns
+    syntactic_file = os.path.join(tool_cache, "syntactic_patterns.json")
+    if not os.path.exists(syntactic_file):
+        raise FileNotFoundError(
+            f"No cached analysis found for {tool_name}. "
+            f"Run analyze_corpus.py first!"
+        )
+    
+    with open(syntactic_file, 'r') as f:
+        syntactic_patterns = json.load(f)
+    
+    # Load semantic rules
+    semantic_file = os.path.join(tool_cache, "semantic_rules.txt")
+    if not os.path.exists(semantic_file):
+        raise FileNotFoundError(f"Semantic rules not found: {semantic_file}")
+    
+    with open(semantic_file, 'r') as f:
+        semantic_rules = f.read()
+    
+    return syntactic_patterns, semantic_rules
+
 
 def main(args):
-	with open("secrets.json") as f:
-		secrets = json.load(f)
-		os.environ["HF_TOKEN"] = secrets["HF_TOKEN"]
-		
-	config = load_config(args.config_path)
-	grammar_str = open(config["grammar_file"]).read().strip()
-	all_examples = [os.path.join(config["example_dir"], f) for f in os.listdir(config["example_dir"]) if f.endswith('.mlir')]
-	
-	print(f"Loading model '{config['model_name']}' with vLLM...")
-	llm = LLM(
-		model=config["model_name"],
-		guided_decoding_backend="guidance"
-	)
-	print("Model loaded successfully.")
-	tokenizer = llm.get_tokenizer()
+    # Load secrets
+    if os.path.exists("secrets.json"):
+        with open("secrets.json") as f:
+            secrets = json.load(f)
+            os.environ["HF_TOKEN"] = secrets.get("HF_TOKEN", "")
+    
+    # Load cached analysis
+    print(f"Loading analysis for {args.tool_name}...")
+    cache_dir = os.path.join(args.cache_dir, "cache")
+    syntactic_patterns, semantic_rules = load_cached_analysis(
+        cache_dir, args.tool_name
+    )
+    
+    print(f" Loaded syntactic patterns ({syntactic_patterns['total_files']} files analyzed)")
+    print(f" Loaded semantic rules")
+    
+    # Load grammar
+    with open(args.grammar_file, 'r') as f:
+        grammar_str = f.read().strip()
+    
+    # Load corpus files for few-shot sampling
+    all_examples = [
+        os.path.join(args.corpus_dir, f) 
+        for f in os.listdir(args.corpus_dir) 
+        if f.endswith('.mlir')
+    ]
+    
+    print(f" Loaded {len(all_examples)} corpus files")
+    
+    # Initialize LLM
+    print(f"\nLoading generator model: {args.model_name}")
+    llm = LLM(
+        model=args.model_name,
+        guided_decoding_backend="guidance"
+    )
+    tokenizer = llm.get_tokenizer()
+    print(" Model loaded")
+    
+    # Initialize judge (if filtering enabled)
+    judge = None
+    if args.filter_with_judge:
+        print(f"\nLoading judge model: {args.judge_model}")
+        judge = CodeJudge(
+            model_name=args.judge_model,
+            max_new_tokens=512
+        )
+        print(" Judge loaded")
+    
+    # Initialize prompt engine
+    prompt_engine = PromptEngine(
+        tool_name=args.tool_name,
+        syntactic_patterns=syntactic_patterns,
+        semantic_rules=semantic_rules,
+        full_grammar=grammar_str
+    )
+    
+    # Setup output
+    output_dir = args.output_dir
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Generation loop
+    total_generated = 0
+    total_accepted = 0
+    start_time = time.time()
+    
+    num_to_generate = args.num_samples
+    prompt_refresh_interval = args.prompt_refresh_interval
+    
+    print(f"\n{'='*60}")
+    print(f"Generating {num_to_generate} seeds for {args.tool_name}")
+    print(f"{'='*60}\n")
+    
+    for i in range(0, num_to_generate, prompt_refresh_interval):
+        batch_size = min(prompt_refresh_interval, num_to_generate - i)
+        
+        print(f"Batch {i//prompt_refresh_interval + 1}: Generating {batch_size} samples...")
+        
+        # Sample few-shot examples
+        num_few_shot = args.num_few_shot
+        selected_files = random.sample(all_examples, min(num_few_shot, len(all_examples)))
+        
+        few_shot_examples = []
+        for filepath in selected_files:
+            with open(filepath, 'r') as f:
+                content = f.read()
+                subgrammar = extract_subgrammar(grammar_str, content)
+                
+                # Get template info from analyzer
+                analyzer = CorpusAnalyzer(args.grammar_file)
+                tree = analyzer.parser.parse(content)
+                template = {
+                    'dialects_used': list(set([
+                        analyzer._get_value(node.children[0])
+                        for node in analyzer._find_data(tree, 'custom_operation')
+                        if len(node.children) >= 1
+                    ])),
+                    'complexity_class': 'unknown'
+                }
+                
+                few_shot_examples.append({
+                    'code': content,
+                    'subgrammar': subgrammar,
+                    'template': template
+                })
+        
+        # Build prompt
+        focus_dialects = None
+        if args.focus_dialects:
+            focus_dialects = [d.strip() for d in args.focus_dialects.split(',')]
+        
+        messages = prompt_engine.create_fuzzing_prompt(
+            few_shot_examples=few_shot_examples,
+            focus_dialects=focus_dialects
+        )
+        
+        formatted_prompt = tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True
+        )
+        
+        # Generate
+        sampling_params = SamplingParams(
+            max_tokens=args.max_new_tokens,
+            temperature=args.temperature,
+            guided_decoding=GuidedDecodingParams(grammar=grammar_str)
+        )
+        
+        prompts_batch = [formatted_prompt] * batch_size
+        batch_outputs = llm.generate(prompts_batch, sampling_params, use_tqdm=True)
+        
+        total_generated += len(batch_outputs)
+        
+        # Filter and save
+        print(f"  Evaluating {len(batch_outputs)} samples...")
+        
+        for batch_idx, output in enumerate(batch_outputs):
+            result_text = output.outputs[0].text
+            
+            # Judge filtering
+            if judge:
+                score = judge.get_score(result_text)
+                
+                if score < args.quality_threshold:
+                    print(f"  ✗ Sample {i + batch_idx + 1} rejected (score: {score:.2f})")
+                    continue
+            
+            # Save accepted sample
+            sample_num = total_accepted + 1
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{args.tool_name}_{timestamp}_seed_{sample_num}.mlir"
+            filepath = os.path.join(output_dir, filename)
+            
+            with open(filepath, 'w') as f:
+                f.write(result_text)
+            
+            total_accepted += 1
+            
+            if judge:
+                print(f"Sample {i + batch_idx + 1} accepted (score: {score:.2f})")
+            else:
+                print(f"Sample {i + batch_idx + 1} saved")
+    
+    # Summary
+    total_time = time.time() - start_time
+    acceptance_rate = (total_accepted / total_generated * 100) if total_generated > 0 else 0
+    
+    print(f"\n{'='*60}")
+    print(f"Generation Complete!")
+    print(f"{'='*60}")
+    print(f"Total generated: {total_generated}")
+    print(f"Total accepted: {total_accepted}")
+    print(f"Acceptance rate: {acceptance_rate:.1f}%")
+    print(f"Output directory: {output_dir}")
+    print(f"Total time: {total_time:.2f}s ({total_time/total_accepted:.2f}s per accepted seed)")
+    print(f"{'='*60}")
+    
+    # Cleanup
+    print("\nCleaning up...")
+    del llm
+    if judge:
+        del judge
+    torch.cuda.empty_cache()
+    print("Done!")
 
-	num_to_generate = config.getint("num_samples_to_generate", 4)
-	prompt_refresh_interval = config.getint("prompt_refresh_interval", 10)
-	output_dir = config["output_dir"]
-	os.makedirs(output_dir, exist_ok=True)
-	
-	total_samples_saved = 0
-	start_time = time.time()
-	
-	# Loop in chunks based on the refresh interval
-	for i in range(0, num_to_generate, prompt_refresh_interval):
-		print(f"\nCreating new prompt for samples {i+1} - {min(i + prompt_refresh_interval, num_to_generate)}")
-		
-		num_few_shot = config.getint("num_few_shot_examples", 3)
-		selected_files = random.sample(all_examples, num_few_shot)
-		
-		few_shot_examples = []
-		for filepath in selected_files:
-			with open(filepath, 'r') as f:
-				content = f.read()
-			subgrammar = extract_subgrammar(grammar_str, content)
-			few_shot_examples.append({"content": content, "subgrammar": subgrammar})
-
-		frontend = config["frontend"]
-		focus_dialects_str = config.get("focus_dialects")
-		focus_dialects = [d.strip() for d in focus_dialects_str.split(',')] if focus_dialects_str else None
-		
-		messages = create_fuzzing_prompt(
-			examples=few_shot_examples,
-			frontend=frontend,
-			focus_dialects=focus_dialects,
-			full_grammar=grammar_str
-		)
-		formatted_prompt = tokenizer.apply_chat_template(
-			messages, tokenize=False, add_generation_prompt=True
-		)
-
-		num_in_batch = min(prompt_refresh_interval, num_to_generate - i)
-		
-		sampling_params = SamplingParams(
-			max_tokens=config.getint("max_new_tokens"),
-			temperature=0.8, 
-			guided_decoding=GuidedDecodingParams(grammar=grammar_str)
-		)
-		
-		prompts_batch = [formatted_prompt] * num_in_batch
-		batch_outputs = llm.generate(prompts_batch, sampling_params, use_tqdm=True)
-		
-		print(f"Batch complete. Saving {len(batch_outputs)} files...")
-		for batch_index, output in enumerate(batch_outputs):
-			sample_num = i + batch_index + 1
-			timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-			result_text = output.outputs[0].text
-
-			filename = f"{frontend}_{timestamp}_seed_{sample_num}.mlir"
-			filepath = os.path.join(output_dir, filename)
-			with open(filepath, 'w') as f:
-				f.write(result_text)
-			total_samples_saved += 1
-
-	total_time = time.time() - start_time
-	print(f"\nGeneration complete. Saved {total_samples_saved} samples to '{output_dir}'.")
-	print(f"Total time: {total_time:.2f} seconds.")
-
-	print("Shutting down the vLLM engine...")
-	del llm
-	torch.cuda.empty_cache()
-	print("vLLM engine shut down.")
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Generate MLIR fuzzer seeds using a dynamic few-shot prompt.")
-	parser.add_argument("config_path", type=str, help="Path to the configuration file.")
-	args = parser.parse_args()
-	main(args)
+    parser = argparse.ArgumentParser(
+        description="Generate MLIR fuzzer seeds using self-bootstrapping pipeline"
+    )
+    
+    parser.add_argument(
+        "corpus_dir",
+        type=str,
+        help="Directory containing seed .mlir files"
+    )
+    
+    parser.add_argument(
+        "tool_name",
+        type=str,
+        help="Target tool (must have cached analysis)"
+    )
+    
+    parser.add_argument(
+        "--grammar-file",
+        type=str,
+        default="grammars/mlir.lark",
+        help="Path to MLIR grammar file"
+    )
+    
+    parser.add_argument(
+        "--model-name",
+        type=str,
+        default="meta-llama/Llama-3.1-8B-Instruct",
+        help="Generator model name"
+    )
+    
+    parser.add_argument(
+        "--judge-model",
+        type=str,
+        default="meta-llama/Llama-3.1-8B-Instruct",
+        help="Judge model name (if using filtering)"
+    )
+    
+    parser.add_argument(
+        "--num-samples",
+        type=int,
+        default=100,
+        help="Number of seeds to generate"
+    )
+    
+    parser.add_argument(
+        "--num-few-shot",
+        type=int,
+        default=3,
+        help="Number of few-shot examples per prompt"
+    )
+    
+    parser.add_argument(
+        "--prompt-refresh-interval",
+        type=int,
+        default=10,
+        help="Refresh prompt every N samples"
+    )
+    
+    parser.add_argument(
+        "--max-new-tokens",
+        type=int,
+        default=2048,
+        help="Max tokens for generation"
+    )
+    
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=0.8,
+        help="Sampling temperature"
+    )
+    
+    parser.add_argument(
+        "--filter-with-judge",
+        action="store_true",
+        help="Filter generated seeds with judge"
+    )
+    
+    parser.add_argument(
+        "--quality-threshold",
+        type=float,
+        default=0.7,
+        help="Minimum judge score to accept (if filtering)"
+    )
+    
+    parser.add_argument(
+        "--focus-dialects",
+        type=str,
+        default=None,
+        help="Comma-separated dialects to prioritize (e.g., 'arith,scf')"
+    )
+    
+    parser.add_argument(
+        "--cache-dir",
+        type=str,
+        default="output",
+        help="Directory containing cached analysis"
+    )
+    
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="output/seeds",
+        help="Output directory for generated seeds"
+    )
+    
+    args = parser.parse_args()
+    main(args)
