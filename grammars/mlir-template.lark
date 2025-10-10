@@ -1,0 +1,251 @@
+// ============================================================================
+// MLIR Assembly Format Grammar Template (MINIMAL)
+// ============================================================================
+// Extension points are marked with {{PLACEHOLDER}} tags
+// LLM will generate JSON with keys matching these placeholders
+// ============================================================================
+
+start: mlir_file
+mlir_file: definition_and_module_list+ | definition_and_function_list+
+
+definition_and_module_list: definition_list? module_list
+definition_and_function_list: definition_list? function_list
+
+definition_list: definition+
+module_list: module+
+function_list: function+
+definition: type_alias_def | attribute_alias_def | map_or_set_def
+
+// ============================================================================
+// TYPES
+// ============================================================================
+
+DIMENSION_ENTRY: ("?" | DIGITS) "x"
+static_dimension_list: (DECIMAL "x")+
+dimension_list_ranked: (DIMENSION_ENTRY)+
+DIMENSION_LIST_UNRANKED: "*x"
+
+complex_type: "complex" "<" type ">"
+tuple_type: "tuple" "<" type_list_no_parens ">"
+vector_element_type: FLOAT_TYPE | INTEGER_TYPE
+vector_type: "vector" "<" static_dimension_list vector_element_type ">"
+
+tensor_memref_element_type: vector_element_type | vector_type | complex_type | TYPE_ALIAS
+ranked_tensor_type: "tensor" "<" dimension_list_ranked? tensor_memref_element_type ">"
+unranked_tensor_type: "tensor" "<" DIMENSION_LIST_UNRANKED? tensor_memref_element_type ">"
+tensor_type: ranked_tensor_type | unranked_tensor_type
+
+stride_list: "[" (("?" | DIGITS) ("," ("?" | DIGITS))*)? "]"
+strided_layout: "offset:" ("?" | DIGITS) "," "strides: " stride_list
+layout_specification: semi_affine_map | strided_layout
+memory_space: INTEGER
+ranked_memref_type: "memref" "<" dimension_list_ranked tensor_memref_element_type ("," layout_specification)? ("," memory_space)? ">"
+unranked_memref_type: "memref" "<" DIMENSION_LIST_UNRANKED tensor_memref_element_type ("," memory_space)? ">"
+memref_type: ranked_memref_type | unranked_memref_type
+
+opaque_dialect_item: BARE_ID "<" ESCAPED_STRING ">"
+pretty_dialect_item: BARE_ID "." (BARE_ID | NONE_TYPE) pretty_dialect_item_body?
+pretty_dialect_item_body: "<" pretty_dialect_item_contents ("," pretty_dialect_item_contents)* ">"
+pretty_dialect_item_contents: ("(" pretty_dialect_item_contents ")")
+                              | ("[" pretty_dialect_item_contents "]")
+                              | ("{" pretty_dialect_item_contents "}")
+                              | BARE_ID
+                              | CONSTANT
+                              | stride_list
+                              | type
+
+dialect_type: "!" (opaque_dialect_item | pretty_dialect_item)
+
+standard_type: complex_type | FLOAT_TYPE | function_type | llvm_function_type | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type
+non_function_type: TYPE_ALIAS | complex_type | FLOAT_TYPE | INDEX_TYPE | INTEGER_TYPE | memref_type | NONE_TYPE | tensor_type | tuple_type | vector_type | dialect_type
+
+// {{CUSTOM_TYPES}}
+type: TYPE_ALIAS | dialect_type | standard_type
+
+type_list_no_parens: type ("," type)*
+non_function_type_list_no_parens: non_function_type ("," non_function_type)*
+type_list_parens: "(" type_list_no_parens? ")"
+non_function_type_list_parens: "(" non_function_type_list_no_parens? ")"
+function_result_type: non_function_type_list_parens | non_function_type_list_no_parens | non_function_type
+function_type: function_result_type ("->" | "to" | "into") function_result_type
+llvm_function_type: non_function_type non_function_type_list_parens
+
+// ============================================================================
+// ATTRIBUTES
+// ============================================================================
+
+array_attribute: "[" (attribute_value ("," attribute_value)*)? "]"
+dictionary_attribute: "{" (attribute_entry ("," attribute_entry)*)? "}"
+float_attribute: (SIGNED_FLOAT (":" FLOAT_TYPE)?) | (HEXADECIMAL ":" FLOAT_TYPE)
+integer_attribute: POSNEG_INTEGER (":" (INDEX_TYPE | INTEGER_TYPE))?
+string_attribute: ESCAPED_STRING (":" type)?
+symbol_ref_attribute: (SYMBOL_REF_ID ("::" SYMBOL_REF_ID)*)
+
+elements_attribute: elements_attribute_body ">" ":" tensor_or_vector_type
+elements_attribute_body: "dense" "<" attribute_value
+                       | "opaque" "<" BARE_ID "," HEXADECIMAL
+                       | "sparse" "<" attribute_value "," attribute_value
+
+tensor_or_vector_type: tensor_type | vector_type
+standard_attribute: location_attribute | array_attribute | BOOL | dictionary_attribute | elements_attribute | float_attribute | integer_attribute | affine_map | string_attribute | symbol_ref_attribute | type | UNIT_ATTRIBUTE
+
+attribute_value: ATTRIBUTE_ALIAS | dialect_attribute | standard_attribute
+dependent_attribute_entry: (BARE_ID | "value") "=" attribute_value
+dialect_attribute_entry: (BARE_ID "." BARE_ID ("=" attribute_value)?) | (ESCAPED_STRING "=" attribute_value)
+dialect_attribute: "#" (opaque_dialect_item | pretty_dialect_item) (":" type)?
+property_dict: "<" attribute_dict ">"
+attribute_entry: dialect_attribute_entry | dependent_attribute_entry | "value"
+attribute_dict: "{" (attribute_entry ("," attribute_entry)*)? "}"
+
+location: ESCAPED_STRING ":" DECIMAL ":" DECIMAL
+location_attribute: "loc" "(" location ")"
+
+// {{CUSTOM_ATTRIBUTES}}
+
+// ============================================================================
+// SSA VALUES AND OPERANDS
+// ============================================================================
+
+ssa_id_list: SSA_ID ("," SSA_ID)*
+ssa_use: SSA_ID | CONSTANT
+ssa_use_list: ssa_use ("," ssa_use)*
+ssa_use_and_type: ssa_use ":" type
+ssa_use_and_type_list: ssa_use_and_type ("," ssa_use_and_type)*
+ssa_id_and_type: SSA_ID ":" type
+ssa_id_and_type_list: ssa_id_and_type ("," ssa_id_and_type)*
+
+trailing_type: ":" (function_type | function_result_type)
+
+op_result: SSA_ID (":" INTEGER)?
+op_result_list: op_result ("," op_result)* "="
+
+// ============================================================================
+// OPERATIONS
+// ============================================================================
+
+// {{OPERATION_RULES}}
+
+// {{DIALECT_AGGREGATES}}
+
+all_dialect_ops: {{DIALECT_LIST}}
+
+operation: (all_dialect_ops | module | function) location_attribute?
+
+// ============================================================================
+// BLOCKS AND REGIONS
+// ============================================================================
+
+operation_list: operation+
+block_label: BLOCK_ID ("(" ssa_id_and_type_list? ")")? ":"
+block: block_label? operation_list
+region: "{" block* "}"
+region_list: "(" (region ("," region)*)? ")"
+
+// ============================================================================
+// MODULES AND FUNCTIONS
+// ============================================================================
+
+arg_type_and_attr: type attribute_dict?
+named_argument: SSA_ID ":" arg_type_and_attr
+argument_list: (named_argument ("," named_argument)*) | (arg_type_and_attr ("," arg_type_and_attr)*)
+
+function_result: type attribute_dict?
+function_result_list_no_parens: function_result ("," function_result)*
+function_result_list_parens: "(" function_result_list_no_parens? ")"
+function_result_list: function_result_list_parens | non_function_type
+
+module: "module" SYMBOL_REF_ID? ("attributes" attribute_dict)? region location_attribute?
+function: "func.func" SYMBOL_REF_ID "(" argument_list? ")" ("->" function_result_list)? ("attributes" attribute_dict)? region? location_attribute?
+
+// ============================================================================
+// AFFINE MAPS AND INTEGER SETS
+// ============================================================================
+
+bare_id_list: BARE_ID ("," BARE_ID)*
+dim_id_list: "(" bare_id_list? ")"
+symbol_id_list: "[" bare_id_list? "]"
+dim_and_symbol_id_lists: dim_id_list symbol_id_list?
+
+dim_use_list: "(" ssa_use_list? ")"
+symbol_use_list: "[" ssa_use_list? "]"
+dim_and_symbol_use_list: dim_use_list symbol_use_list?
+
+affine_expr: affine_sum
+affine_sum: affine_term (("+" | "-") affine_term)*
+affine_term: affine_factor (("*" POSNEG_INTEGER) | ("&ceildiv&" INTEGER) | ("&floordiv&" INTEGER) | ("&mod&" INTEGER))*
+affine_factor: (POSNEG_INTEGER "*")? affine_unary
+affine_unary: "-" affine_unary | affine_primary
+affine_primary: POSNEG_INTEGER | SSA_ID | BARE_ID | "symbol" "(" SSA_ID ")" | "(" affine_expr ")"
+
+symbol_or_const: POSNEG_INTEGER | SSA_ID | BARE_ID
+semi_affine_oprnd: symbol_or_const | "(" semi_affine_expr ")"
+semi_affine_expr: semi_affine_sum
+semi_affine_sum: semi_affine_term (("+" | "-") semi_affine_term)*
+semi_affine_term: semi_affine_factor (("*" symbol_or_const) | ("&ceildiv&" semi_affine_oprnd) | ("&floordiv&" semi_affine_oprnd) | ("&mod&" semi_affine_oprnd))*
+semi_affine_factor: (symbol_or_const "*")? semi_affine_primary
+semi_affine_primary: "symbol" "(" symbol_or_const ")" | symbol_or_const | "(" semi_affine_expr ")"
+
+multi_dim_affine_expr: "(" affine_expr ("," affine_expr)* ")"
+multi_dim_semi_affine_expr: "(" semi_affine_expr ("," semi_affine_expr)* ")"
+
+affine_constraint: affine_expr (">=" | "==") DIGIT
+affine_constraint_conjunction: affine_constraint ("," affine_constraint)*
+
+affine_map_inline: "affine_map" "<" dim_and_symbol_id_lists "->" multi_dim_affine_expr ">"
+semi_affine_map_inline: dim_and_symbol_id_lists "->" multi_dim_semi_affine_expr
+integer_set_inline: dim_and_symbol_id_lists ":" "(" affine_constraint_conjunction? ")"
+
+affine_map: MAP_OR_SET_ID | affine_map_inline
+semi_affine_map: MAP_OR_SET_ID | semi_affine_map_inline
+integer_set: MAP_OR_SET_ID | integer_set_inline
+affine_map_list: affine_map ("," affine_map)*
+
+// ============================================================================
+// TYPE AND ATTRIBUTE ALIASES
+// ============================================================================
+
+type_alias_def: TYPE_ALIAS "=" "type" type
+attribute_alias_def: ATTRIBUTE_ALIAS "=" attribute_value
+
+semi_affine_or_set_inline: dim_and_symbol_id_lists ("->" multi_dim_semi_affine_expr | ":" "(" affine_constraint_conjunction? ")")
+
+map_or_set_def: MAP_OR_SET_ID "=" (affine_map_inline | semi_affine_or_set_inline)
+
+// ============================================================================
+// TERMINALS
+// ============================================================================
+
+SSA_ID: "%" SUFFIX_ID ("#" DIGITS)?
+SYMBOL_REF_ID: "@" (SUFFIX_ID | ESCAPED_STRING)
+BLOCK_ID: "^" SUFFIX_ID
+TYPE_ALIAS: "!" (ESCAPED_STRING | BARE_ID)
+MAP_OR_SET_ID: "#" SUFFIX_ID
+ATTRIBUTE_ALIAS: "#" (ESCAPED_STRING | BARE_ID)
+SUFFIX_ID: BARE_ID | DIGITS
+UNIT_ATTRIBUTE: "unit"
+INDEX_TYPE: "index"
+NONE_TYPE: "none"
+SIGNED_INTEGER_TYPE: /si[1-9][0-9]*/
+UNSIGNED_INTEGER_TYPE: /ui[1-9][0-9]*/
+SIGNLESS_INTEGER_TYPE: /i[1-9][0-9]*/
+INTEGER_TYPE: SIGNED_INTEGER_TYPE | UNSIGNED_INTEGER_TYPE | SIGNLESS_INTEGER_TYPE
+FLOAT_TYPE: "f16" | "bf16" | "f32" | "f64"
+DIGIT: /[0-9]/
+TRUE: "true"
+FALSE: "false"
+BARE_ID: /[a-zA-Z_][a-zA-Z0-9_$]*/
+HEXADECIMAL: /0[xX][0-9a-fA-F]+/
+NEGATED_DECIMAL: /-[0-9]+/
+NEGATED_HEXADECIMAL: /-0[xX][0-9a-fA-F]+/
+
+DECIMAL: DIGITS
+BOOL: TRUE | FALSE
+CONSTANT: BOOL | DECIMAL | HEXADECIMAL | SIGNED_FLOAT | ESCAPED_STRING
+INTEGER: DECIMAL | HEXADECIMAL
+POSNEG_INTEGER: INTEGER | HEXADECIMAL | NEGATED_DECIMAL | NEGATED_HEXADECIMAL
+
+%import common.SIGNED_FLOAT
+%import common.ESCAPED_STRING
+%import common.INT -> DIGITS
+%import common.WS
+%ignore WS
