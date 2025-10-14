@@ -1,0 +1,7 @@
+module {
+  func.func @fnegate_scalar(%arg0: f32) -> f32 {
+    %0 = spirv.FNegate %arg0 : f32
+    return %0 : f32
+  }
+}
+

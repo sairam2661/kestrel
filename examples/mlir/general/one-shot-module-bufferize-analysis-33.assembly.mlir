@@ -1,0 +1,12 @@
+module {
+  func.func @write_after_select_read_both(%arg0: tensor<?xf32> {bufferization.writable = true}, %arg1: tensor<?xf32> {bufferization.writable = true}, %arg2: i1) -> (f32, f32, tensor<?xf32>) {
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %0 = arith.select %arg2, %arg0, %arg1 : tensor<?xf32>
+    %inserted = tensor.insert %cst into %0[%c0] : tensor<?xf32>
+    %extracted = tensor.extract %arg0[%c0] : tensor<?xf32>
+    %extracted_0 = tensor.extract %arg1[%c0] : tensor<?xf32>
+    return %extracted, %extracted_0, %inserted : f32, f32, tensor<?xf32>
+  }
+}
+

@@ -1,0 +1,16 @@
+module {
+  func.func @uplift_while(%arg0: index, %arg1: index, %arg2: index) -> index {
+    %0 = scf.while (%arg3 = %arg0) : (index) -> index {
+      %1 = arith.cmpi sgt, %arg1, %arg3 : index
+      scf.condition(%1) %arg3 : index
+    } do {
+    ^bb0(%arg3: index):
+      "test.test1"(%arg3) : (index) -> ()
+      %1 = arith.addi %arg3, %arg2 : index
+      "test.test2"(%1) : (index) -> ()
+      scf.yield %1 : index
+    }
+    return %0 : index
+  }
+}
+

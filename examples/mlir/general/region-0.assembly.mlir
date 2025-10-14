@@ -1,0 +1,11 @@
+module {
+  func.func @correct_number_of_regions() {
+    "test.two_region_op"() ({
+      "work"() : () -> ()
+    }, {
+      "work"() : () -> ()
+    }) : () -> ()
+    return
+  }
+}
+
