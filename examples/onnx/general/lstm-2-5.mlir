@@ -1,0 +1,8 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<?x?x7xf16, #zhigh.layout<{dataLayout = "3DS"}>>, tensor<2x?x9xf16, #zhigh.layout<{dataLayout = "3DS"}>>, tensor<2x?x9xf16, #zhigh.layout<{dataLayout = "3DS"}>>, tensor<2x7x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, tensor<2x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, tensor<2x9x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, tensor<2x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>) -> (tensor<*xf16>, tensor<*xf16>), sym_name = "lstm_bidir_unknown_dims"}> ({
+  ^bb0(%arg0: tensor<?x?x7xf16, #zhigh.layout<{dataLayout = "3DS"}>>, %arg1: tensor<2x?x9xf16, #zhigh.layout<{dataLayout = "3DS"}>>, %arg2: tensor<2x?x9xf16, #zhigh.layout<{dataLayout = "3DS"}>>, %arg3: tensor<2x7x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, %arg4: tensor<2x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, %arg5: tensor<2x9x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, %arg6: tensor<2x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>):
+    %0:2 = "zhigh.LSTM"(%arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6) {direction = "bidirectional", hidden_size = 9 : si64, return_all_steps = -1 : si64} : (tensor<?x?x7xf16, #zhigh.layout<{dataLayout = "3DS"}>>, tensor<2x?x9xf16, #zhigh.layout<{dataLayout = "3DS"}>>, tensor<2x?x9xf16, #zhigh.layout<{dataLayout = "3DS"}>>, tensor<2x7x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, tensor<2x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, tensor<2x9x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>, tensor<2x36xf16, #zhigh.layout<{dataLayout = "FICO"}>>) -> (tensor<*xf16>, tensor<*xf16>)
+    "func.return"(%0#0, %0#1) : (tensor<*xf16>, tensor<*xf16>) -> ()
+  }) : () -> ()
+}) : () -> ()
+

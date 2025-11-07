@@ -1,0 +1,8 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<10x10xf32>, tensor<10x10xf32>, tensor<10x10xf32>, tensor<10x10xf32>) -> tensor<*xf32>, sym_name = "test_sum_4_operands"}> ({
+  ^bb0(%arg0: tensor<10x10xf32>, %arg1: tensor<10x10xf32>, %arg2: tensor<10x10xf32>, %arg3: tensor<10x10xf32>):
+    %0 = "onnx.Sum"(%arg0, %arg1, %arg2, %arg3) : (tensor<10x10xf32>, tensor<10x10xf32>, tensor<10x10xf32>, tensor<10x10xf32>) -> tensor<*xf32>
+    "func.return"(%0) : (tensor<*xf32>) -> ()
+  }) : () -> ()
+}) : () -> ()
+

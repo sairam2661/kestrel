@@ -1,0 +1,9 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<1x3x5x7xf32>) -> tensor<*xf32>, sym_name = "stick_unstick_static_dims"}> ({
+  ^bb0(%arg0: tensor<1x3x5x7xf32>):
+    %0 = "zhigh.Stick"(%arg0) {layout = "NHWC"} : (tensor<1x3x5x7xf32>) -> tensor<*xf16>
+    %1 = "zhigh.Unstick"(%0) : (tensor<*xf16>) -> tensor<*xf32>
+    "func.return"(%1) : (tensor<*xf32>) -> ()
+  }) : () -> ()
+}) : () -> ()
+

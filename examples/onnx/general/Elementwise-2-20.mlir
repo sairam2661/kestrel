@@ -1,0 +1,8 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<1x2x3x4xf32>, tensor<f32>) -> tensor<1x2x3x4xf32>, sym_name = "test_pow_verifier_1"}> ({
+  ^bb0(%arg0: tensor<1x2x3x4xf32>, %arg1: tensor<f32>):
+    %0 = "onnx.Pow"(%arg0, %arg1) : (tensor<1x2x3x4xf32>, tensor<f32>) -> tensor<1x2x3x4xf32>
+    "func.return"(%0) : (tensor<1x2x3x4xf32>) -> ()
+  }) : () -> ()
+}) : () -> ()
+
