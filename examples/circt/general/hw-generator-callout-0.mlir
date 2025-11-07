@@ -1,0 +1,25 @@
+#loc = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":4:56)
+#loc1 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":4:76)
+#loc2 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":4:93)
+#loc3 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":5:6)
+#loc4 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":5:26)
+#loc5 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":5:43)
+#loc6 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":5:63)
+#loc7 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":5:83)
+#loc8 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:58)
+#loc9 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:78)
+#loc10 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:95)
+#loc11 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:114)
+#loc12 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:134)
+#loc13 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:151)
+#loc14 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:171)
+#loc15 = loc("/data/saiva/sut/seeds/circt/seeds/split_files/hw-generator-callout-0.mlir":9:191)
+"builtin.module"() ({
+  "hw.generator.schema"() <{descriptor = "Schema_Name", requiredAttrs = ["port1", "port2"], sym_name = "SchemaVar"}> : () -> ()
+  "hw.module.generated"() <{generatorKind = @SchemaVar, module_type = !hw.modty<input rd_clock_0 : i1, input rd_en_0 : i1, input rd_addr_0 : i4, input rd_clock_1 : i1, input rd_en_1 : i1, input rd_addr_1 : i4, output rd_data_0 : i16, output rd_data_1 : i16>, parameters = [], port_locs = [#loc, #loc1, #loc2, #loc3, #loc4, #loc5, #loc6, #loc7], sym_name = "sampleModuleName"}> ({
+  }) {port1 = 10 : i64, port2 = 2 : i32} : () -> ()
+  "hw.generator.schema"() <{descriptor = "Schema_Name1", requiredAttrs = ["port1", "port2"], sym_name = "SchemaVar1"}> : () -> ()
+  "hw.module.generated"() <{generatorKind = @SchemaVar1, module_type = !hw.modty<input rd_clock_0 : i1, input rd_en_0 : i1, input rd_addr_0 : i4, input rd_clock_1 : i1, input rd_en_1 : i1, input rd_addr_1 : i4, output rd_data_0 : i16, output rd_data_1 : i16>, parameters = [], port_locs = [#loc8, #loc9, #loc10, #loc11, #loc12, #loc13, #loc14, #loc15], sym_name = "sampleModuleName1"}> ({
+  }) {port1 = 10 : i64, port2 = 2 : i32} : () -> ()
+}) {firrtl.mainModule = "top_mod"} : () -> ()
+
