@@ -1,0 +1,20 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (!torch.vtensor<[1,1,112,112],f32>) -> !torch.vtensor<[1,1,56,56],f32>, sym_name = "torch.aten.avg_pool2d$full_dim_indivisible_by_stride_without_sliced_input"}> ({
+  ^bb0(%arg0: !torch.vtensor<[1,1,112,112],f32>):
+    %0 = "torch.constant.int"() <{value = 3 : i64}> : () -> !torch.int
+    %1 = "torch.constant.int"() <{value = 3 : i64}> : () -> !torch.int
+    %2 = "torch.prim.ListConstruct"(%0, %1) : (!torch.int, !torch.int) -> !torch.list<int>
+    %3 = "torch.constant.int"() <{value = 2 : i64}> : () -> !torch.int
+    %4 = "torch.constant.int"() <{value = 2 : i64}> : () -> !torch.int
+    %5 = "torch.prim.ListConstruct"(%3, %4) : (!torch.int, !torch.int) -> !torch.list<int>
+    %6 = "torch.constant.int"() <{value = 1 : i64}> : () -> !torch.int
+    %7 = "torch.constant.int"() <{value = 1 : i64}> : () -> !torch.int
+    %8 = "torch.prim.ListConstruct"(%6, %7) : (!torch.int, !torch.int) -> !torch.list<int>
+    %9 = "torch.constant.bool"() <{value = false}> : () -> !torch.bool
+    %10 = "torch.constant.bool"() <{value = false}> : () -> !torch.bool
+    %11 = "torch.constant.none"() : () -> !torch.none
+    %12 = "torch.aten.avg_pool2d"(%arg0, %2, %5, %8, %9, %10, %11) : (!torch.vtensor<[1,1,112,112],f32>, !torch.list<int>, !torch.list<int>, !torch.list<int>, !torch.bool, !torch.bool, !torch.none) -> !torch.vtensor<[1,1,56,56],f32>
+    "func.return"(%12) : (!torch.vtensor<[1,1,56,56],f32>) -> ()
+  }) : () -> ()
+}) : () -> ()
+

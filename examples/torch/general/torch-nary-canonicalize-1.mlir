@@ -1,0 +1,10 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = () -> !torch.vtensor<[4],si64>, sym_name = "fold_aten_add_splat_int_mismatch"}> ({
+    %0 = "torch.vtensor.literal"() <{value = dense<7> : tensor<4xsi64>}> : () -> !torch.vtensor<[4],si64>
+    %1 = "torch.vtensor.literal"() <{value = dense<11> : tensor<4xsi32>}> : () -> !torch.vtensor<[4],si32>
+    %2 = "torch.constant.int"() <{value = 2 : i64}> : () -> !torch.int
+    %3 = "torch.aten.add.Tensor"(%0, %1, %2) : (!torch.vtensor<[4],si64>, !torch.vtensor<[4],si32>, !torch.int) -> !torch.vtensor<[4],si64>
+    "func.return"(%3) : (!torch.vtensor<[4],si64>) -> ()
+  }) : () -> ()
+}) : () -> ()
+
