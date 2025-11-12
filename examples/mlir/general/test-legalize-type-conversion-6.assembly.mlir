@@ -1,7 +1,0 @@
-module {
-  func.func @test_valid_result_legalization() {
-    %0 = "test.type_producer"() : () -> f32
-    "foo.return"(%0) : (f32) -> ()
-  }
-}
-

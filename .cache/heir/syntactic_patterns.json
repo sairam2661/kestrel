@@ -1,0 +1,5418 @@
+{
+  "dialects": {
+    "func": 623,
+    "arith": 1148,
+    "tensor_ext": 124,
+    "tensor": 214,
+    "math": 7,
+    "secret": 245,
+    "linalg": 18,
+    "scf": 73,
+    "comb": 18,
+    "mod_arith": 5,
+    "tfhe_rust": 27,
+    "tfhe_rust_bool": 10,
+    "builtin": 6,
+    "mgmt": 8,
+    "memref": 1,
+    "affine": 1
+  },
+  "operations": {
+    "func.func": 309,
+    "arith.constant": 424,
+    "tensor_ext.rotate": 113,
+    "arith.addi": 367,
+    "tensor.extract": 172,
+    "arith.muli": 212,
+    "func.return": 301,
+    "math.exp": 3,
+    "secret.conceal": 15,
+    "tensor.empty": 10,
+    "linalg.map": 9,
+    "arith.mulf": 23,
+    "linalg.yield": 9,
+    "secret.generic": 114,
+    "secret.yield": 114,
+    "func.call": 13,
+    "tensor_ext.assign_layout": 4,
+    "arith.addf": 16,
+    "tensor_ext.permute": 6,
+    "scf.if": 10,
+    "scf.yield": 39,
+    "comb.truth_table": 11,
+    "arith.extsi": 10,
+    "arith.subi": 20,
+    "tensor.insert": 23,
+    "scf.for": 14,
+    "arith.cmpi": 20,
+    "arith.extui": 9,
+    "mod_arith.barrett_reduce": 3,
+    "math.absf": 2,
+    "comb.and": 2,
+    "tfhe_rust.create_trivial": 7,
+    "tfhe_rust.bitand": 2,
+    "tfhe_rust.scalar_left_shift": 4,
+    "tfhe_rust.add": 5,
+    "tfhe_rust.apply_lookup_table": 8,
+    "arith.maximumf": 5,
+    "tensor.concat": 2,
+    "tensor.from_elements": 2,
+    "mod_arith.subifge": 2,
+    "tfhe_rust_bool.create_trivial": 5,
+    "tfhe_rust_bool.and": 3,
+    "tfhe_rust_bool.not": 2,
+    "arith.remsi": 3,
+    "arith.fptosi": 2,
+    "arith.index_cast": 2,
+    "tensor.collapse_shape": 3,
+    "scf.while": 5,
+    "scf.condition": 5,
+    "builtin.module": 2,
+    "builtin.unrealized_conversion_cast": 4,
+    "arith.select": 14,
+    "arith.shrsi": 3,
+    "arith.shrui": 3,
+    "arith.andi": 3,
+    "arith.maxsi": 1,
+    "arith.minsi": 1,
+    "arith.trunci": 5,
+    "math.ctlz": 1,
+    "arith.divui": 2,
+    "mgmt.relinearize": 2,
+    "secret.cast": 1,
+    "tensor_ext.rotate_and_reduce": 1,
+    "arith.addui_extended": 2,
+    "memref.load": 1,
+    "affine.load": 1,
+    "mgmt.modreduce": 6,
+    "comb.or": 1,
+    "comb.nand": 1,
+    "comb.xor": 1,
+    "comb.xnor": 1,
+    "comb.nor": 1,
+    "tfhe_rust.generate_lookup_table": 1,
+    "tensor.splat": 2,
+    "arith.shli": 1,
+    "math.sin": 1,
+    "secret.reveal": 1
+  },
+  "type_patterns": {
+    "32xi16i16": 2,
+    "32xi16": 57,
+    "none": 655,
+    "f32f32": 5,
+    "f32": 62,
+    "4xi324xi32i32": 1,
+    "4xi32": 11,
+    "?xi16?xi16?xi16": 1,
+    "?xi16": 2,
+    "i3secretsecreti3": 1,
+    "i3": 23,
+    "1x512xf321x512xf32": 5,
+    "1x512xf32": 6,
+    "secretsecreti32secretsecreti32secretsecreti32secretsecreti32": 3,
+    "i32": 242,
+    "secretsecreti32": 31,
+    "8xi168xi16": 3,
+    "8xi16": 44,
+    "8xi168xi16i16": 2,
+    "16xi16": 27,
+    "secretsecreti32secretsecreti32": 5,
+    "16xf3216xf3216xf3216xf3216xf3216xf32": 1,
+    "16xf32": 5,
+    "1x64xi321x64xi32": 3,
+    "1x64xi32": 3,
+    "4x64xi324x64xi32": 2,
+    "4x64xi32": 2,
+    "secretsecreti2secretsecreti2": 2,
+    "i2": 20,
+    "secretsecreti2": 3,
+    "i16secretsecreti1secretsecreti16": 1,
+    "i1": 133,
+    "i16": 504,
+    "secretsecreti1": 15,
+    "secretsecreti1i1i1secretsecreti1": 1,
+    "i8i8": 7,
+    "i8": 59,
+    "i1i1": 11,
+    "secretsecreti8secretsecreti8": 4,
+    "secretsecreti8": 8,
+    "secretsecreti8secretsecreti8secretsecreti32": 1,
+    "3xi2secretsecret3xi2": 1,
+    "3xi2": 4,
+    "32xi1632xi1632xi16": 1,
+    "secretsecret32xi16secretsecretindexsecretsecret32xi16": 1,
+    "index": 73,
+    "secretsecret32xi16": 11,
+    "secretsecretindex": 13,
+    "1x512xf321x512xf321x512xf32": 1,
+    "i16i16i16": 3,
+    "indexindex32xi16i16": 1,
+    "i32i32i323xi32": 3,
+    "2xi16": 1,
+    "i64i64secretsecreti1secretsecreti64": 2,
+    "i64": 13,
+    "4xi104xi10": 1,
+    "4xi10": 1,
+    "secretsecreti16i16secretsecreti16": 2,
+    "secretsecreti16": 60,
+    "secretsecreti16secretsecreti16secretsecreti16": 5,
+    "secretsecretf32secretsecretf32": 3,
+    "secretsecretf32": 6,
+    "8xi32i32": 8,
+    "8xi32": 18,
+    "secretsecreti1i1secretsecreti1": 1,
+    "secretsecret1x16xf32secretsecret1x16xf32": 1,
+    "1x16xf32": 7,
+    "secretsecret1x16xf32": 1,
+    "secretsecreti16secretsecreti16": 17,
+    "2xi322xi32": 1,
+    "2xi32": 11,
+    "2xi322xi32i12xi32": 1,
+    "?xi32?xi32": 1,
+    "?xi32": 1,
+    "2xi322xi322xi32": 2,
+    "secretsecret8xi16secretsecret8xi16": 1,
+    "secretsecret8xi16": 6,
+    "secretsecret8xi16indexsecretsecret8xi16": 1,
+    "secretsecret8xi16secretsecreti16secretsecret8xi16": 1,
+    "tfhe_rustserver_key": 10,
+    "tfhe_rustserver_keytfhe_rustlookup_table": 1,
+    "tfhe_rustlookup_table": 3,
+    "secretsecreti1secretsecreti1": 6,
+    "secretsecret16x16xi32secretsecretindexsecretsecret16x16xi32": 1,
+    "16x16xi32": 8,
+    "secretsecret16x16xi32": 1,
+    "10xf3210xf32": 4,
+    "10xf32": 6,
+    "tfhe_rustserver_keytfhe_rusteui3tfhe_rusteui3tfhe_rusteui3": 3,
+    "tfhe_rusteui3": 11,
+    "64xi16": 1,
+    "secretsecreti32secretsecreti32secretsecreti32": 3,
+    "1x16xi321x16xi32": 2,
+    "1x16xi32": 4,
+    "i1secretsecreti1": 2,
+    "i8i8i8": 2,
+    "secretsecret8xi16secretsecret8xi16secretsecreti16": 1,
+    "i16i16": 7,
+    "f16f16": 2,
+    "f16": 2,
+    "i16i16i16i16i16i16i16i16i16": 1,
+    "16xi3216xi32": 3,
+    "16xi32": 11,
+    "tfhe_rust_boolserver_key": 9,
+    "secretsecret4xi16secretsecreti16": 2,
+    "4xi16": 13,
+    "secretsecret4xi16": 2,
+    "secretsecreti32i32secretsecreti32": 1,
+    "tfhe_rusteui2tfhe_rusteui3tfhe_rusteui4tfhe_rusteui8tfhe_rusteui10tfhe_rusteui12tfhe_rusteui14tfhe_rusteui16tfhe_rusteui32tfhe_rusteui64tfhe_rusteui128tfhe_rusteui256tfhe_rustei8tfhe_rustei16tfhe_rustei32tfhe_rustei64tfhe_rustei128tfhe_rustei256": 1,
+    "tfhe_rusteui2": 1,
+    "tfhe_rusteui4": 1,
+    "tfhe_rusteui8": 1,
+    "tfhe_rusteui10": 1,
+    "tfhe_rusteui12": 1,
+    "tfhe_rusteui14": 1,
+    "tfhe_rusteui16": 1,
+    "tfhe_rusteui32": 1,
+    "tfhe_rusteui64": 1,
+    "tfhe_rusteui128": 1,
+    "tfhe_rusteui256": 1,
+    "tfhe_rustei8": 1,
+    "tfhe_rustei16": 1,
+    "tfhe_rustei32": 1,
+    "tfhe_rustei64": 1,
+    "tfhe_rustei128": 1,
+    "tfhe_rustei256": 1,
+    "i32i1i32": 2,
+    "16xi32i32": 2,
+    "1xi161xi161xi16": 1,
+    "1xi16": 2,
+    "8xi328xi32i32": 2,
+    "8xi16i16": 1,
+    "secretsecret32x32xi16secretsecret32x32xi16secretsecret32x32xi16": 3,
+    "32x32xi16": 33,
+    "secretsecret32x32xi16": 6,
+    "secretsecret16xi32secretsecretindexsecretsecretindexsecretsecreti32": 1,
+    "secretsecret16xi32": 1,
+    "f32f32f32": 2,
+    "32xi16indexi16": 2,
+    "2x2xi32": 3,
+    "secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16": 1,
+    "1xi1i1": 1,
+    "1xi1": 2,
+    "1xi1i1i11xi1": 1,
+    "1xf321xf32": 1,
+    "1xf32": 1,
+    "ui8i8": 2,
+    "ui8": 3,
+    "ui8ui8": 1,
+    "4xi164xi164xi16": 1,
+    "4xi164xi16i16": 1,
+    "i32i32": 4,
+    "secretsecreti16secretsecreti1secretsecreti16": 1,
+    "i32i32i32": 3,
+    "secretsecret16xi16secretsecreti1secretsecret16xi16": 1,
+    "secretsecret16xi16": 4,
+    "tfhe_rustserver_keytfhe_rustlookup_tabletfhe_rusteui3tfhe_rusteui3tfhe_rusteui3": 2,
+    "4xi324xi324xi32": 1,
+    "i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16": 1,
+    "i16i16i16i16i16": 2,
+    "8xi168xi168xi16": 1,
+    "secretsecret1024xi16secretsecret1024xi16secretsecreti16": 2,
+    "1024xi16": 40,
+    "secretsecret1024xi16": 8,
+    "tfhe_rust_boolserver_keytfhe_rust_boolebtfhe_rust_boolebtfhe_rust_booleb": 2,
+    "tfhe_rust_booleb": 5,
+    "2xi1": 4,
+    "indexindex": 1,
+    "4xi16i16": 1,
+    "16xi3216x16xi3216xi32": 1,
+    "8xi328xi328xi32": 1,
+    "secretsecret3x3xf32": 1,
+    "3x3xf32": 3,
+    "i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16i16": 1,
+    "secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16": 2,
+    "i16i16i16i16": 1,
+    "512xf32512xf32512xf32": 1,
+    "512xf32": 2,
+    "secretsecret32xi16secretsecreti16": 1,
+    "secretsecreti32i32": 1,
+    "2xf32": 3,
+    "secretsecret32xi16secretsecretindexsecretsecreti16": 6,
+    "secretsecret32xi16secretsecretindexsecretsecretindexsecretsecreti16": 1,
+    "secretsecret16xi16secretsecretindexsecretsecreti16secretsecreti16secretsecreti16": 1,
+    "3xi1secretsecret3xi1": 1,
+    "3xi1": 4,
+    "secretsecret8xi8indexsecretsecreti8": 1,
+    "8xi8": 11,
+    "secretsecret8xi8": 2,
+    "2x3xi8i8": 1,
+    "2x3xi8": 1,
+    "secretsecret8xi16secretsecreti16": 1,
+    "i10i10": 1,
+    "i10": 1,
+    "secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16secretsecreti16": 2,
+    "secretsecret1x784xf32secretsecret784xf32": 1,
+    "1x784xf32": 4,
+    "784xf32": 3,
+    "secretsecret1x784xf32": 1,
+    "i32i32i1": 1,
+    "i1i32i32i32": 1,
+    "2xi12xi322xi322xi32": 1,
+    "i12xi322xi322xi32": 1,
+    "i1f32f32f32": 1,
+    "2xi12xf322xf322xf32": 1,
+    "3x3xi1secretsecret3x3xi1": 1,
+    "3x3xi1": 4,
+    "secretsecret1024xi16secretsecret1024xi16i16secretsecret1024xi16": 2,
+    "10xf3210xf3210xf32": 1,
+    "1024xi161024xi161024xi16": 1,
+    "1x1x512xf321x1x512xf321x1x512xf32": 1,
+    "1x1x512xf32": 2,
+    "secretsecret4xi32secretsecret4xi32": 1,
+    "secretsecret4xi32": 1,
+    "secretsecret2x4xi32secretsecret2x4xi32": 1,
+    "2x4xi32": 7,
+    "secretsecret2x4xi32": 1,
+    "1x8xi32i32": 1,
+    "1x8xi32": 1,
+    "8xi32i32i32": 1,
+    "tfhe_rust_boolserver_keytfhe_rust_boolebtfhe_rust_booleb": 1,
+    "secretsecret16xi16i1secretsecret16xi16": 2,
+    "secretsecreti32secretsecreti32secretsecreti8secretsecreti8": 1,
+    "8xi328xi32": 1,
+    "4xi26": 1,
+    "i16i32": 1,
+    "32xi32": 1,
+    "secretsecreti8secretsecreti32": 1,
+    "secretsecret8xi8secretsecret8xi8": 1,
+    "4xi84xi84xi8": 1,
+    "4xi8": 2,
+    "i64i64i1i64": 1,
+    "8xi32indexi32": 1,
+    "1x2x1x512xf321x2x1x512xf321x2x1x512xf32": 1,
+    "1x2x1x512xf32": 2,
+    "secretsecreti32i1secretsecreti32": 1,
+    "secretsecretf32secretsecretf32secretsecretf32secretsecretf32secretsecretf32": 1,
+    "secretsecreti3secretsecreti3secretsecreti3secretsecreti3secretsecreti3": 1,
+    "secretsecreti3": 4,
+    "secretsecreti1secretsecreti1secretsecreti1": 1,
+    "secretsecret32xi16secretsecret32xi16secretsecret32xi16": 1
+  },
+  "complexity_metrics": [
+    {
+      "region_depth": 2,
+      "total_ops": 105,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 21,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 9,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 13,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 15,
+      "total_blocks": 6,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 8,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 9,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 12,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 11,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 17,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 11,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 24,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 13,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 25,
+      "total_blocks": 8,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 19,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 24,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 11,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 15,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 26,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 16,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 14,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 18,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 14,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 11,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 46,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 27,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 10,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 19,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 9,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 10,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 10,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 28,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 12,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 9,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 9,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 10,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 15,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 14,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 17,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 38,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 38,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 8,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 11,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 33,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 10,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 57,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 14,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 26,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 21,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 10,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 8,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 17,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 24,
+      "total_blocks": 9,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 5,
+      "total_ops": 61,
+      "total_blocks": 18,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 17,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 1,
+      "total_ops": 1,
+      "total_blocks": 1,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 26,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 8,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 23,
+      "total_blocks": 9,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 10,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 13,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 8,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 19,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 14,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 20,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 10,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 27,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 10,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 15,
+      "total_blocks": 6,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 11,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 20,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 35,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 16,
+      "total_blocks": 9,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 32,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 24,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 13,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 15,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 10,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 11,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 10,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 25,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 27,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 9,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 12,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 5,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 4,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    }
+  ],
+  "structural_templates": [
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<32xi16>) -> i16, sym_name = \"reduce_add_and_mul\"}> ({\n  ^bb0(%arg0: tensor<32xi16>):\n    %0 = \"arith.constant\"() <{value = 30 : index}> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (f32) -> f32, sym_name = \"test_exp\"}> ({\n  ^bb0(%arg0: f32):\n    %0 = \"math.exp\"(%arg0) <{fastmath = #arith.fastmath<none>}> {degree = 3 : i32, ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<4xi32>, tensor<4xi32>) -> i32, sym_name = \"simple_sum_two_tensor\"}> ({\n  ^bb0(%arg0: tensor<4xi32>, %arg1: tensor<4xi32>):\n    %0 = \"ari..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{shape.shape = [42]}, {shape.shape = [44]}], function_type = (tensor<?xi16>, tensor<?xi16>) -> tensor<?xi16>, sym_name = \"mismatched_shape\"}> ({\n  ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i3) -> !secret.secret<i3>, sym_name = \"conceal\"}> ({\n  ^bb0(%arg0: i3):\n    %0 = \"secret.conceal\"(%arg0) : (i3) -> !secret.secret<i3>\n    \"func..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "linalg",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x512xf32>) -> tensor<1x512xf32>, sym_name = \"mulf\"}> ({\n  ^bb0(%arg0: tensor<1x512xf32>):\n    %0 = \"arith.constant\"() <{value = dense<2..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, !secret.secret<i32>, !secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"test_shared_input\"}> ({\n  ^bb0(%arg0: !secre..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (tensor<8xi16>) -> tensor<8xi16>, sym_name = \"pointwise\"}> ({\n  ^bb0(%arg2: tensor<8xi16>):\n    \"func.return\"(%ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [i0] -> [ct, slot] : ct = 0 and (-i0 + slot) mod 16 = 0 and 0 <= i0 <= 15 and 0 <= slot <= 31 }\">\n\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"test_chained_input_output\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>):\n    %0 = \"arith.co..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (f32) -> f32, sym_name = \"test_domain\"}> ({\n  ^bb0(%arg0: f32):\n    %0 = \"math.exp\"(%arg0) <{fastmath = #arith.fastmath<none>}> {degree = 3 : i3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {}, {}, {}, {}], function_type = (tensor<16xf32>, tensor<16xf32>, tensor<16xf32>, tensor<16xf32>, tensor<16xf32>) -> tensor<16xf32..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [ct1, slot1] -> [ct2, slot2] : ct1 = 0 and ct2 = 0 and ((slot1 - 1) - slot2) mod 64 = 0 and slot1 >= 0 and 63 >= slot1 and slot2 >= 0 and 63 >= slot2 }\">\n#new_l..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i2>) -> !secret.secret<i2>, sym_name = \"no_conceal\"}> ({\n  ^bb0(%arg0: !secret.secret<i2>):\n    %0 = \"arith.constant\"() <{value ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i16, !secret.secret<i1>) -> !secret.secret<i16>, sym_name = \"secret_condition_with_non_secret_int\"}> ({\n  ^bb0(%arg0: i16, %arg1: !secret.secre..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>, i1, i1) -> !secret.secret<i1>, sym_name = \"truth_table_no_secret\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>, %arg1: i1, %arg2: ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i8) -> i8, sym_name = \"return_wire\"}> ({\n  ^bb0(%arg1: i8):\n    \"func.return\"(%arg1) : (i8) -> ()\n  }) : () -> ()\n  \"func.func\"() <{function_ty..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i8) -> i8, sym_name = \"submod\"}> ({\n  ^bb0(%arg2: i8):\n    %2 = \"arith.constant\"() <{value = 1 : i8}> : () -> i8\n    %3 = \"arith.addi\"(%arg2, %..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i8>, !secret.secret<i8>) -> !secret.secret<i32>, sym_name = \"for_loop\"}> ({\n  ^bb0(%arg0: !secret.secret<i8>, %arg1: !secret.sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1, i1) -> (), sym_name = \"inner\"}> ({\n  ^bb0(%arg2: i1, %arg3: i1):\n    %0 = \"comb.truth_table\"(%arg2, %arg3) <{lookupTable = 6 : ui4}> : (i1,..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (memref<3xi2>) -> !secret.secret<memref<3xi2>>, sym_name = \"conceal_memref_iN\"}> ({\n  ^bb0(%arg0: memref<3xi2>):\n    %0 = \"secret.conceal\"(%arg0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (tensor<32xi16>, tensor<32xi16>) -> tensor<32xi16>, sym_name = \"complex_func\"}> ({\n  ^bb0(%arg0:..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>, !secret.secret<index>) -> !secret.secret<tensor<32xi16>>, sym_name = \"main\"}> ({\n  ^bb0(%arg0: !secret.secret<t..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "linalg",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x512xf32>, tensor<1x512xf32>) -> tensor<1x512xf32>, sym_name = \"mulf\"}> ({\n  ^bb0(%arg0: tensor<1x512xf32>, %arg1: tensor<1x512xf32>):\n..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (i16, i16) -> i16, sym_name = \"add\"}> ({\n  ^bb0(%arg0: i16, %arg1: i16):\n    %0 = \"arith.addi\"(%..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}, {secret.secret}], function_type = (index, index, tensor<32xi16>) -> i16, sym_name = \"test\"}> ({\n  ^bb0(%arg0: ind..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32, i32, i32) -> tensor<3xi32>, sym_name = \"double_insert\"}> ({\n  ^bb0(%arg0: i32, %arg1: i32, %arg2: i32):\n    %0 = \"arith.constant\"() <{valu..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> i16, sym_name = \"test_arith_constant\"}> ({\n    %1 = \"arith.constant\"() <{value = 17 : i16}> : () -> i16\n    \"func.return\"(%1) : (i16) -> (..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i64, i64, !secret.secret<i1>) -> !secret.secret<i64>, sym_name = \"cmux\"}> ({\n  ^bb0(%arg0: i64, %arg1: i64, %arg2: !secret.secret<i1>):\n    %0 ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mod_arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<4xi10>) -> tensor<4xi10>, sym_name = \"test_lower_barrett_reduce\"}> ({\n  ^bb0(%arg0: tensor<4xi10>):\n    %0 = \"mod_arith.barrett_reduce\"(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"init\"}> ({\n  ^bb0(%arg6: !secret.secret<i32>):\n    %8 = \"arith.constant\"() <{value = 4..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"func\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>, %arg1: !secret.secr..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (i16, i16) -> i16, sym_name = \"add_other\"}> ({\n  ^bb0(%arg0: i16, %arg1: i16):\n    %0 = \"arith.a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<f32>) -> !secret.secret<f32>, sym_name = \"external_secret\", sym_visibility = \"private\"}> ({\n  }) : () -> ()\n  \"func.func\"() <{fu..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"not_supported_repeated_indices\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <{value = 0 :..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "linalg",
+        "tensor",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x512xf32>) -> tensor<1x512xf32>, sym_name = \"unary\"}> ({\n  ^bb0(%arg0: tensor<1x512xf32>):\n    %0 = \"tensor.empty\"() : () -> tensor<1x5..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32, i32, i32) -> tensor<3xi32>, sym_name = \"full_inserts\"}> ({\n  ^bb0(%arg0: i32, %arg1: i32, %arg2: i32):\n    %0 = \"arith.constant\"() <{value..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>, i1) -> !secret.secret<i1>, sym_name = \"boolean_gates_partial_secret\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>, %arg1: i1):\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<1x16xf32>>) -> !secret.secret<tensor<1x16xf32>>, sym_name = \"three_degree_sigmoid\"}> ({\n  ^bb0(%arg0: !secret.secret<tens..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"mult\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"mult\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<2xi32>) -> tensor<2xi32>, sym_name = \"test_fn\"}> ({\n  ^bb0(%arg8: tensor<2xi32>):\n    \"func.return\"(%arg8) : (tensor<2xi32>) -> ()\n  }) ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [i0] -> [ct, slot] : ct = 0 and (slot - i0) mod 8 = 0 and 0 <= i0 <= 7 and 0 <= slot <= 15 }\">\n#new_layout1 = #tensor_ext.new_layout<\"{ [] -> [ct, slot] : ct = ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust.server_key) -> (), sym_name = \"test_create_trivial\"}> ({\n  ^bb0(%arg3: !tfhe_rust.server_key):\n    %12 = \"arith.constant\"() <{value ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [] -> [ct, slot] : ct = 0 and 0 <= slot <= 31 }\">\n\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{tensor_ext.layout = #new_layout}], function_type = (!sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>) -> !secret.secret<i1>, sym_name = \"bits\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>):\n    %0 = \"arith.constant\"() <{value = true..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<16x16xi32>>, !secret.secret<index>) -> !secret.secret<tensor<16x16xi32>>, sym_name = \"multi_dimensional_insert\"}> ({\n  ^b..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<10xf32>) -> tensor<10xf32>, sym_name = \"test_maximumf\"}> ({\n  ^bb0(%arg0: tensor<10xf32>):\n    %0 = \"arith.constant\"() <{value = dense<0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust.server_key, !tfhe_rust.eui3, !tfhe_rust.eui3) -> !tfhe_rust.eui3, sym_name = \"fn_under_test\"}> ({\n  ^bb0(%arg0: !tfhe_rust.server_ke..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<64xi16>, sym_name = \"test_concat\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i64, i64, !secret.secret<i1>) -> !secret.secret<i64>, sym_name = \"cmux\"}> ({\n  ^bb0(%arg0: i64, %arg1: i64, %arg2: !secret.secret<i1>):\n    %0 ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i8) -> i8, sym_name = \"test_add_one_lut3\"}> ({\n  ^bb0(%arg0: i8):\n    %0 = \"arith.constant\"() <{value = 1 : i8}>..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, !secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"test_compose_generic\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>, %ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x16xi32>) -> tensor<1x16xi32>, sym_name = \"figure3\"}> ({\n  ^bb0(%arg0: tensor<1x16xi32>):\n    %0 = \"tensor_ext.permute\"(%arg0) <{permut..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1) -> !secret.secret<i1>, sym_name = \"no_conceal_from_elements\"}> ({\n  ^bb0(%arg0: i1):\n    %0 = \"arith.constant\"() <{value = false}> : () -> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"not_supported_mixed_ops_mixed_rotation_extraction\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.consta..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mod_arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i8, i8) -> i8, sym_name = \"test_lower_subifge_int\"}> ({\n  ^bb0(%arg0: i8, %arg1: i8):\n    %0 = \"mod_arith.subifge\"(%arg0, %arg1) : (i8, i8) -> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<8xi16>>, !secret.secret<tensor<8xi16>>) -> !secret.secret<i16>, sym_name = \"test_dot_product_regression\"}> ({\n  ^bb0(%arg..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"add\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>, %arg1: !secret.secre..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i8) -> i8, sym_name = \"add_one\"}> ({\n  ^bb0(%arg0: i8):\n    %0 = \"arith.constant\"() <{value = 1 : i8}> : () -> i..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i16) -> i16, sym_name = \"mult_dep\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.muli\"(%arg0, %arg0) <{overflowFlags ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (f16) -> f16, sym_name = \"bootstrap_waterline\"}> ({\n  ^bb0(%arg0: f16):\n    %0 = \"arith.mulf\"(%arg0, %arg0) <{fas..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}], function_t..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<16xi32>) -> tensor<16xi32>, sym_name = \"test_sum_rotation_indices\"}> ({\n  ^bb0(%arg2: tensor<16xi32>):\n    %4 = \"arith.constant\"() <{val..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust_bool",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust_bool.server_key) -> (), sym_name = \"test_create_trivial_bool\"}> ({\n  ^bb0(%arg2: !tfhe_rust_bool.server_key):\n    %8 = \"arith.consta..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<4xi16>>) -> !secret.secret<i16>, sym_name = \"rotate_not_applied_because_rotation_missing\"}> ({\n  ^bb0(%arg0: !secret.secr..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, i32) -> !secret.secret<i32>, sym_name = \"mixed_secretness\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>, %arg1: i32):\n    %0 = \"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1) -> i1, sym_name = \"main\"}> ({\n  ^bb0(%arg0: i1):\n    %0 = \"comb.truth_table\"(%arg0, %arg0) <{lookupTable = 6 : ui4}> : (i1, i1) -> i1\n    \"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust.eui2, !tfhe_rust.eui3, !tfhe_rust.eui4, !tfhe_rust.eui8, !tfhe_rust.eui10, !tfhe_rust.eui12, !tfhe_rust.eui14, !tfhe_rust.eui16, !tf..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i32) -> (i1, i32), sym_name = \"multiple_outputs\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"arith.constant\"() <{value = ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32) -> (), sym_name = \"test_multiple\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"secret.conceal\"(%arg0) : (i32) -> !secret.secret<i32>\n    %1 = \"secre..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<16xi32>) -> i32, sym_name = \"not_supported_missing_indices\"}> ({\n  ^bb0(%arg0: tensor<16xi32>):\n    %0 = \"arith.constant\"() <{value = 0 ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"mult\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"simple_sum_non_tensor_operands\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <{value = 0 :..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> i1, sym_name = \"binops\"}> ({\n    %0 = \"arith.constant\"() <{value = 0 : i64}> : () -> i64\n    %1 = \"arith.constant\"() <{value = 1 : i64}> :..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1xi16>, tensor<1xi16>) -> tensor<1xi16>, sym_name = \"test_size_one_regression\"}> ({\n  ^bb0(%arg0: tensor<1xi16>, %arg1: tensor<1xi16>):\n..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>, tensor<8xi32>) -> i32, sym_name = \"not_supported_multiple_tensors\"}> ({\n  ^bb0(%arg0: tensor<8xi32>, %arg1: tensor<8xi32>):\n    ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i2>) -> !secret.secret<i2>, sym_name = \"output_order\"}> ({\n  ^bb0(%arg0: !secret.secret<i2>):\n    %0 = \"secret.generic\"(%arg0) (..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1, i1) -> (), sym_name = \"comb\"}> ({\n  ^bb0(%arg2: i1, %arg3: i1):\n    %1 = \"comb.truth_table\"(%arg2, %arg3) <{lookupTable = 6 : ui4}> : (i1, ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (tensor<8xi16>) -> i16, sym_name = \"add\"}> ({\n  ^bb0(%arg0: tensor<8xi16>):\n    %0 = \"arith.constant\"() <{value =..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32x32xi16>>, !secret.secret<tensor<32x32xi16>>) -> !secret.secret<tensor<32x32xi16>>, sym_name = \"elementwise_sum\"}> ({\n ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"scalar_mul\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func",
+        "scf",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<16xi32>>, !secret.secret<index>, !secret.secret<index>) -> !secret.secret<i32>, sym_name = \"main\"}> ({\n  ^bb0(%arg0: !sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (f32, f32) -> f32, sym_name = \"float_secret_loop_index_step\"}> ({\n  ^bb0(%arg4: f32, %arg5: f32)..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (tensor<32xi16>, index) -> i16, sym_name = \"simple_sum_secret_bound\"}> ({\n  ^bb0(%arg0: tensor<3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [i0, i1] -> [ct, slot] : ct = 0 and (-32i0 - i1 + slot) mod 1024 = 0 and 0 <= i0 <= 31 and 0 <= i1 <= 31 and 0 <= slot <= 1023 }\">\n\"builtin.module\"() ({\n  \"func..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<2x2xi32>, sym_name = \"canonicalize_insert_after_constant\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<[[1, 2], [3, 4]]> : tens..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"scalar_mul\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>) -> !secret.secret<i1>, sym_name = \"types\"}> ({\n  ^bb0(%arg1: !secret.secret<i1>):\n    \"func.return\"(%arg1) : (!secret.secre..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1xi1>) -> i1, sym_name = \"extract\"}> ({\n  ^bb0(%arg0: tensor<1xi1>):\n    %0 = \"arith.constant\"() <{value = 0 : index}> : () -> index\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<2x2xi32>, sym_name = \"collapse_empty\"}> ({\n    %0 = \"tensor.empty\"() : () -> tensor<1x2x2xi32>\n    %1 = \"tensor.collapse_shape\"(%0)..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1xi1>, i1, i1) -> tensor<1xi1>, sym_name = \"insert\"}> ({\n  ^bb0(%arg0: tensor<1xi1>, %arg1: i1, %arg2: i1):\n    %0 = \"arith.constant\"() ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "linalg",
+        "tensor",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1xf32>) -> tensor<1xf32>, sym_name = \"unary\"}> ({\n  ^bb0(%arg0: tensor<1xf32>):\n    %0 = \"tensor.empty\"() : () -> tensor<1xf32>\n    %1 =..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<8xi32>, sym_name = \"empty\"}> ({\n    %0 = \"tensor.empty\"() : () -> tensor<8xi32>\n    \"func.return\"(%0) : (tensor<8xi32>) -> ()\n  }) ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"main\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"arith.constant\"() <{value = 1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret, test.attr = 2 : i64}], function_type = (i16) -> i16, sym_name = \"mul\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.muli\"(%arg0, %arg0) ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "linalg",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x512xf32>) -> tensor<1x512xf32>, sym_name = \"mulf\"}> ({\n  ^bb0(%arg0: tensor<1x512xf32>):\n    %0 = \"arith.constant\"() <{value = dense<2..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "builtin",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"builtin.module\"() ({\n    \"func.func\"() <{function_type = (ui8) -> i8, sym_name = \"main\"}> ({\n    ^bb0(%arg1: ui8):\n      %4 = \"arith.constant\"() <{value = 0 : i32}> : () -> i3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (tensor<4xi16>, tensor<4xi16>) -> tensor<4xi16>, sym_name = \"add\"}> ({\n  ^bb0(%arg0: tensor<4xi1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<4xi16>, tensor<4xi16>) -> i16, sym_name = \"rotate_not_applied_because_multiple_tensors\"}> ({\n  ^bb0(%arg0: tensor<4xi16>, %arg1: tensor<..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32) -> i32, sym_name = \"main\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"math.ctlz\"(%arg0) : (i32) -> i32\n    \"func.return\"(%0) : (i32) -> ()\n  }) : (..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (f32) -> f32, sym_name = \"test_exp\"}> ({\n  ^bb0(%arg0: f32):\n    %0 = \"math.exp\"(%arg0) <{fastmath = #arith.fastmath<none>}> {degree = 3 : i32, ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i1>) -> !secret.secret<i16>, sym_name = \"conditionally_speculative_code\"}> ({\n  ^bb0(%arg0: !secret.secret<..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32, i32) -> i32, sym_name = \"test_simple_split2\"}> ({\n  ^bb0(%arg0: i32, %arg1: i32):\n    %0 = \"arith.constant\"() <{value = 31 : i8}> : () -> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<10xf32>) -> tensor<10xf32>, sym_name = \"test_maximumf_ignore_not_splat\"}> ({\n  ^bb0(%arg0: tensor<10xf32>):\n    %0 = \"arith.constant\"() ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, !secret.secret<i32>, !secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"test_unshared_input\"}> ({\n  ^bb0(%arg0: !sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<16xi16>) -> (), sym_name = \"printer\", sym_visibility = \"private\"}> ({\n  }) : () -> ()\n  \"func.func\"() <{function_type = (!secret.secret<..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust.server_key, !tfhe_rust.lookup_table, !tfhe_rust.eui3, !tfhe_rust.eui3) -> !tfhe_rust.eui3, sym_name = \"test_levelled_op\"}> ({\n  ^bb0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<4xi32>, tensor<4xi32>) -> tensor<4xi32>, sym_name = \"test_collapse_insertion_chains\"}> ({\n  ^bb0(%arg0: tensor<4xi32>, %arg1: tensor<4xi..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (tensor<8xi16>) -> tensor<8xi16>, sym_name = \"add\"}> ({\n  ^bb0(%arg0: tensor<8xi16>):\n    %0 = \"arith.addi\"(%arg0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"not_supported_mixed_ops\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <{value = 0 : index}..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [] -> [ct, slot] : ct = 0 and 0 <= slot <= 1023 }\">\n\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{tensor_ext.layout = #new_layout}], function_type = (!s..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"not_supported_unsupported_op\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <{value = 0 : i..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i16, i16, i16, i16) -> i16, sym_name = \"no_balance_add_tree\"}> ({\n  ^bb0(%arg0: i16, %arg1: i16, %arg2: i16, %arg3: i16):\n    %0 = \"arith.addi\"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "mgmt",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi16>, tensor<8xi16>) -> tensor<8xi16>, sym_name = \"relinearize_both_add_operands\"}> ({\n  ^bb0(%arg0: tensor<8xi16>, %arg1: tensor<8xi1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<1024xi16>>, !secret.secret<tensor<1024xi16>>) -> !secret.secret<i16>, sym_name = \"hamming\"}> ({\n  ^bb0(%arg0: !secret.sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust_bool",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust_bool.server_key, !tfhe_rust_bool.eb, !tfhe_rust_bool.eb) -> !tfhe_rust_bool.eb, sym_name = \"fn_under_test\"}> ({\n  ^bb0(%arg0: !tfhe_..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>) -> !secret.secret<i1>, sym_name = \"truth_table_all_secret\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>):\n    %0 = \"secret.generic..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (f32) -> f32, sym_name = \"extract_plaintext\", sym_visibility = \"private\"}> ({\n  }) : () -> ()\n  \"func.func\"() <{function_type = (!secret.secret<..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> !secret.secret<i2>, sym_name = \"constant_false\"}> ({\n    %0 = \"arith.constant\"() <{value = false}> : () -> i1\n    %1 = \"secret.generic\"(%0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<1024xi16>>, !secret.secret<tensor<1024xi16>>) -> !secret.secret<i16>, sym_name = \"hamming\"}> ({\n  ^bb0(%arg0: !secret.sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (index) -> index, sym_name = \"cleartext_arith\"}> ({\n  ^bb0(%arg0: index):\n    %0 = \"arith.constant\"() <{value = 0 : index}> : () -> index\n    %1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<10xf32>) -> tensor<10xf32>, sym_name = \"test_maximumf_domain\"}> ({\n  ^bb0(%arg0: tensor<10xf32>):\n    %0 = \"arith.constant\"() <{value = ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<4xi16>) -> i16, sym_name = \"rotate_not_applied_because_mixed_ops\"}> ({\n  ^bb0(%arg0: tensor<4xi16>):\n    %0 = \"arith.constant\"() <{value..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"mul\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n    ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"func\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<16xi32>, tensor<16x16xi32>) -> tensor<16xi32>, sym_name = \"test_halevi_shoup_reduction\"}> ({\n  ^bb0(%arg0: tensor<16xi32>, %arg1: tensor..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, !secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"test_add_two_secrets\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>, %ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>, tensor<8xi32>) -> tensor<8xi32>, sym_name = \"not_supported_save_not_rotated_tensor\"}> ({\n  ^bb0(%arg0: tensor<8xi32>, %arg1: ten..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [i0, i1] -> [ct, slot] : (-3i0 - i1 + ct + 8*floor((slot)/8)) mod 16 = 0 and 0 <= i0 <= 2 and 0 <= i1 <= 2 and 0 <= ct <= 7 and 0 <= slot <= 31 and 8*floor((slo..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x16xi32>) -> (), sym_name = \"test_rotate_verifier_ok\"}> ({\n  ^bb0(%arg0: tensor<1x16xi32>):\n    %0 = \"arith.constant\"() <{value = 1 : i..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.secret}, {secret.sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"func\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>, %arg1: !secret.secr..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"simple_balance_secret_m..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (i16, i16) -> (i16, i16), sym_name = \"repro\"}> ({\n  ^bb0(%arg0: i16, %arg1: i16):\n    %0 = \"arit..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x512xf32>) -> tensor<1x512xf32>, sym_name = \"main\"}> ({\n  ^bb0(%arg0: tensor<1x512xf32>):\n    %0 = \"func.call\"(%arg0) <{callee = @relu}..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"simple_balance_secret_a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "linalg",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<512xf32>, tensor<512xf32>) -> tensor<512xf32>, sym_name = \"multiple_dest\"}> ({\n  ^bb0(%arg0: tensor<512xf32>, %arg1: tensor<512xf32>):\n ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32x32xi16>>, !secret.secret<tensor<32x32xi16>>) -> !secret.secret<tensor<32x32xi16>>, sym_name = \"elementwise_sum\"}> ({\n ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i16) -> i16, sym_name = \"add_self\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.addi\"(%arg0, %arg0) <{overflowFlags ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>) -> !secret.secret<i16>, sym_name = \"sum_of_linear_rotates\"}> ({\n  ^bb0(%arg0: !secret.secret<tensor<32xi16>>):\n..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "func",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<4xi16>>) -> !secret.secret<i16>, sym_name = \"rotate_not_applied_because_rotation_duplicated\"}> ({\n  ^bb0(%arg0: !secret.s..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"simple_sum_mixed_rotation_extraction\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <{value..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {}], function_type = (i32, i32) -> (), sym_name = \"annotated_secretness\"}> ({\n  ^bb0(%arg9: i32, %arg10: i32):\n    %7 = \"arith.add..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (tensor<32xi16>) -> i16, sym_name = \"simple_sum\"}> ({\n  ^bb0(%arg0: tensor<32xi16>):\n    %0 = \"arith.constant\"() ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<2xf32>, sym_name = \"test_constant\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<1.500000e+00> : tensor<2xf32>}> : () -> tensor<..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i16) -> i16, sym_name = \"mult_dep\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.muli\"(%arg0, %arg0) <{overflowFlags ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i8>) -> !secret.secret<i8>, sym_name = \"add_one\"}> ({\n  ^bb0(%arg0: !secret.secret<i8>):\n    %0 = \"arith.constant\"() <{value = 1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"basic_while_loop_with_secret_condition\"}> ({\n  ^bb0(%arg4: !secret.secret<i16>):\n    %..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func",
+        "scf",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>, !secret.secret<index>) -> !secret.secret<i16>, sym_name = \"for_loop_with_data_dependent_upper_bound\"}> ({\n  ^bb..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (memref<3xi1>) -> !secret.secret<memref<3xi1>>, sym_name = \"conceal_memref\"}> ({\n  ^bb0(%arg0: memref<3xi1>):\n    %0 = \"secret.conceal\"(%arg0) :..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "memref",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<memref<8xi8>>, index) -> !secret.secret<i8>, sym_name = \"capture\"}> ({\n  ^bb0(%arg0: !secret.secret<memref<8xi8>>, %arg1: index)..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "affine",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "#map = affine_map<(d0) -> (d0, d0)>\n\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (memref<2x3xi8>) -> i8, sym_name = \"main\"}> ({\n  ^bb0(%arg0: memref<2x3xi8>):\n    %0 = \"arith.constant\"() <{..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "simple",
+      "control_flow_type": "simple",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [row, col] -> [ct, slot] : (slot mod 1024) - row = 0 and (ct + slot) mod 1024 - col = 0 and row >= 0 and col >= 0 and ct >= 0 and slot >= 0 }\">\n\"builtin.module\"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1, i1) -> (), sym_name = \"comb\"}> ({\n  ^bb0(%arg0: i1, %arg1: i1):\n    %0 = \"comb.truth_table\"(%arg0, %arg1) <{lookupTable = 6 : ui4}> : (i1, ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [] -> [ct, slot] : ct = 0 and 0 <= slot <= 15 }\">\n#new_layout1 = #tensor_ext.new_layout<\"{ [i0] -> [ct, slot] : ct = 0 and (slot - i0) mod 8 = 0 and 0 <= i0 <= ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i16, i16, i16, i16) -> i16, sym_name = \"no_balance_mult_tree\"}> ({\n  ^bb0(%arg0: i16, %arg1: i16, %arg2: i16, %arg3: i16):\n    %0 = \"arith.muli..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1) -> !secret.secret<i1>, sym_name = \"conceal_i1\"}> ({\n  ^bb0(%arg0: i1):\n    %0 = \"secret.conceal\"(%arg0) : (i1) -> !secret.secret<i1>\n    \"f..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> (!secret.secret<i16>, !secret.secret<i16>), sym_name = \"multi_output\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 =..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32) -> (), sym_name = \"test_add\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"secret.conceal\"(%arg0) : (i32) -> !secret.secret<i32>\n    %1 = \"secret.gen..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i8) -> i8, sym_name = \"test_add_one_lut3\"}> ({\n  ^bb0(%arg0: i8):\n    %0 = \"arith.constant\"() <{value = 1 : i8}>..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<16xi32>) -> i32, sym_name = \"test_insert_rotation_for_add\"}> ({\n  ^bb0(%arg1: tensor<16xi32>):\n    %14 = \"arith.constant\"() <{value = 4 ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> i64, sym_name = \"test_cleartext_binops\"}> ({\n    %0 = \"arith.constant\"() <{value = 0 : i64}> : () -> i64\n    %1 = \"arith.constant\"() <{val..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"while_loop_without_max_iter\"}> ({\n  ^bb0(%arg4: !secret.secret<i16>):\n    %7 = \"arith...."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mod_arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i10) -> i10, sym_name = \"test_lower_barrett_reduce_int\"}> ({\n  ^bb0(%arg0: i10):\n    %0 = \"mod_arith.barrett_reduce\"(%arg0) <{modulus = 17 : i6..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>) -> !secret.secret<i1>, sym_name = \"truth_table_partial_secret\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>):\n    %0 = \"arith.cons..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"non_speculative_code\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>, %ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32, i32, i32) -> tensor<3xi32>, sym_name = \"incomplete\"}> ({\n  ^bb0(%arg0: i32, %arg1: i32, %arg2: i32):\n    %0 = \"arith.constant\"() <{value =..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1) -> i1, sym_name = \"some_func\", sym_visibility = \"private\"}> ({\n  }) : () -> ()\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_ty..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i8>) -> !secret.secret<i8>, sym_name = \"add_one\"}> ({\n  ^bb0(%arg0: !secret.secret<i8>):\n    %0 = \"arith.constant\"() <{value = 1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"simple_sum\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <{value = 0 : index}> : () -> ind..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"remove_unused_yielded_values\"}> ({\n  ^bb0(%arg6: !secret.secret<i32>):\n    %5 = \"arith..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mgmt",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (f16) -> f16, sym_name = \"bootstrap_waterline\"}> ({\n  ^bb0(%arg0: f16):\n    %0 = \"arith.addf\"(%arg0, %arg0) <{fas..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i8) -> (i8, i8), sym_name = \"multi_output\"}> ({\n  ^bb0(%arg0: i8):\n    %0 = \"arith.constant\"() <{value = 2 : i8}..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>) -> (), sym_name = \"test_copy_single_constant\"}> ({\n  ^bb0(%arg5: !secret.secret<i32>):\n    %8 = \"arith.constant\"() <{value..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [i0] -> [ct, slot] : ct = 0 and (-i0 + slot) mod 1024 = 0 and 0 <= i0 <= 783 and 0 <= slot <= 1023 }\">\n#new_layout1 = #tensor_ext.new_layout<\"{ [i0, i1] -> [ct,..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i16) -> i16, sym_name = \"double_mac\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.constant\"() <{value = 1 : i16}> : () -> i16\n    %1 = \"arith.const..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32) -> (), sym_name = \"test_erase_unused_conceal\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"secret.conceal\"(%arg0) : (i32) -> !secret.secret<i32>\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>, !secret.secret<index>) -> !secret.secret<i16>, sym_name = \"main\"}> ({\n  ^bb0(%arg0: !secret.secret<tensor<32xi1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i32) -> i32, sym_name = \"main\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"arith.constant\"() <{value = 100 : i32}> : () -..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>, tensor<8xi32>) -> i32, sym_name = \"simple_sum_operand_from_another_tensor\"}> ({\n  ^bb0(%arg0: tensor<8xi32>, %arg1: tensor<8xi32..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust.server_key, !tfhe_rust.eui3, !tfhe_rust.eui3) -> !tfhe_rust.eui3, sym_name = \"fn_under_test\"}> ({\n  ^bb0(%arg0: !tfhe_rust.server_ke..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "secret",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>) -> !secret.secret<i1>, sym_name = \"boolean_gates\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>):\n    %0 = \"secret.generic\"(%arg0) ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32, i32) -> i1, sym_name = \"cmpi_sgt\"}> ({\n  ^bb0(%arg0: i32, %arg1: i32):\n    %0 = \"arith.cmpi\"(%arg0, %arg1) <{predicate = 4 : i64}> : (i32,..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1, i32, i32) -> i32, sym_name = \"scalar_arith_select\"}> ({\n  ^bb0(%arg12: i1, %arg13: i32, %arg14: i32):\n    %4 = \"arith.select\"(%arg12, %arg1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (memref<3x3xi1>) -> !secret.secret<memref<3x3xi1>>, sym_name = \"conceal_MxN\"}> ({\n  ^bb0(%arg0: memref<3x3xi1>):\n    %0 = \"secret.conceal\"(%arg0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust.server_key, !tfhe_rust.eui3, !tfhe_rust.eui3) -> !tfhe_rust.eui3, sym_name = \"fn_under_test\"}> ({\n  ^bb0(%arg0: !tfhe_rust.server_ke..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func",
+        "scf",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>, !secret.secret<index>) -> !secret.secret<i16>, sym_name = \"for_loop_with_data_dependent_upper_bound\"}> ({\n  ^bb..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<1024xi16>>, !secret.secret<tensor<1024xi16>>, i16) -> !secret.secret<tensor<1024xi16>>, sym_name = \"repro\"}> ({\n  ^bb0(%a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<10xf32>, tensor<10xf32>) -> tensor<10xf32>, sym_name = \"test_maximumf_ignore_arg\"}> ({\n  ^bb0(%arg0: tensor<10xf32>, %arg1: tensor<10xf3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (tensor<1024xi16>, tensor<1024xi16>) -> tensor<1024xi16>, sym_name = \"foo\"}> ({\n  ^bb0(%arg0: te..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i8) -> i8, sym_name = \"sub_bytes\"}> ({\n  ^bb0(%arg0: i8):\n    %0 = \"arith.constant\"() <{value = dense<[99, 124, ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<2x2xi32>, sym_name = \"collapse_constant\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<[[[1, 2], [3, 4]]]> : tensor<1x2x2xi32>}>..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "linalg",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x1x512xf32>, tensor<1x1x512xf32>) -> tensor<1x1x512xf32>, sym_name = \"multiple_dims\"}> ({\n  ^bb0(%arg0: tensor<1x1x512xf32>, %arg1: ten..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i32) -> (), sym_name = \"test_conceal_then_generic\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"arith.constant\"() <{value = 7 : i32}> : () -> i32\n    %1 ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "#new_layout = #tensor_ext.new_layout<\"{ [i0] -> [ct, slot] : (i0 - slot) mod 1024 = 0 and i0 >= 0 and 0 >= i0 and slot >= 0 and 1023 >= slot and ct = 0 }\">\n\"builtin.module\"() ({\n  \"func.func\"() <{arg_..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{}, {secret.secret}], function_type = (i32, i32) -> i32, sym_name = \"nonsecret_input\"}> ({\n  ^bb0(%arg0: i32, %arg1: i32):\n    %0 = \"arith.addi\"(%a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<2x4xi32>>) -> !secret.secret<tensor<2x4xi32>>, sym_name = \"tensor_insert\"}> ({\n  ^bb0(%arg0: !secret.secret<tensor<2x4xi3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x8xi32>) -> i32, sym_name = \"not_supported_bad_tensor_shape\"}> ({\n  ^bb0(%arg0: tensor<1x8xi32>):\n    %0 = \"arith.constant\"() <{value =..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (i32, i1) -> i32, sym_name = \"main\"}> ({\n  ^bb0(%arg0: i32, %arg1: i1):\n    %0 = \"arith.constant..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>, i32) -> i32, sym_name = \"simple_sum_multiple_non_tensor_operands\"}> ({\n  ^bb0(%arg0: tensor<8xi32>, %arg1: i32):\n    %0 = \"arith..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tfhe_rust_bool",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!tfhe_rust_bool.server_key, !tfhe_rust_bool.eb, !tfhe_rust_bool.eb) -> !tfhe_rust_bool.eb, sym_name = \"test_and\"}> ({\n  ^bb0(%arg2: !tfhe_rust_..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<16xi16>>, i1) -> !secret.secret<tensor<16xi16>>, sym_name = \"non_secret_condition_outside_of_secret_generic_with_secret_t..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {}], function_type = (tensor<8xi16>, tensor<8xi16>) -> i16, sym_name = \"dot_product\"}> ({\n  ^bb0(%arg2: tensor<8xi16>, %arg3: tens..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"test_function_signature\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>):\n    \"func.return\"(%a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<10xf32>) -> tensor<10xf32>, sym_name = \"test_maximumf\"}> ({\n  ^bb0(%arg0: tensor<10xf32>):\n    %0 = \"arith.constant\"() <{value = dense<0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, !secret.secret<i32>, !secret.secret<i8>) -> !secret.secret<i8>, sym_name = \"for_25_20_8\"}> ({\n  ^bb0(%arg0: !secret.secret..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"mul\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n    ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor_ext",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> tensor<8xi32>, sym_name = \"simple_sum_mixed_rotation_tensor\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {secret.secret}], function_type = (i16, i16) -> i16, sym_name = \"func\"}> ({\n  ^bb0(%arg0: i16, %arg1: i16):\n    %0 = \"arith.addi\"(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i16>, !secret.secret<i1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mod_arith",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<4xi26>, sym_name = \"test_lower_barrett_reduce\", sym_visibility = \"public\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<[2949876..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_constant\"}> ({\n    %0 = \"arith.constant\"() <{value = 1 : i32}> : () -> i32\n    %1 = \"arith.constant\"() <{value = dens..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i16) -> i32, sym_name = \"foo\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.extui\"(%arg0) : (i16) -> i32\n    \"func.re..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> tensor<32xi32>, sym_name = \"concat\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<1> : tensor<8xi32>}> : () -> tensor<8xi32>\n    %1 = \"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i16>) -> !secret.secret<i16>, sym_name = \"mul\"}> ({\n  ^bb0(%arg0: !secret.secret<i16>):\n    %0 = \"secret.generic\"(%arg0) ({\n    ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "builtin",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i8) -> i8, sym_name = \"submod\"}> ({\n  ^bb0(%arg1: i8):\n    %2 = \"arith.constant\"() <{value = 0 : i32}> : () -> i32\n    %3 = \"arith.constant\"() ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i8>) -> !secret.secret<i32>, sym_name = \"chunks\"}> ({\n  ^bb0(%arg0: !secret.secret<i8>):\n    %0 = \"secret.generic\"(%arg0) ({\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func",
+        "scf",
+        "tensor",
+        "secret",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>, !secret.secret<index>) -> !secret.secret<i16>, sym_name = \"for_loop_with_data_dependent_lower_bound\"}> ({\n  ^bb..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "math",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (f32) -> f32, sym_name = \"test_sin_default_params\"}> ({\n  ^bb0(%arg0: f32):\n    %0 = \"math.sin\"(%arg0) <{fastmath = #arith.fastmath<none>}> : (f..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mgmt",
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<8xi8>>) -> !secret.secret<tensor<8xi8>>, sym_name = \"main\"}> ({\n  ^bb0(%arg0: !secret.secret<tensor<8xi8>>):\n    %0 = \"se..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, !secret.secret<i32>) -> !secret.secret<i32>, sym_name = \"example_fn\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>, %arg1: !secre..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "mod_arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<4xi8>, tensor<4xi8>) -> tensor<4xi8>, sym_name = \"test_lower_subifge\"}> ({\n  ^bb0(%arg0: tensor<4xi8>, %arg1: tensor<4xi8>):\n    %0 = \"m..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}], function_type = (i16) -> i16, sym_name = \"mul\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.muli\"(%arg0, %arg0) <{overflowFlags = #ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{}, {}, {secret.secret}], function_type = (i64, i64, i1) -> i64, sym_name = \"cmux\"}> ({\n  ^bb0(%arg0: i64, %arg1: i64, %arg2: i1):\n    %0 = \"scf.if..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>, index) -> i32, sym_name = \"not_supported_non_constant_index_access\"}> ({\n  ^bb0(%arg0: tensor<8xi32>, %arg1: index):\n    %0 = \"a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<8xi32>) -> i32, sym_name = \"not_supported_mixed_op_non_tensor_operands\"}> ({\n  ^bb0(%arg0: tensor<8xi32>):\n    %0 = \"arith.constant\"() <..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "linalg",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (tensor<1x2x1x512xf32>, tensor<1x2x1x512xf32>) -> tensor<1x2x1x512xf32>, sym_name = \"middle_dims\"}> ({\n  ^bb0(%arg0: tensor<1x2x1x512xf32>, %arg..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "scf",
+        "tensor",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{arg_attrs = [{secret.secret}, {}], function_type = (tensor<32xi16>, index) -> i16, sym_name = \"simple_sum_bound\"}> ({\n  ^bb0(%arg0: tensor<32xi16>, %arg1: index..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i32>, i1) -> !secret.secret<i32>, sym_name = \"test_distribute_generic_preserve_attr\"}> ({\n  ^bb0(%arg0: !secret.secret<i32>, %ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<f32>, !secret.secret<f32>, !secret.secret<f32>, !secret.secret<f32>) -> !secret.secret<f32>, sym_name = \"simple_balance_secret_a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i16) -> i16, res_attrs = [{test.attr = 3 : i64}], sym_name = \"mul\"}> ({\n  ^bb0(%arg0: i16):\n    %0 = \"arith.muli\"(%arg0, %arg0) <{overflowFlags..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i3>, !secret.secret<i3>, !secret.secret<i3>, !secret.secret<i3>) -> !secret.secret<i3>, sym_name = \"ops\"}> ({\n  ^bb0(%arg4: !sec..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "arith",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<tensor<32xi16>>, !secret.secret<tensor<32xi16>>) -> !secret.secret<tensor<32xi16>>, sym_name = \"elementwise_sum\"}> ({\n  ^bb0(%ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "secret",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (!secret.secret<i1>) -> !secret.secret<i1>, sym_name = \"truth_table\"}> ({\n  ^bb0(%arg0: !secret.secret<i1>):\n    %0 = \"secret.generic\"(%arg0) ({..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = () -> (), sym_name = \"test_fn\"}> ({\n    \"func.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "comb",
+        "func"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"func.func\"() <{function_type = (i1, i1) -> (), sym_name = \"comb\"}> ({\n  ^bb0(%arg0: i1, %arg1: i1):\n    %0 = \"comb.truth_table\"(%arg0, %arg1) <{lookupTable = 6 : ui4}> : (i1, ..."
+    }
+  ],
+  "total_files": 246,
+  "parsed_successfully": 246,
+  "parse_errors": [],
+  "statistics": {
+    "top_dialects": [
+      [
+        "arith",
+        1148
+      ],
+      [
+        "func",
+        623
+      ],
+      [
+        "secret",
+        245
+      ],
+      [
+        "tensor",
+        214
+      ],
+      [
+        "tensor_ext",
+        124
+      ],
+      [
+        "scf",
+        73
+      ],
+      [
+        "tfhe_rust",
+        27
+      ],
+      [
+        "linalg",
+        18
+      ],
+      [
+        "comb",
+        18
+      ],
+      [
+        "tfhe_rust_bool",
+        10
+      ]
+    ],
+    "top_operations": [
+      [
+        "arith.constant",
+        424
+      ],
+      [
+        "arith.addi",
+        367
+      ],
+      [
+        "func.func",
+        309
+      ],
+      [
+        "func.return",
+        301
+      ],
+      [
+        "arith.muli",
+        212
+      ],
+      [
+        "tensor.extract",
+        172
+      ],
+      [
+        "secret.generic",
+        114
+      ],
+      [
+        "secret.yield",
+        114
+      ],
+      [
+        "tensor_ext.rotate",
+        113
+      ],
+      [
+        "scf.yield",
+        39
+      ],
+      [
+        "arith.mulf",
+        23
+      ],
+      [
+        "tensor.insert",
+        23
+      ],
+      [
+        "arith.subi",
+        20
+      ],
+      [
+        "arith.cmpi",
+        20
+      ],
+      [
+        "arith.addf",
+        16
+      ],
+      [
+        "secret.conceal",
+        15
+      ],
+      [
+        "scf.for",
+        14
+      ],
+      [
+        "arith.select",
+        14
+      ],
+      [
+        "func.call",
+        13
+      ],
+      [
+        "comb.truth_table",
+        11
+      ]
+    ],
+    "top_types": [
+      [
+        "none",
+        655
+      ],
+      [
+        "i16",
+        504
+      ],
+      [
+        "i32",
+        242
+      ],
+      [
+        "i1",
+        133
+      ],
+      [
+        "index",
+        73
+      ],
+      [
+        "f32",
+        62
+      ],
+      [
+        "secretsecreti16",
+        60
+      ],
+      [
+        "i8",
+        59
+      ],
+      [
+        "32xi16",
+        57
+      ],
+      [
+        "8xi16",
+        44
+      ],
+      [
+        "1024xi16",
+        40
+      ],
+      [
+        "32x32xi16",
+        33
+      ],
+      [
+        "secretsecreti32",
+        31
+      ],
+      [
+        "16xi16",
+        27
+      ],
+      [
+        "i3",
+        23
+      ]
+    ],
+    "avg_ops_per_file": 10.276422764227643,
+    "avg_region_depth": 2.491869918699187,
+    "complexity_distribution": {
+      "complex": 79,
+      "medium": 166,
+      "simple": 1
+    }
+  }
+}

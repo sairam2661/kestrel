@@ -1,0 +1,9 @@
+**Semantic Validity Rules for triton:**
+1. **SSA Form Rule**: All values must be defined before they are used. Each value can only be defined once and must be used within its defining block.
+2. **Type Consistency Rule**: Operation inputs and outputs must have matching types. Type mismatches between operands are not allowed.
+3. **Region & Terminator Rule**: Every region must have a terminator operation. For example, a `scf.for` region must end with a `scf.yield`, and a function must end with a `tt.return`.
+4. **Symbol References Rule**: Functions or symbols must be declared before they are referenced. All function calls must refer to previously defined functions.
+5. **Dialect-Specific Constraints Rule**: Operations must adhere to specific constraints defined by their dialect. For example, `scf.for` requires a loop variable and bounds, and `tt.reduce` requires a reduction operation within its region.
+6. **Attribute Consistency Rule**: Attributes specified for operations must be valid and consistent with the operation's requirements. For example, `arith.cmpi` requires a valid predicate attribute.
+7. **Tensor Shape and Type Rule**: Tensor operations must have compatible shapes and types. Operations like `arith.addi` require tensors of the same shape and element type.
+8. **Terminator Argument Rule**: Terminator operations must have the correct number and types of arguments as required by their definition. For example, `tt.return` must have arguments matching the function's return type.

@@ -16,7 +16,7 @@ def main(args):
     print(f"=" * 60)
     
     # Setup cache directory
-    cache_dir = os.path.join(args.output_dir, "cache", args.tool_name)
+    cache_dir = os.path.join(".cache", args.output_dir)
     os.makedirs(cache_dir, exist_ok=True)
     
     # Step 1: Syntactic Analysis
@@ -51,7 +51,7 @@ def main(args):
                 filepath = os.path.join(args.corpus_dir, filename)
                 with open(filepath, 'r') as f:
                     content = f.read()
-                    if code_snippet in content:
+                    if code_snippet[:-5] in content:
                         example_codes.append(content)
                         print(f"  Selected: {filename} ({template['complexity_class']})")
                         break

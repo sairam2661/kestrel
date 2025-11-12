@@ -1,0 +1,46 @@
+{
+  "tool_name": "torch",
+  "corpus_dir": "examples/torch/general",
+  "total_files": 560,
+  "parsed_successfully": 560,
+  "cache_files": {
+    "syntactic": ".cache/torch/syntactic_patterns.json",
+    "semantic": ".cache/torch/semantic_rules.txt",
+    "operations": null
+  },
+  "top_dialects": [
+    [
+      "torch",
+      2352
+    ],
+    [
+      "func",
+      1198
+    ],
+    [
+      "torch_c",
+      32
+    ],
+    [
+      "arith",
+      10
+    ],
+    [
+      "test",
+      3
+    ],
+    [
+      "scf",
+      3
+    ],
+    [
+      "unknown_dialect",
+      2
+    ],
+    [
+      "tosa",
+      1
+    ]
+  ],
+  "analysis_samples_used": 40
+}

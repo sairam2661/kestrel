@@ -1,0 +1,11 @@
+"builtin.module"() ({
+  "tt.func"() <{function_type = (tensor<10x10xi32>) -> tensor<10x10xi32>, sym_name = "unusual_sequence"}> ({
+  ^bb0(%arg0: tensor<10x10xi32>):
+    %0 = "arith.constant"() <{value = dense<1> : tensor<10x10xi32>}> : () -> tensor<10x10xi32>
+    %1 = "arith.xori"(%arg0, %0) : (tensor<10x10xi32>, tensor<10x10xi32>) -> tensor<10x10xi32>
+    %2 = "arith.addi"(%arg0, %1) : (tensor<10x10xi32>, tensor<10x10xi32>) -> tensor<10x10xi32>
+    %3 = "arith.cmpi"(%arg0, %2, "slt") : (tensor<10x10xi32>, tensor<10x10xi32>) -> tensor<10x10xi1>
+    %4 = "arith.select"(%3, %arg0, %2) : (tensor<10x10xi1>, tensor<10x10xi32>, tensor<10x10xi32>) -> tensor<10x10xi32>
+    "tt.return"(%4) : (tensor<10x10xi32>) -> ()
+  }) : () -> ()
+}) : () -> ()

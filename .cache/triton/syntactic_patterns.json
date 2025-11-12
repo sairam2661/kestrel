@@ -1,0 +1,1475 @@
+{
+  "dialects": {
+    "tt": 199,
+    "arith": 251,
+    "llvm": 6,
+    "proton_gpu": 4,
+    "scf": 48,
+    "some": 1,
+    "ttg": 4,
+    "ub": 1,
+    "nvgpu": 2,
+    "ttng": 2,
+    "latency": 1,
+    "rocdl": 1,
+    "amdgpu": 2,
+    "op": 2
+  },
+  "operations": {
+    "tt.func": 68,
+    "tt.atomic_rmw": 1,
+    "tt.return": 68,
+    "tt.make_range": 22,
+    "arith.cmpi": 51,
+    "llvm.func": 3,
+    "proton_gpu.read_counter": 2,
+    "llvm.return": 3,
+    "arith.select": 17,
+    "scf.if": 9,
+    "arith.subi": 6,
+    "scf.yield": 28,
+    "arith.constant": 94,
+    "tt.expand_dims": 5,
+    "tt.broadcast": 3,
+    "tt.advance": 1,
+    "tt.gather": 1,
+    "scf.for": 11,
+    "some.op": 1,
+    "ttg.global_scratch_alloc": 4,
+    "tt.call": 8,
+    "ub.poison": 1,
+    "arith.addi": 12,
+    "tt.join": 1,
+    "arith.minimumf": 1,
+    "arith.maximumf": 1,
+    "tt.dot": 2,
+    "arith.muli": 11,
+    "nvgpu.cluster_id": 1,
+    "nvgpu.warp_id": 1,
+    "arith.maxsi": 3,
+    "arith.minsi": 2,
+    "arith.remsi": 11,
+    "tt.addptr": 4,
+    "arith.divsi": 12,
+    "arith.andi": 2,
+    "arith.ori": 2,
+    "arith.xori": 12,
+    "arith.divui": 2,
+    "tt.split": 1,
+    "ttng.async_tma_store_wait": 1,
+    "proton_gpu.global_scratch_alloc": 2,
+    "ttng.tensormap_fenceproxy_acquire": 1,
+    "tt.reduce": 4,
+    "arith.addf": 4,
+    "tt.reduce.return": 4,
+    "tt.get_program_id": 1,
+    "latency.op": 1,
+    "rocdl.workitem.id.x": 1,
+    "amdgpu.cond_barrier": 2,
+    "tt.histogram": 1,
+    "op.with_region": 2,
+    "tt.elementwise_inline_asm": 1,
+    "tt.splat": 2,
+    "arith.extsi": 1,
+    "tt.bitcast": 1,
+    "arith.remui": 2,
+    "arith.shli": 3,
+    "arith.shrsi": 2
+  },
+  "type_patterns": {
+    "ttptrf32i1f32": 1,
+    "f32": 23,
+    "ttptrf32": 6,
+    "i1": 9,
+    "128xi1": 1,
+    "llvmfunci32": 3,
+    "i32": 79,
+    "i164xi3264xi3264xi3264xi3264xi3264xi3264xi32": 1,
+    "64xi32": 6,
+    "none": 38,
+    "ttptr64x64xf16ttptr64x64xf16": 1,
+    "64x64xf16": 6,
+    "ttptr64x64xf16": 1,
+    "i32i1": 3,
+    "ttptri8": 6,
+    "i8": 26,
+    "ttptri8ttptri8": 2,
+    "128x32xi32": 3,
+    "f32f32": 2,
+    "16x16xf3216x16xf3216x16xf3216x16xf32": 1,
+    "16x16xf32": 3,
+    "i32i32i32": 3,
+    "index": 4,
+    "i32i32i32i32": 2,
+    "f328x2xf32": 1,
+    "i64": 3,
+    "ttptri80": 2,
+    "ttptrf32i1": 1,
+    "128x1xi321xi32": 1,
+    "indexttptrf16": 1,
+    "f16": 8,
+    "ttptrf16": 2,
+    "8xi328xi32": 1,
+    "8xi32": 2,
+    "ttptri32": 8,
+    "2xf32": 2,
+    "i164xi3264xi3264xf3264xf3264xi3264xf3264xi3264xi32": 1,
+    "64xf32": 2,
+    "indexttptri8": 1,
+    "ttptrf16ttptrf16": 1,
+    "ttptrbf16ttptrbf16256xi32": 1,
+    "bf16": 4,
+    "ttptrbf16": 2,
+    "256xi32": 1,
+    "i14xi1": 1,
+    "4xi1": 1
+  },
+  "complexity_metrics": [
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 10,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 11,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 8,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 16,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 5,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 16,
+      "total_blocks": 8,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 18,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 51,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 17,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 13,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 22,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 9,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 11,
+      "total_blocks": 4,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 17,
+      "total_blocks": 6,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 3,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 11,
+      "total_blocks": 5,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 11,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 11,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 4,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 4,
+      "total_ops": 13,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 8,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 2,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 6,
+      "total_blocks": 3,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 7,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 3,
+      "total_ops": 54,
+      "total_blocks": 7,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 18,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 6,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 19,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    },
+    {
+      "region_depth": 2,
+      "total_ops": 11,
+      "total_blocks": 2,
+      "ssa_values": 0,
+      "functions": 0,
+      "modules": 0
+    }
+  ],
+  "structural_templates": [
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (!tt.ptr<f32>, i1, f32) -> (), sym_name = \"atomic_add_f32_scalar\"}> ({\n  ^bb0(%arg0: !tt.ptr<f32>, %arg1: i1, %arg2: f32):\n    %0 = \"tt.atomic_rmw..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> tensor<128xi1>, sym_name = \"dontfoldtensor\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "llvm",
+        "proton_gpu"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"llvm.func\"() <{CConv = #llvm.cconv<ccc>, function_type = !llvm.func<i32 ()>, linkage = #llvm.linkage<external>, sym_name = \"convert_read_counter\", unnamed_addr = 0 : i64, visi..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i1, tensor<64xi32>, tensor<64xi32>, tensor<64xi32>, tensor<64xi32>) -> (tensor<64xi32>, tensor<64xi32>, tensor<64xi32>), sym_name = \"if_multiple_..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"broadcast\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<64> : tensor<128xi32>}> : () -> tensor<128xi32>\n    %1 = \"tt.exp..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32}], function_type = (!tt.ptr<f32>) -> (), sym_name = \"arith_splat_bool\"}> ({\n  ^bb0(%arg0: !tt.ptr<f32>):\n    %0 = \"arith...."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (!tt.ptr<tensor<64x64xf16>>) -> !tt.ptr<tensor<64x64xf16>>, sym_name = \"fold_advance\"}> ({\n  ^bb0(%arg0: !tt.ptr<tensor<64x64xf16>>):\n    %0 = \"ar..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"gather_op\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<1.000000e+00> : tensor<128x4xf32>}> : () -> tensor<128x4xf32>\n  ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "some",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32, i1) -> (), sym_name = \"prologue_latency\"}> ({\n  ^bb0(%arg0: i32, %arg1: i1):\n    %0 = \"arith.constant\"() <{value = 0 : i32}> : () -> i32\n   ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "ttg"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> !tt.ptr<i8>, sym_name = \"helper1\", sym_visibility = \"private\"}> ({\n    %2 = \"ttg.global_scratch_alloc\"() <{alignment = 128 : i32, nbytes = 1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "ub"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"ub_poison\"}> ({\n    %0 = \"ub.poison\"() <{value = #ub.poison}> : () -> tensor<128x64xf16>\n    \"tt.return\"() : () -> ()\n  }) :..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"for\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<0> : tensor<128x32xi32>}> : () -> tensor<128x32xi32>\n    %1 = \"arith.c..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (tensor<f32>, tensor<f32>) -> (), sym_name = \"fn\", sym_visibility = \"public\"}> ({\n  ^bb0(%arg0: tensor<f32>, %arg1: tensor<f32>):\n    %0 = \"tt.joi..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (f32, f32) -> (), sym_name = \"min_max\", sym_visibility = \"public\"}> ({\n  ^bb0(%arg0: f32, %arg1: f32):\n    %0 = \"arith.minimumf\"(%arg0, %arg1) <{f..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (tensor<16x16xf32>, tensor<16x16xf32>, tensor<16x16xf32>) -> tensor<16x16xf32>, sym_name = \"dot_test\"}> ({\n  ^bb0(%arg0: tensor<16x16xf32>, %arg1:..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i1) -> (), sym_name = \"if\"}> ({\n  ^bb0(%arg0: i1):\n    %0 = \"arith.constant\"() <{value = dense<64> : tensor<128x32xi32>}> : () -> tensor<128x32xi..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32, i32) -> i32, sym_name = \"yield_outside_loop1\", sym_visibility = \"public\"}> ({\n  ^bb0(%arg5: i32, %arg6: i32):\n    %6 = \"arith.constant\"() <{..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (f32) -> tensor<8x2xf32>, sym_name = \"fold_broadcast_constant_pattern\"}> ({\n  ^bb0(%arg0: f32):\n    %0 = \"arith.constant\"() <{value = dense<1.0000..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> i64, sym_name = \"int_min_does_not_underflow_in_analysis\"}> ({\n    %0 = \"arith.constant\"() <{value = -9223372036854775808 : i64}> : () -> i64..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.nv_tma_desc = 1 : i32}], function_type = (!tt.ptr<i8, 0>) -> (), sym_name = \"byval_tma_desc\"}> ({\n  ^bb0(%arg0: !tt.ptr<i8, 0>):\n    \"tt.return\"(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (!tt.ptr<f32>) -> i1, sym_name = \"cmpsle\"}> ({\n  ^bb0(%arg0: !tt.ptr<f32>):\n    %0 = \"arith.constant\"() <{value = 0 : i32}> : () -> i32\n    %1 = \"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "llvm",
+        "nvgpu"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"llvm.func\"() <{CConv = #llvm.cconv<ccc>, function_type = !llvm.func<i32 ()>, linkage = #llvm.linkage<external>, sym_name = \"cluster_id\", unnamed_addr = 0 : i64, visibility_ = ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32) -> (), sym_name = \"test_5122\", sym_visibility = \"public\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"arith.constant\"() <{value = 1 : i32}> : () -> i3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (tensor<128x1xi32>, tensor<1xi32>), sym_name = \"make_range\"}> ({\n    %0 = \"tt.make_range\"() <{end = 1 : i32, start = 0 : i32}> : () -> tenso..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "nvgpu"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> i32, sym_name = \"one_warp\"}> ({\n    %0 = \"nvgpu.warp_id\"() : () -> i32\n    \"tt.return\"(%0) : (i32) -> ()\n  }) : () -> ()\n}) {\"ttg.num-warps\"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (index, !tt.ptr<f16>) -> (), sym_name = \"test_empty_kernel\"}> ({\n  ^bb0(%arg0: index, %arg1: !tt.ptr<f16>):\n    \"tt.return\"() : () -> ()\n  }) : ()..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "ttg"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (!tt.ptr<i8>, !tt.ptr<i8>), sym_name = \"test_alloc\", sym_visibility = \"public\"}> ({\n    %0 = \"ttg.global_scratch_alloc\"() <{alignment = 8 : ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32) -> (), sym_name = \"mul\"}> ({\n  ^bb0(%arg3: i32):\n    %4 = \"arith.constant\"() <{value = 1 : i32}> : () -> i32\n    %5 = \"arith.muli\"(%arg3, %4..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.constancy = 1 : i32, tt.contiguity = 8 : i32, tt.divisibility = 4 : i32}, {tt.constancy = 1 : i32, tt.contiguity = 2 : i32, tt.divisibility = 8 :..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"ops\"}> ({\n    %0 = \"arith.constant\"() <{value = dense<1.000000e+00> : tensor<128x32xf16>}> : () -> tensor<128x32xf16>\n    %1..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"cmp_all_contiguous\"}> ({\n    %30 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %31 = ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (!tt.ptr<i32>) -> (), sym_name = \"addptr_hints\"}> ({\n  ^bb0(%arg3: !tt.ptr<i32>):\n    %0 = \"arith.constant\"() <{value = 1 : i32}> : () -> i32\n    ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"logic\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %1 = \"arith.constant..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32}], function_type = (i32) -> (), sym_name = \"div\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"tt.make_range\"() <{end = 128 : i32, s..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (tensor<2xf32>) -> (), sym_name = \"fn\", sym_visibility = \"public\"}> ({\n  ^bb0(%arg0: tensor<2xf32>):\n    %0:2 = \"tt.split\"(%arg0) : (tensor<2xf32>..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "ttng"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"async_tma_store_wait\"}> ({\n    \"ttng.async_tma_store_wait\"() <{pendings = 0 : i32}> : () -> ()\n    \"tt.return\"() : () -> ()\n..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"max_min\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %1 = \"tt.make_rang..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i1, tensor<64xi32>, tensor<64xi32>, tensor<64xf32>, tensor<64xf32>) -> (tensor<64xi32>, tensor<64xf32>, tensor<64xi32>, tensor<64xi32>), sym_name..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "proton_gpu"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (index, !tt.ptr<i8>) -> (), sym_name = \"test_empty_kernel\"}> ({\n  ^bb0(%arg0: index, %arg1: !tt.ptr<i8>):\n    %0 = \"proton_gpu.global_scratch_allo..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32, tt.pointer_range = 32 : i32}], function_type = (!tt.ptr<i8>) -> (), sym_name = \"empty_kernel\", sym_visibility = \"public\"..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "llvm",
+        "proton_gpu"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"llvm.func\"() <{CConv = #llvm.cconv<ccc>, function_type = !llvm.func<i32 ()>, linkage = #llvm.linkage<external>, sym_name = \"convert_read_counter\", unnamed_addr = 0 : i64, visi..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "ttng"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32}], function_type = (!tt.ptr<i8>) -> (), sym_name = \"tensormap_fenceproxy_acquire\", sym_visibility = \"public\"}> ({\n  ^bb0(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32}], function_type = (!tt.ptr<f32>) -> (), sym_name = \"reduce_ops\"}> ({\n  ^bb0(%arg0: !tt.ptr<f32>):\n    %0 = \"arith.consta..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"basic_program_id\"}> ({\n    %0 = \"tt.get_program_id\"() <{axis = 0 : i32}> : () -> i32\n    \"tt.return\"() : () -> ()\n  }) : () ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith",
+        "latency"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32, i1) -> (), sym_name = \"epilogue_forward_slice\"}> ({\n  ^bb0(%arg0: i32, %arg1: i1):\n    %0 = \"arith.constant\"() <{value = 0 : i32}> : () -> i..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "amdgpu",
+        "arith",
+        "rocdl"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"conditional_barrier\"}> ({\n    %0 = \"arith.constant\"() <{value = 256 : i32}> : () -> i32\n    %1 = \"arith.constant\"() <{value ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"expanddims\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %1 = \"arith.con..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (!tt.ptr<f16>) -> !tt.ptr<f16>, sym_name = \"fold_addptr_scalar\"}> ({\n  ^bb0(%arg0: !tt.ptr<f16>):\n    %0 = \"arith.constant\"() <{value = 0 : i32}> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32}], function_type = (i64) -> (), sym_name = \"mul\"}> ({\n  ^bb0(%arg0: i64):\n    %0 = \"tt.make_range\"() <{end = 128 : i32, s..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (!tt.ptr<bf16>, !tt.ptr<bf16>, tensor<256xi32>) -> (), sym_name = \"histo_nonneg\"}> ({\n  ^bb0(%arg0: !tt.ptr<bf16>, %arg1: !tt.ptr<bf16>, %arg2: te..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith",
+        "op"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32, i1) -> (), sym_name = \"prologue_backward_slice\"}> ({\n  ^bb0(%arg0: i32, %arg1: i1):\n    %0 = \"arith.constant\"() <{value = 0 : i32}> : () -> ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"sub\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %1 = \"arith.constant\"(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"no_record\"}> ({\n    \"tt.return\"() : () -> ()\n  }) : () -> ()\n}) : () -> ()\n\n"
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 16 : i32}, {tt.divisibility = 8 : i32}, {}], function_type = (i32, i32, i32) -> (), sym_name = \"for_dynamic\"}> ({\n  ^bb0(%arg0: i3..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"add\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %1 = \"arith.constant\"(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "scf",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "complex",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i32) -> (), sym_name = \"loop_buffer_phase_args\"}> ({\n  ^bb0(%arg11: i32):\n    %18 = \"arith.constant\"() <{value = 2 : i32}> : () -> i32\n    %19 = ..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = (i1, tensor<4xi1>) -> (), sym_name = \"select\"}> ({\n  ^bb0(%arg0: i1, %arg1: tensor<4xi1>):\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"cast\"}> ({\n    %0 = \"arith.constant\"() <{value = 1 : i32}> : () -> i32\n    %1 = \"arith.extsi\"(%0) : (i32) -> i64\n    %2 = \"a..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "complex",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{function_type = () -> (), sym_name = \"rem\"}> ({\n    %0 = \"tt.make_range\"() <{end = 128 : i32, start = 0 : i32}> : () -> tensor<128xi32>\n    %1 = \"arith.constant\"(..."
+    },
+    {
+      "has_module": false,
+      "num_functions": 0,
+      "dialects_used": [
+        "tt",
+        "arith"
+      ],
+      "complexity_class": "medium",
+      "control_flow_type": "simple",
+      "code_snippet": "\"builtin.module\"() ({\n  \"tt.func\"() <{arg_attrs = [{tt.divisibility = 4 : i32}], function_type = (i32) -> (), sym_name = \"shift\"}> ({\n  ^bb0(%arg0: i32):\n    %0 = \"tt.splat\"(%arg0) : (i32) -> tensor<1..."
+    }
+  ],
+  "total_files": 61,
+  "parsed_successfully": 60,
+  "parse_errors": [
+    "reproducer-0.mlir: No terminal matches '{' in the current parser context, at line 7 col 1\n\n{-#\n^\nExpected one of: \n\t* M"
+  ],
+  "statistics": {
+    "top_dialects": [
+      [
+        "arith",
+        251
+      ],
+      [
+        "tt",
+        199
+      ],
+      [
+        "scf",
+        48
+      ],
+      [
+        "llvm",
+        6
+      ],
+      [
+        "proton_gpu",
+        4
+      ],
+      [
+        "ttg",
+        4
+      ],
+      [
+        "nvgpu",
+        2
+      ],
+      [
+        "ttng",
+        2
+      ],
+      [
+        "amdgpu",
+        2
+      ],
+      [
+        "op",
+        2
+      ]
+    ],
+    "top_operations": [
+      [
+        "arith.constant",
+        94
+      ],
+      [
+        "tt.func",
+        68
+      ],
+      [
+        "tt.return",
+        68
+      ],
+      [
+        "arith.cmpi",
+        51
+      ],
+      [
+        "scf.yield",
+        28
+      ],
+      [
+        "tt.make_range",
+        22
+      ],
+      [
+        "arith.select",
+        17
+      ],
+      [
+        "arith.addi",
+        12
+      ],
+      [
+        "arith.divsi",
+        12
+      ],
+      [
+        "arith.xori",
+        12
+      ],
+      [
+        "scf.for",
+        11
+      ],
+      [
+        "arith.muli",
+        11
+      ],
+      [
+        "arith.remsi",
+        11
+      ],
+      [
+        "scf.if",
+        9
+      ],
+      [
+        "tt.call",
+        8
+      ],
+      [
+        "arith.subi",
+        6
+      ],
+      [
+        "tt.expand_dims",
+        5
+      ],
+      [
+        "ttg.global_scratch_alloc",
+        4
+      ],
+      [
+        "tt.addptr",
+        4
+      ],
+      [
+        "tt.reduce",
+        4
+      ]
+    ],
+    "top_types": [
+      [
+        "i32",
+        79
+      ],
+      [
+        "none",
+        38
+      ],
+      [
+        "i8",
+        26
+      ],
+      [
+        "f32",
+        23
+      ],
+      [
+        "i1",
+        9
+      ],
+      [
+        "f16",
+        8
+      ],
+      [
+        "ttptri32",
+        8
+      ],
+      [
+        "ttptrf32",
+        6
+      ],
+      [
+        "64xi32",
+        6
+      ],
+      [
+        "64x64xf16",
+        6
+      ],
+      [
+        "ttptri8",
+        6
+      ],
+      [
+        "index",
+        4
+      ],
+      [
+        "bf16",
+        4
+      ],
+      [
+        "llvmfunci32",
+        3
+      ],
+      [
+        "i32i1",
+        3
+      ]
+    ],
+    "avg_ops_per_file": 8.85,
+    "avg_region_depth": 2.2666666666666666,
+    "complexity_distribution": {
+      "medium": 43,
+      "complex": 17
+    }
+  }
+}

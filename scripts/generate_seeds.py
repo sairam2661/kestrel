@@ -18,10 +18,9 @@ from grammar_utils import extract_subgrammar
 from judge import CodeJudge
 
 
-def load_cached_analysis(cache_dir: str, tool_name: str):
-    tool_cache = os.path.join(cache_dir, tool_name)
+def load_cached_analysis(cache_dir: str):
     
-    syntactic_file = os.path.join(tool_cache, "syntactic_patterns.json")
+    syntactic_file = os.path.join(cache_dir, "syntactic_patterns.json")
     if not os.path.exists(syntactic_file):
         raise FileNotFoundError(
             f"No cached analysis found for {tool_name}. "
@@ -31,7 +30,7 @@ def load_cached_analysis(cache_dir: str, tool_name: str):
     with open(syntactic_file, 'r') as f:
         syntactic_patterns = json.load(f)
     
-    semantic_file = os.path.join(tool_cache, "semantic_rules.txt")
+    semantic_file = os.path.join(cache_dir, "semantic_rules.txt")
     if not os.path.exists(semantic_file):
         raise FileNotFoundError(f"Semantic rules not found: {semantic_file}")
     
@@ -48,8 +47,8 @@ def main(args):
             os.environ["HF_TOKEN"] = secrets.get("HF_TOKEN", "")
     
     print(f"Loading analysis for {args.tool_name}...")
-    cache_dir = os.path.join(args.cache_dir, "cache")
-    syntactic_patterns, semantic_rules = load_cached_analysis(cache_dir, args.tool_name)
+    cache_dir = os.path.join(args.cache_dir)
+    syntactic_patterns, semantic_rules = load_cached_analysis(cache_dir)
     
     print(f" Loaded syntactic patterns ({syntactic_patterns['total_files']} files analyzed)")
     print(f" Loaded semantic rules")

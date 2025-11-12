@@ -1,0 +1,9 @@
+**Semantic Validity Rules for torch:**
+1. **SSA Form Rule**: All values must be defined before use. Each value must be assigned to a unique SSA identifier, and each identifier can only be defined once.
+2. **Type Consistency Rule**: Types must match across operation inputs and outputs. For example, operations that take tensors must receive tensors of compatible shapes and element types.
+3. **Region & Terminator Rules**: Each region must have a terminator operation. For example, a `func.return` must be present at the end of a function block to return values.
+4. **Symbol References Rule**: Functions or symbols must be declared before they are referenced. All function calls must refer to previously defined functions.
+5. **Dialect-Specific Constraints Rule**: Operations must adhere to the constraints specific to their dialect. For example, `torch.aten` operations must have the correct number and types of arguments as defined in the PyTorch documentation.
+6. **Shape and Dimension Constraints Rule**: Tensor operations must respect shape and dimension constraints. For instance, matrix multiplication requires compatible inner dimensions.
+7. **Type Conversion Rules**: Explicit type conversions must be used when operations require different types. For example, converting between integer and floating-point types.
+8. **List and Literal Constraints Rule**: Lists and literals must be constructed and used correctly. For example, `torch.prim.ListConstruct` must be used to create lists with elements of the same type.

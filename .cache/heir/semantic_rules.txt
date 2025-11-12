@@ -1,0 +1,9 @@
+**Semantic Validity Rules for heir:**
+1. **SSA Form Rule**: All values must be defined before use, and each value can only be defined once. Values must be used within the same region where they are defined.
+2. **Type Consistency Rule**: The types of operation inputs and outputs must match exactly. For example, operations that take tensors must have inputs of the same tensor type, and operations that produce tensors must have outputs of the same tensor type.
+3. **Region & Terminator Rules**: Each region must have a terminator operation, such as `func.return`, `scf.yield`, or `secret.yield`, which must be the last operation in the region.
+4. **Symbol References Rule**: Functions and symbols must be declared before they are referenced. For example, a function must be defined before it is called.
+5. **Dialect-Specific Constraints Rule**: Operations within a dialect must adhere to the specific constraints of that dialect. For example, the `secret.generic` operation must have a corresponding `secret.yield` operation within its region.
+6. **Layout Consistency Rule**: When using operations like `tensor_ext.assign_layout`, the layout attribute must be consistent and correctly applied to the tensor type.
+7. **Control Flow Integrity Rule**: Control flow operations like `scf.for` and `scf.if` must have their loop bounds and conditions correctly specified and must terminate properly.
+8. **Terminator Argument Types Rule**: The types of arguments passed to terminators must match the expected types defined by the operation signature.

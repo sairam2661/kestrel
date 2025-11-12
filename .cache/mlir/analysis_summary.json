@@ -1,0 +1,54 @@
+{
+  "tool_name": "mlir",
+  "corpus_dir": "examples/mlir/general",
+  "total_files": 2535,
+  "parsed_successfully": 2535,
+  "cache_files": {
+    "syntactic": ".cache/mlir/syntactic_patterns.json",
+    "semantic": ".cache/mlir/semantic_rules.txt",
+    "operations": null
+  },
+  "top_dialects": [
+    [
+      "func",
+      5448
+    ],
+    [
+      "arith",
+      1961
+    ],
+    [
+      "tosa",
+      1419
+    ],
+    [
+      "transform",
+      956
+    ],
+    [
+      "test",
+      879
+    ],
+    [
+      "scf",
+      871
+    ],
+    [
+      "spirv",
+      555
+    ],
+    [
+      "llvm",
+      377
+    ],
+    [
+      "tensor",
+      316
+    ],
+    [
+      "smt",
+      228
+    ]
+  ],
+  "analysis_samples_used": 40
+}

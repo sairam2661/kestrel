@@ -1,0 +1,11 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<10x10xi32>, tensor<10x10xi32>) -> tensor<10x10xi32>, sym_name = "matrix_add_with_cmp"}> ({
+  ^bb0(%arg0: tensor<10x10xi32>, %arg1: tensor<10x10xi32>):
+    %0 = "arith.addi"(%arg0, %arg1) : (tensor<10x10xi32>, tensor<10x10xi32>) -> tensor<10x10xi32>
+    %1 = "arith.cmpi"(%arg0, %arg1, "eq") : (tensor<10x10xi32>, tensor<10x10xi32>, i64) -> tensor<10x10xi1>
+    scf.if %1 : tensor<10x10xi1>  -> tensor<10x10xi32>  "loc(\"unknown\")"  ()  ({
+      ^bb1(%arg2: tensor<10x10xi32>):  "scf.yield"(%arg2) : (tensor<10x10xi32>) -> tensor<10x10xi32>
+    })  :  tensor<10x10xi32>
+    %3 = "scf.yield"(%0) : (tensor<10x10xi32>) -> tensor<10x10xi32>
+  }) : () -> ()
+}) : () -> ()

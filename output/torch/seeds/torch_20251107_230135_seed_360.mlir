@@ -1,0 +1,7 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (!torch_vtensorlangle0x2,f32,tuple<tensor<2x3xi32>,tensor<3x2xi32>>, !torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>) -> !torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>, sym_name = "torch.aten.matmul"}> ({
+  ^bb0(%arg0: !torch_vtensorlangle0x2,f32,tuple<tensor<2x3xi32>,tensor<3x2xi32>>, !torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32> -> !torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>):
+    %0 = "torch.aten.matmul"(%arg0, %arg1) : (!torch_vtensorlangle0x2,f32,tuple<tensor<2x3xi32>,tensor<3x2xi32>>, !torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>) -> !torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>
+    "func.return"(%0) : (!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>,tuple<tensor<3x2xi32>,tensor<2x3xi32>>,!torch_vtensorlangle1x2x3xF32,tensor<3x2x1xi32>) -> ()
+  }) : () -> ()
+}) : () -> ()

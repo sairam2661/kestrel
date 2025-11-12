@@ -1,0 +1,13 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (!torch_vtensor, !torch_vtensor) -> !torch_vtensor, sym_name = "torch.aten.add$unary"}> ({
+    ^bb0(%arg0: !torch_vtensor, %arg1: !torch_vtensor):
+      %0 = "torch.constant.int"() <{value = 1 : i64}> : () -> !torch_int
+      %1 = "torch.aten.add"(%arg0, %arg1, %0) : (!torch_vtensor, !torch_vtensor, !torch_int) -> !torch_vtensor
+      "func.return"(%1) : (!torch_vtensor) -> ()
+  }) : () -> ()
+  "func.func"() <{function_type = (!torch_vtensor) -> !torch_vtensor, sym_name = "torch.aten.relu"}> ({
+    ^bb0(%arg0: !torch_vtensor):
+      %1 = "torch.aten.relu"(%arg0) : (!torch_vtensor) -> !torch_vtensor
+      "func.return"(%1) : (!torch_vtensor) -> ()
+  }) : () -> ()
+}) : () -> ()

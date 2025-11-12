@@ -1,0 +1,9 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<10x10xi8>, tensor<10x10xi8>) -> tensor<10x10xi32>, sym_name = "add_and_shift"}> ({
+  ^bb0(%arg0: tensor<10x10xi8>, %arg1: tensor<10x10xi8>):
+    %0 = "tosa.add"(%arg0, %arg1) : (tensor<10x10xi8>, tensor<10x10xi8>) -> tensor<10x10xi8>
+    %1 = "tosa.logical_left_shift"(%0, "tosa.const"  ) : (tensor<10x10xi8>, tensor<10x10xi8>) -> tensor<10x10xi8>
+    %2 = "tosa.cast"(%1) : (tensor<10x10xi8>) -> tensor<10x10xi32>
+    "func.return"(%2) : (tensor<10x10xi32>) -> ()
+  }) : () -> ()
+}) : () -> ()

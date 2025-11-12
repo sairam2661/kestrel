@@ -1,0 +1,38 @@
+{
+  "tool_name": "triton",
+  "corpus_dir": "examples/onnx/general",
+  "total_files": 1960,
+  "parsed_successfully": 1590,
+  "cache_files": {
+    "syntactic": ".cache/onnx/syntactic_patterns.json",
+    "semantic": ".cache/onnx/semantic_rules.txt",
+    "operations": null
+  },
+  "top_dialects": [
+    [
+      "onnx",
+      3634
+    ],
+    [
+      "func",
+      2555
+    ],
+    [
+      "krnl",
+      129
+    ],
+    [
+      "zhigh",
+      26
+    ],
+    [
+      "arith",
+      17
+    ],
+    [
+      "memref",
+      1
+    ]
+  ],
+  "analysis_samples_used": 40
+}

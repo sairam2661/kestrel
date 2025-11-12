@@ -1,0 +1,54 @@
+{
+  "tool_name": "heir",
+  "corpus_dir": "examples/heir/general",
+  "total_files": 246,
+  "parsed_successfully": 246,
+  "cache_files": {
+    "syntactic": ".cache/heir/syntactic_patterns.json",
+    "semantic": ".cache/heir/semantic_rules.txt",
+    "operations": null
+  },
+  "top_dialects": [
+    [
+      "arith",
+      1148
+    ],
+    [
+      "func",
+      623
+    ],
+    [
+      "secret",
+      245
+    ],
+    [
+      "tensor",
+      214
+    ],
+    [
+      "tensor_ext",
+      124
+    ],
+    [
+      "scf",
+      73
+    ],
+    [
+      "tfhe_rust",
+      27
+    ],
+    [
+      "linalg",
+      18
+    ],
+    [
+      "comb",
+      18
+    ],
+    [
+      "tfhe_rust_bool",
+      10
+    ]
+  ],
+  "analysis_samples_used": 15
+}

@@ -27,6 +27,7 @@ class SemanticExtractor:
         
         # Construct analysis prompt
         prompt = self._build_analysis_prompt(examples)
+        print(prompt)
         
         # Generate with LLM
         sampling_params = SamplingParams(

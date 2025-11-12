@@ -1,0 +1,16 @@
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<100x100xi32>, tensor<100x100xi32>) -> tensor<100x100xi32>, sym_name = "stress_complexity"}> ({
+    ^bb0(%arg0: tensor<100x100xi32>, %arg1: tensor<100x100xi32>):
+      %0 = "arith.addi"(%arg0, %arg1) : (tensor<100x100xi32>, tensor<100x100xi32>) -> tensor<100x100xi32>
+      %1 = "arith.cmpi"(%arg0, %arg1, "slt") : (tensor<100x100xi32>, tensor<100x100xi32>) -> tensor<100x100xi1>
+      scf.if %1 : tensor<100x100xi1> do  .Branch %bb1, %bb2
+      :  (tensor<100x100xi32>, tensor<100x100xi32>) -> (tensor<100x100xi32>)
+      ^bb1(%arg2: tensor<100x100xi32>):
+        %2 = "arith.addi"(%arg2, %arg1) : (tensor<100x100xi32>, tensor<100x100xi32>) -> tensor<100x100xi32>
+        "scf.yield"(%2) : (tensor<100x100xi32>) -> tensor<100x100xi32>
+      ^bb2:
+        %3 = "arith.addi"(%arg0, %arg0) : (tensor<100x100xi32>, tensor<100x100xi32>) -> tensor<100x100xi32>
+        "scf.yield"(%3) : (tensor<100x100xi32>) -> tensor<100x100xi32>
+      "func.return"(%0) : (tensor<100x100xi32>) -> ()
+  }) : () -> ()
+}) : () -> ()

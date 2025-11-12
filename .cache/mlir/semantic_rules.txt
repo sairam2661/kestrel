@@ -1,0 +1,9 @@
+**Semantic Validity Rules for mlir:**
+1. **SSA Form Rule**: All values must be defined before they are used. Each value can only be defined once and must be used within its defining block or in a nested block.
+2. **Type Consistency Rule**: Operation inputs and outputs must have matching types. Type mismatches between operands and results are not allowed.
+3. **Region & Terminator Rules**: Every region must have a terminator operation, such as `scf.yield` or `func.return`, to ensure control flow exits the region properly.
+4. **Symbol References Rule**: Functions or symbols must be declared before they are referenced. All referenced symbols must exist within the same module or be imported.
+5. **Dialect-Specific Constraints Rule**: Operations within a dialect must adhere to the specific constraints and requirements defined by that dialect. For example, `scf.for` requires a loop variable and bounds, and `memref.load` requires a valid memref and indices.
+6. **Terminator in Block Rule**: Every block must end with a terminator operation, ensuring that control flow does not fall through to undefined regions.
+7. **Function Argument Types Rule**: The types of arguments in a function declaration must match the types used when calling that function.
+8. **Operation Attributes Rule**: Operation attributes must be correctly specified and compatible with the operation's definition. Missing or incorrect attributes can lead to invalid operations.

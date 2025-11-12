@@ -1,0 +1,54 @@
+{
+  "tool_name": "triton",
+  "corpus_dir": "examples/triton/general",
+  "total_files": 61,
+  "parsed_successfully": 60,
+  "cache_files": {
+    "syntactic": ".cache/triton/syntactic_patterns.json",
+    "semantic": ".cache/triton/semantic_rules.txt",
+    "operations": null
+  },
+  "top_dialects": [
+    [
+      "arith",
+      251
+    ],
+    [
+      "tt",
+      199
+    ],
+    [
+      "scf",
+      48
+    ],
+    [
+      "llvm",
+      6
+    ],
+    [
+      "proton_gpu",
+      4
+    ],
+    [
+      "ttg",
+      4
+    ],
+    [
+      "nvgpu",
+      2
+    ],
+    [
+      "ttng",
+      2
+    ],
+    [
+      "amdgpu",
+      2
+    ],
+    [
+      "op",
+      2
+    ]
+  ],
+  "analysis_samples_used": 40
+}
