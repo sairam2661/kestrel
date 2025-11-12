@@ -1,0 +1,16 @@
+#map = affine_map<(d0, d1, d2) -> (d2)>
+#map1 = affine_map<(d0, d1) -> (d1)>
+#pipeline_layout = #hal.pipeline.layout<constants = 1, bindings = [#hal.pipeline.binding<storage_buffer>, #hal.pipeline.binding<storage_buffer>]>
+"builtin.module"() ({
+  "func.func"() <{function_type = () -> (), sym_name = "resource_copy_with_offset"}> ({
+    %0 = "arith.constant"() <{value = 0.000000e+00 : f32}> : () -> f32
+    %1 = "arith.constant"() <{value = 0 : index}> : () -> index
+    %2 = "hal.interface.constant.load"() <{layout = #pipeline_layout, ordinal = 0 : index}> : () -> index
+    %3 = "hal.interface.binding.subspan"(%2) <{binding = 0 : index, layout = #pipeline_layout, operandSegmentSizes = array<i32: 1, 0>}> : (index) -> memref<2048x4096x4096xf32, strided<[16777216, 4096, 1], offset: ?>>
+    %4 = "hal.interface.binding.subspan"() <{binding = 1 : index, layout = #pipeline_layout, operandSegmentSizes = array<i32: 0, 0>}> : () -> memref<4096x4096xf32>
+    %5 = "vector.transfer_read"(%3, %1, %1, %1, %0) <{in_bounds = [false], operandSegmentSizes = array<i32: 1, 3, 1, 0>, permutation_map = #map}> : (memref<2048x4096x4096xf32, strided<[16777216, 4096, 1], offset: ?>>, index, index, index, f32) -> vector<4xf32>
+    "vector.transfer_write"(%5, %4, %1, %1) <{in_bounds = [false], operandSegmentSizes = array<i32: 1, 1, 2, 0>, permutation_map = #map1}> : (vector<4xf32>, memref<4096x4096xf32>, index, index) -> ()
+    "func.return"() : () -> ()
+  }) : () -> ()
+}) : () -> ()
+

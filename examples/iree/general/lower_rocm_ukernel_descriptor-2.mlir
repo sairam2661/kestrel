@@ -1,0 +1,12 @@
+#executable_target_rocm_hsaco_fb = #hal.executable.target<"rocm", "rocm-hsaco-fb", {abi = "hip", iree_codegen.default_tuning_spec = #rocm.builtin.tuning_module<"iree_default_tuning_spec_gfx942.mlir">, iree_codegen.target_info = #iree_gpu.target<arch = "gfx942", features = "", wgp = <compute =  fp64|fp32|fp16|int64|int32|int16|int8, storage =  b64|b32|b16|b8, subgroup =  shuffle|arithmetic, dot =  dp4xi8toi32, mma = [<MFMA_F32_16x16x16_BF16>, <MFMA_F32_32x32x8_BF16>, <MFMA_F32_16x16x32_F8E5M2FNUZ>, <MFMA_F32_16x16x32_F8E5M2FNUZ_F8E4M3FNUZ>, <MFMA_F32_16x16x32_F8E4M3FNUZ>, <MFMA_F32_16x16x32_F8E4M3FNUZ_F8E5M2FNUZ>, <MFMA_F32_32x32x16_F8E5M2FNUZ>, <MFMA_F32_32x32x16_F8E5M2FNUZ_F8E4M3FNUZ>, <MFMA_F32_32x32x16_F8E4M3FNUZ>, <MFMA_F32_32x32x16_F8E4M3FNUZ_F8E5M2FNUZ>, <MFMA_I32_16x16x32_I8>, <MFMA_I32_32x32x16_I8>, <MFMA_F64_16x16x4_F64>, <MFMA_F32_16x16x4_F32>, <MFMA_F32_16x16x16_F16>, <MFMA_F32_32x32x8_F16>], subgroup_size_choices = [64], max_workgroup_sizes = [1024, 1024, 1024], max_thread_count_per_workgroup = 1024, max_workgroup_memory_bytes = 65536, max_workgroup_counts = [2147483647, 2147483647, 2147483647], max_load_instruction_bits = 128, simds_per_wgp = 4, vgpr_space_bits = 16384>>, iree_codegen.ukernel_provider = #rocm.ukernel_provider, ukernels = "all"}>
+#map = affine_map<(d0, d1, d2) -> (d0, d2)>
+#map1 = affine_map<(d0, d1, d2) -> (d1, d2)>
+#map2 = affine_map<(d0, d1, d2) -> (d0, d1)>
+"builtin.module"() ({
+  "func.func"() <{function_type = (tensor<1x2x8x4x16x2x8xi8>, tensor<1x2x4x2x4x16x2x8xi8>, tensor<1x1x8x4x2x4x16x4xi32>) -> tensor<1x1x8x4x2x4x16x4xi32>, sym_name = "multi_mma_mfma_i32_16x16x32_i8_with_gpu_arch"}> ({
+  ^bb0(%arg0: tensor<1x2x8x4x16x2x8xi8>, %arg1: tensor<1x2x4x2x4x16x2x8xi8>, %arg2: tensor<1x1x8x4x2x4x16x4xi32>):
+    %0 = "iree_codegen.inner_tiled"(%arg0, %arg1, %arg2) <{indexing_maps = [#map, #map1, #map2], iterator_types = [#linalg.iterator_type<parallel>, #linalg.iterator_type<parallel>, #linalg.iterator_type<reduction>], kind = #iree_gpu.data_tiled_mma_layout<intrinsic = MFMA_I32_16x16x32_I8, intrinsics_m = 8, intrinsics_n = 2, subgroups_n = 4, intrinsics_k = 2>, operandSegmentSizes = array<i32: 2, 1>}> {iree_codegen.ukernel = #iree_codegen.ukernel_descriptor<"iree_uk_amdgpu_multi_mma_mfma_i32_16x16x32_i8", bitcode>} : (tensor<1x2x8x4x16x2x8xi8>, tensor<1x2x4x2x4x16x2x8xi8>, tensor<1x1x8x4x2x4x16x4xi32>) -> tensor<1x1x8x4x2x4x16x4xi32>
+    "func.return"(%0) : (tensor<1x1x8x4x2x4x16x4xi32>) -> ()
+  }) : () -> ()
+}) {hal.executable.target = #executable_target_rocm_hsaco_fb} : () -> ()
+

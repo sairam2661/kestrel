@@ -1,0 +1,14 @@
+#pipeline_layout = #hal.pipeline.layout<bindings = [#hal.pipeline.binding<storage_buffer>, #hal.pipeline.binding<storage_buffer>]>
+"builtin.module"() ({
+  "func.func"() <{function_type = () -> (), sym_name = "winograd_output_transform"}> ({
+    %0 = "arith.constant"() <{value = 0 : index}> : () -> index
+    %1 = "hal.interface.binding.subspan"(%0) <{alignment = 64 : index, binding = 0 : index, descriptor_flags = 1 : i32, layout = #pipeline_layout, operandSegmentSizes = array<i32: 1, 0>}> : (index) -> !iree_tensor_ext.dispatch.tensor<readonly:tensor<8x8x2x6x6x128xf16>>
+    %2 = "hal.interface.binding.subspan"(%0) <{alignment = 64 : index, binding = 1 : index, layout = #pipeline_layout, operandSegmentSizes = array<i32: 1, 0>}> : (index) -> !iree_tensor_ext.dispatch.tensor<writeonly:tensor<2x36x36x128xf16>>
+    %3 = "iree_tensor_ext.dispatch.tensor.load"(%1) <{operandSegmentSizes = array<i32: 1, 0, 0, 0, 0>, static_offsets = array<i64: 0, 0, 0, 0, 0, 0>, static_sizes = array<i64: 8, 8, 2, 6, 6, 128>, static_strides = array<i64: 1, 1, 1, 1, 1, 1>}> : (!iree_tensor_ext.dispatch.tensor<readonly:tensor<8x8x2x6x6x128xf16>>) -> tensor<8x8x2x6x6x128xf16>
+    %4 = "tensor.empty"() : () -> tensor<2x36x36x128xf16>
+    %5 = "iree_linalg_ext.winograd.output_transform"(%3, %4) <{image_dimensions = array<i64: 1, 2>, kernel_size = 3 : i64, operandSegmentSizes = array<i32: 1, 1>, output_tile_size = 6 : i64}> : (tensor<8x8x2x6x6x128xf16>, tensor<2x36x36x128xf16>) -> tensor<2x36x36x128xf16>
+    "iree_tensor_ext.dispatch.tensor.store"(%5, %2) <{operandSegmentSizes = array<i32: 1, 1, 0, 0, 0, 0>, static_offsets = array<i64: 0, 0, 0, 0>, static_sizes = array<i64: 2, 36, 36, 128>, static_strides = array<i64: 1, 1, 1, 1>}> : (tensor<2x36x36x128xf16>, !iree_tensor_ext.dispatch.tensor<writeonly:tensor<2x36x36x128xf16>>) -> ()
+    "func.return"() : () -> ()
+  }) : () -> ()
+}) : () -> ()
+
